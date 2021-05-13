@@ -37,10 +37,19 @@
     <link href="css/dashboard.css" rel="stylesheet">
 </head>
 
+<?php
+if ($_GET["TenChucVu"]) {
+    $tenChucVu = $_GET["TenChucVu"];
+}
+if (isset($_GET["page"])) {
+    $page = $_GET["page"];
+}
+?>
+
 <body>
 
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Company name</a>
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#"><?php echo $tenChucVu; ?></a>
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -58,29 +67,36 @@
                 <div class="position-sticky pt-3">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">
+                            <a class="nav-link active" aria-current="page" href="index.php?TenChucVu=<?php echo $tenChucVu; ?>">
                                 <span data-feather="home"></span>
-                                Dashboard
+                                Trang chủ
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="file"></span>
-                                Orders
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="shopping-cart"></span>
-                                Products
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="users"></span>
-                                Customers
-                            </a>
-                        </li>
+
+                        <?php if ($tenChucVu == 'admin') : ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=data">
+                                    <span data-feather="file"></span>
+                                    Dữ liệu
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=calculate">
+                                    <span data-feather="shopping-cart"></span>
+                                    Thống kê
+                                </a>
+                            </li>
+                        <?php endif; ?>
+
+                        <?php if ($tenChucVu == 'giaovien') : ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=ratingInfo">
+                                    <span data-feather="users"></span>
+                                    Đánh giá
+                                </a>
+                            </li>
+                        <?php endif; ?>
+
                         <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <span data-feather="bar-chart-2"></span>
@@ -129,28 +145,28 @@
                     </ul>
                 </div>
             </nav>
-            <?php
-            if ($_GET["TenChucVu"]) {
-                $tenChucVu = $_GET["TenChucVu"];
-            }
-            ?>
+
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2"><?php echo $tenChucVu; ?></h1>
-                    <div class="btn-toolbar mb-2 mb-md-0">
-                        <div class="btn-group me-2">
-                            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-                            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-                        </div>
-                        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                            <span data-feather="calendar"></span>
-                            This week
-                        </button>
-                    </div>
+
+                <div class="table-responsive">
+                    <?php
+                    if (isset($page)) {
+                        switch ($page) {
+                            case 'data':
+                                include('page/admin/insert/data.php');
+                                break;
+                            case 'calculate':
+                                include('page/admin/calculate/calculate.php');
+                                break;
+                            case 'ratingInfo':
+                                include('page/teacher/ratingInfo.php');
+                            default:
+                                # code...
+                                break;
+                        }
+                    }
+                    ?>
                 </div>
-
-
-
             </main>
         </div>
     </div>
