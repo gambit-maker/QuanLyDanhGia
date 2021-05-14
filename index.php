@@ -38,6 +38,7 @@
 </head>
 
 <?php
+require('function.php');
 if ($_GET["TenChucVu"]) {
     $tenChucVu = $_GET["TenChucVu"];
 }
