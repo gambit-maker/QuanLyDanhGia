@@ -15,9 +15,10 @@ if (isset($_POST["submit"])) {
     $myFile = fopen($target_file, 'r');
     $f = (file($target_file));
     // Test dữ liệu
+
     echo trim($f[9]) . "<br>";
     echo trim($f[6]) . "<br>";
-    echo trim($f[10]) . "<br>";
+    echo trim($f[10]) . "<br><br>";
 
 
     // -------------------- thêm lớp học phần -----------------------------//
@@ -34,9 +35,10 @@ if (isset($_POST["submit"])) {
     }
 
     // dữ liệu thuộc dạng String dùng 'intval()' để chuyển sang integer
-    $maHocPhan = substr($f[9], 36); // string VD: 03        
+    $maHocPhan = substr($f[9], 36); // 03/02 - Lập trình hướng đối tượng        
+    $maLopHocPhan = substr($maHocPhan, 3, 2); // String 03
     $maNhom = substr($maHocPhan, 0, 2);
-    $maLopHocPhan = substr($maHocPhan, 3, 2);
+
     $maGiaoVien = substr($f[10], 13, 2);
     $maNamHoc = $lopHocPhan->getMaNamHoc($namHoc);
 
@@ -45,16 +47,57 @@ if (isset($_POST["submit"])) {
     echo "Mã giáo viên: " . $maGiaoVien . "<br>";
     echo "Mã nhóm: " . $maNhom .  "<br>";
     echo "Mã học kỳ: " . $hocKy . '<br>';
-    echo "năm học: " . $namHoc . " Mã năm học: " . $maNamHoc . "<br>";
+    echo "năm học: " . $namHoc . " Mã năm học: " . $maNamHoc . "<br><br>";
+
+    $trungNhau = $lopHocPhan->checkLopHocPhan(
+        intval($maLopHocPhan),
+        intval($maNamHoc),
+        intval($hocKy),
+        intval($maGiaoVien),
+        intval($maNhom)
+    );
+
+    if ($trungNhau === TRUE) {
+        $lopHocPhan->themLopHocPhan(
+            intval($maLopHocPhan),
+            intval($maNamHoc),
+            intval($hocKy),
+            intval($maGiaoVien),
+            intval($maNhom)
+        );
+    } else {
+        echo "Dữ liệu trùng nhau: bảng lớp học phần <br><br>";
+    }
+
+
+
 
     // -------------------- thêm phiếu khảo sát -----------------------------//
     $maLoaiPhieu = substr($f[5], 17, 2);
     $maHoatDongKhaoSat = substr($f[7], 31, 2);
 
+
     echo "Mã loại phiếu: " . $maLoaiPhieu . "<br>";
-    echo "Mã hoạt động khảo sát: " . $maHoatDongKhaoSat . "<br>";
+    echo "Mã hoạt động khảo sát: " . $maHoatDongKhaoSat . "<br><br>";
+
+    if ($trungNhau === TRUE) {
+        // mã lớp học phần bên phiếu khảo sát 
+        $maLopHocPhanV2 = $lopHocPhan->getMaLopHocPhan(
+            intval($maLopHocPhan),
+            intval($maNamHoc),
+            intval($hocKy),
+            intval($maGiaoVien),
+            intval($maNhom)
+        );
+        echo "Mã lớp học phần V2: " . $maLopHocPhanV2 . "<br>";
+        $lopHocPhan->themPhieuKhaoSat($maLoaiPhieu, $maLopHocPhanV2, $maHoatDongKhaoSat);
+    } else {
+        echo "insert failed : phiếu khảo sát <br><br>";
+    }
 
 
+
+    // ------------------------- Khu vực test file -------------------------//
     // while ($line = fgets($myFile)) {
     //     echo $line . "<br>";
     // }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 15, 2021 at 08:59 AM
+-- Generation Time: May 15, 2021 at 11:51 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -237,6 +237,17 @@ CREATE TABLE `lophocphan` (
   `MaNhomHocPhan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `lophocphan`
+--
+
+INSERT INTO `lophocphan` (`MaLopHocPhan`, `MaHocPhan`, `MaNamHoc`, `MaHocKy`, `MaGiaoVien`, `MaNhomHocPhan`) VALUES
+(1, 2, 2, 2, 2, 3),
+(2, 2, 2, 2, 2, 3),
+(3, 2, 2, 2, 2, 3),
+(4, 2, 3, 2, 2, 3),
+(5, 2, 4, 2, 2, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -323,6 +334,16 @@ CREATE TABLE `phieukhaosat` (
   `MaLopHocPhan` int(11) NOT NULL,
   `MaHoatDongKhaoSat` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `phieukhaosat`
+--
+
+INSERT INTO `phieukhaosat` (`MaPhieuKhaoSat`, `MaLoaiPhieu`, `MaLopHocPhan`, `MaHoatDongKhaoSat`) VALUES
+(1, 1, 1, 1),
+(2, 1, 1, 1),
+(3, 1, 1, 1),
+(4, 1, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -451,7 +472,8 @@ ALTER TABLE `nhomtieuchi`
 ALTER TABLE `phieukhaosat`
   ADD PRIMARY KEY (`MaPhieuKhaoSat`),
   ADD KEY `fk_PhieuKhaoSat_LopHocPhan` (`MaLopHocPhan`),
-  ADD KEY `fk_PhieuKhaoSat_LoaiPhieu` (`MaLoaiPhieu`);
+  ADD KEY `fk_PhieuKhaoSat_LoaiPhieu` (`MaLoaiPhieu`),
+  ADD KEY `fk_PhieuKhaoSat_HoatDongKhaoSat` (`MaHoatDongKhaoSat`);
 
 --
 -- Indexes for table `tieuchidanhgia`
@@ -533,7 +555,7 @@ ALTER TABLE `loaiphieu`
 -- AUTO_INCREMENT for table `lophocphan`
 --
 ALTER TABLE `lophocphan`
-  MODIFY `MaLopHocPhan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `MaLopHocPhan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `namhoc`
@@ -557,7 +579,7 @@ ALTER TABLE `nhomtieuchi`
 -- AUTO_INCREMENT for table `phieukhaosat`
 --
 ALTER TABLE `phieukhaosat`
-  MODIFY `MaPhieuKhaoSat` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `MaPhieuKhaoSat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tieuchidanhgia`
@@ -602,6 +624,7 @@ ALTER TABLE `nhanvien`
 -- Constraints for table `phieukhaosat`
 --
 ALTER TABLE `phieukhaosat`
+  ADD CONSTRAINT `fk_PhieuKhaoSat_HoatDongKhaoSat` FOREIGN KEY (`MaHoatDongKhaoSat`) REFERENCES `hoatdongkhaosat` (`MaHoatDong`),
   ADD CONSTRAINT `fk_PhieuKhaoSat_LoaiPhieu` FOREIGN KEY (`MaLoaiPhieu`) REFERENCES `loaiphieu` (`MaLoaiPhieu`),
   ADD CONSTRAINT `fk_PhieuKhaoSat_LopHocPhan` FOREIGN KEY (`MaLopHocPhan`) REFERENCES `lophocphan` (`MaLopHocPhan`);
 COMMIT;
