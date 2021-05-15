@@ -3,9 +3,9 @@ TRƯỜNG ĐẠI HỌC NHA TRANG		Độc lập - Tự do - Hạnh phúc
 KẾT QUẢ KHẢO SÁT THEO PHIẾU
 Mã phiếu:		 P01
 Người cập nhật:	 nthhuong
-Tên phiếu:		 PHIẾU THU THẬP THÔNG TIN DẠY VÀ HỌC
+Tên phiếu:		 01 - PHIẾU THU THẬP THÔNG TIN DẠY VÀ HỌC
 Ngày lập:	 23-02-2021
-Hoạt động khảo sát:		 DGHP - Đánh giá học phần
+Hoạt động khảo sát:		 01 - DGHP - Đánh giá học phần
 Trạng thái:	 Sử dụng
 Nhóm học phần/Học phần:		 03/02 - Lập trình hướng đối tượng
 Cán bộ:	 02 - Phạm Thị Kim Ngoan

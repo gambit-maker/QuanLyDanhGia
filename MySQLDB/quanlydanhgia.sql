@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 14, 2021 at 03:58 AM
+-- Generation Time: May 15, 2021 at 08:59 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -135,6 +135,14 @@ CREATE TABLE `hoatdongkhaosat` (
   `TenHoatDong` varchar(100) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `hoatdongkhaosat`
+--
+
+INSERT INTO `hoatdongkhaosat` (`MaHoatDong`, `TenHoatDong`) VALUES
+(1, 'ĐÁNH GIÁ HỌC PHẦN'),
+(2, 'ĐÁNH GIÁ GIẢNG DẠY');
+
 -- --------------------------------------------------------
 
 --
@@ -146,6 +154,15 @@ CREATE TABLE `hocky` (
   `TenHocKy` varchar(100) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `hocky`
+--
+
+INSERT INTO `hocky` (`MaHocKy`, `TenHocKy`) VALUES
+(1, '1'),
+(2, '2'),
+(3, 'summer');
+
 -- --------------------------------------------------------
 
 --
@@ -156,6 +173,16 @@ CREATE TABLE `hocphan` (
   `MaHocPhan` int(11) NOT NULL,
   `TenHocPhan` varchar(100) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `hocphan`
+--
+
+INSERT INTO `hocphan` (`MaHocPhan`, `TenHocPhan`) VALUES
+(1, 'Lập trình hướng đối tượng'),
+(2, 'Cấu trúc dữ liệu và giải thuật'),
+(3, 'Toán rời rạc'),
+(4, 'Tiếng anh chuyên ngành');
 
 -- --------------------------------------------------------
 
@@ -187,6 +214,14 @@ CREATE TABLE `loaiphieu` (
   `TenLoaiPhieu` varchar(100) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `loaiphieu`
+--
+
+INSERT INTO `loaiphieu` (`MaLoaiPhieu`, `TenLoaiPhieu`) VALUES
+(1, 'PHIẾU THU THẬP THÔNG TIN DẠY VÀ HỌC'),
+(2, 'PHIẾU THU THẬP THÔNG TIN SINH VIÊN');
+
 -- --------------------------------------------------------
 
 --
@@ -195,7 +230,6 @@ CREATE TABLE `loaiphieu` (
 
 CREATE TABLE `lophocphan` (
   `MaLopHocPhan` int(11) NOT NULL,
-  `TenLopHocPhan` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `MaHocPhan` int(11) NOT NULL,
   `MaNamHoc` int(11) NOT NULL,
   `MaHocKy` int(11) NOT NULL,
@@ -211,8 +245,18 @@ CREATE TABLE `lophocphan` (
 
 CREATE TABLE `namhoc` (
   `MaNamHoc` int(11) NOT NULL,
-  `KhoangThoiGian` varchar(100) COLLATE utf8_unicode_ci NOT NULL
+  `ThoiGian` varchar(100) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `namhoc`
+--
+
+INSERT INTO `namhoc` (`MaNamHoc`, `ThoiGian`) VALUES
+(1, '2020'),
+(2, '2021'),
+(3, '2022'),
+(4, '2023');
 
 -- --------------------------------------------------------
 
@@ -245,6 +289,16 @@ CREATE TABLE `nhomhocphan` (
   `MaNhomHocPhan` int(11) NOT NULL,
   `TenNhomHocPhan` varchar(100) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `nhomhocphan`
+--
+
+INSERT INTO `nhomhocphan` (`MaNhomHocPhan`, `TenNhomHocPhan`) VALUES
+(1, '01'),
+(2, '02'),
+(3, '03'),
+(4, '04');
 
 -- --------------------------------------------------------
 
@@ -363,7 +417,8 @@ ALTER TABLE `lophocphan`
   ADD KEY `fk_LopHocPhan_NhomHocPhan` (`MaNhomHocPhan`),
   ADD KEY `fk_LopHocPhan_HocPhan` (`MaHocPhan`),
   ADD KEY `fk_lopHocPhan_NamHoc` (`MaNamHoc`),
-  ADD KEY `fk_LopHocPhan_HocKy` (`MaHocKy`);
+  ADD KEY `fk_LopHocPhan_HocKy` (`MaHocKy`),
+  ADD KEY `fk_lopHocPhan_GiaoVien` (`MaGiaoVien`);
 
 --
 -- Indexes for table `namhoc`
@@ -395,7 +450,8 @@ ALTER TABLE `nhomtieuchi`
 --
 ALTER TABLE `phieukhaosat`
   ADD PRIMARY KEY (`MaPhieuKhaoSat`),
-  ADD KEY `fk_PhieuKhaoSat_LopHocPhan` (`MaLopHocPhan`);
+  ADD KEY `fk_PhieuKhaoSat_LopHocPhan` (`MaLopHocPhan`),
+  ADD KEY `fk_PhieuKhaoSat_LoaiPhieu` (`MaLoaiPhieu`);
 
 --
 -- Indexes for table `tieuchidanhgia`
@@ -447,19 +503,19 @@ ALTER TABLE `hinhthucphanloai`
 -- AUTO_INCREMENT for table `hoatdongkhaosat`
 --
 ALTER TABLE `hoatdongkhaosat`
-  MODIFY `MaHoatDong` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `MaHoatDong` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `hocky`
 --
 ALTER TABLE `hocky`
-  MODIFY `MaHocKy` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `MaHocKy` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `hocphan`
 --
 ALTER TABLE `hocphan`
-  MODIFY `MaHocPhan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `MaHocPhan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `khoa`
@@ -471,7 +527,7 @@ ALTER TABLE `khoa`
 -- AUTO_INCREMENT for table `loaiphieu`
 --
 ALTER TABLE `loaiphieu`
-  MODIFY `MaLoaiPhieu` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `MaLoaiPhieu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `lophocphan`
@@ -483,13 +539,13 @@ ALTER TABLE `lophocphan`
 -- AUTO_INCREMENT for table `namhoc`
 --
 ALTER TABLE `namhoc`
-  MODIFY `MaNamHoc` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `MaNamHoc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `nhomhocphan`
 --
 ALTER TABLE `nhomhocphan`
-  MODIFY `MaNhomHocPhan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `MaNhomHocPhan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `nhomtieuchi`
@@ -533,6 +589,7 @@ ALTER TABLE `lophocphan`
   ADD CONSTRAINT `fk_LopHocPhan_HocKy` FOREIGN KEY (`MaHocKy`) REFERENCES `hocky` (`MaHocKy`),
   ADD CONSTRAINT `fk_LopHocPhan_HocPhan` FOREIGN KEY (`MaHocPhan`) REFERENCES `hocphan` (`MaHocPhan`),
   ADD CONSTRAINT `fk_LopHocPhan_NhomHocPhan` FOREIGN KEY (`MaNhomHocPhan`) REFERENCES `nhomhocphan` (`MaNhomHocPhan`),
+  ADD CONSTRAINT `fk_lopHocPhan_GiaoVien` FOREIGN KEY (`MaGiaoVien`) REFERENCES `giaovien` (`MaGiaoVien`),
   ADD CONSTRAINT `fk_lopHocPhan_NamHoc` FOREIGN KEY (`MaNamHoc`) REFERENCES `namhoc` (`MaNamHoc`);
 
 --
@@ -545,6 +602,7 @@ ALTER TABLE `nhanvien`
 -- Constraints for table `phieukhaosat`
 --
 ALTER TABLE `phieukhaosat`
+  ADD CONSTRAINT `fk_PhieuKhaoSat_LoaiPhieu` FOREIGN KEY (`MaLoaiPhieu`) REFERENCES `loaiphieu` (`MaLoaiPhieu`),
   ADD CONSTRAINT `fk_PhieuKhaoSat_LopHocPhan` FOREIGN KEY (`MaLopHocPhan`) REFERENCES `lophocphan` (`MaLopHocPhan`);
 COMMIT;
 

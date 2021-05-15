@@ -10,14 +10,19 @@ if (isset($_POST["submit"])) {
     move_uploaded_file($_FILES['fileName']['tmp_name'], $target_file);
 
 
+    // ****************** tất cả dữ liệu cần có thứ tự giống y hệt file mẫu ******************//
+
     $myFile = fopen($target_file, 'r');
-    $f = file($target_file);
-    echo $f[9] . "<br>";
-    echo $f[6] . "<br>";
-    echo $f[10] . "<br>";
+    $f = (file($target_file));
+    // Test dữ liệu
+    echo trim($f[9]) . "<br>";
+    echo trim($f[6]) . "<br>";
+    echo trim($f[10]) . "<br>";
+
+
     // -------------------- thêm lớp học phần -----------------------------//
-    $namHoc = substr($f[6], -6);
-    $month = substr($f[6], -9, 2);
+    $namHoc = trim(substr($f[6], -6)); // trim, delete space in the string value
+    $month = (substr($f[6], -9, 2));
     $month = intval($month);
 
     if ($month === 9 || $month === 10 || $month === 11 || $month === 12 || $month === 1) {
@@ -28,18 +33,27 @@ if (isset($_POST["submit"])) {
         $hocKy = 3;
     }
 
-    $maHocPhan = substr($f[9], 36);
+    // dữ liệu thuộc dạng String dùng 'intval()' để chuyển sang integer
+    $maHocPhan = substr($f[9], 36); // string VD: 03        
     $maNhom = substr($maHocPhan, 0, 2);
     $maLopHocPhan = substr($maHocPhan, 3, 2);
     $maGiaoVien = substr($f[10], 13, 2);
+    $maNamHoc = $lopHocPhan->getMaNamHoc($namHoc);
 
+    // Test dữ liệu
+    echo "Mã học phần(String): " . $maLopHocPhan . " Value(int): " . intval($maLopHocPhan) . "<br>";
     echo "Mã giáo viên: " . $maGiaoVien . "<br>";
-    echo "Mã lớp học phần: " . $maLopHocPhan . "<br>";
-    echo "Mã nhóm: " . $maNhom . "<br>";
-    echo "Mã lớp học phần: " . $maLopHocPhan . "<br>";
+    echo "Mã nhóm: " . $maNhom .  "<br>";
     echo "Mã học kỳ: " . $hocKy . '<br>';
-    echo "Mã năm học: " . $namHoc;
-    // -------------------- END thêm lớp học phần -----------------------------//
+    echo "năm học: " . $namHoc . " Mã năm học: " . $maNamHoc . "<br>";
+
+    // -------------------- thêm phiếu khảo sát -----------------------------//
+    $maLoaiPhieu = substr($f[5], 17, 2);
+    $maHoatDongKhaoSat = substr($f[7], 31, 2);
+
+    echo "Mã loại phiếu: " . $maLoaiPhieu . "<br>";
+    echo "Mã hoạt động khảo sát: " . $maHoatDongKhaoSat . "<br>";
+
 
     // while ($line = fgets($myFile)) {
     //     echo $line . "<br>";

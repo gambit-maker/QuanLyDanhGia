@@ -19,4 +19,21 @@ class LopHocPhan
             echo 'add new record in themLopHocPhan';
         }
     }
+
+    // get Mã năm học
+    public function getMaNamHoc($thoiGian)
+    {
+        $result = $this->db->con->query("SELECT MaNamHoc FROM NamHoc WHERE ThoiGian = '{$thoiGian}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr[0]['MaNamHoc'];
+    }
+
+    // get Loại phiếu
+
+    // public function getLoaiPhieu($maLoaiPhieu){
+    //     $result = $this->db->con->query("SELECT ")
+    // }
 }
