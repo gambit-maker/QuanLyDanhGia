@@ -10,15 +10,15 @@ if (isset($_POST["submit"])) {
     move_uploaded_file($_FILES['fileName']['tmp_name'], $target_file);
 
 
-    // ****************** tất cả dữ liệu cần có thứ tự giống y hệt file mẫu ******************//
+    // ****************** (LƯU Ý) tất cả dữ liệu cần có thứ tự giống y hệt file mẫu ******************//
 
     $myFile = fopen($target_file, 'r');
     $f = (file($target_file));
-    // Test dữ liệu
 
-    echo trim($f[9]) . "<br>";
-    echo trim($f[6]) . "<br>";
-    echo trim($f[10]) . "<br><br>";
+    // Test dữ liệu
+    // echo trim($f[9]) . "<br>";
+    // echo trim($f[6]) . "<br>";
+    // echo trim($f[10]) . "<br><br>";
 
 
     // -------------------- thêm lớp học phần -----------------------------//
@@ -43,11 +43,13 @@ if (isset($_POST["submit"])) {
     $maNamHoc = $lopHocPhan->getMaNamHoc($namHoc);
 
     // Test dữ liệu
-    echo "Mã học phần(String): " . $maLopHocPhan . " Value(int): " . intval($maLopHocPhan) . "<br>";
-    echo "Mã giáo viên: " . $maGiaoVien . "<br>";
-    echo "Mã nhóm: " . $maNhom .  "<br>";
-    echo "Mã học kỳ: " . $hocKy . '<br>';
-    echo "năm học: " . $namHoc . " Mã năm học: " . $maNamHoc . "<br><br>";
+    // echo "Mã học phần(String): " . $maLopHocPhan . " Value(int): " . intval($maLopHocPhan) . "<br>";
+    // echo "Mã giáo viên: " . $maGiaoVien . "<br>";
+    // echo "Mã nhóm: " . $maNhom .  "<br>";
+    // echo "Mã học kỳ: " . $hocKy . '<br>';
+    // echo "năm học: " . $namHoc . " Mã năm học: " . $maNamHoc . "<br><br>";
+
+
 
     $trungNhau = $lopHocPhan->checkLopHocPhan(
         intval($maLopHocPhan),
@@ -58,6 +60,7 @@ if (isset($_POST["submit"])) {
     );
 
     if ($trungNhau === TRUE) {
+        /* ***************** 1. CODE THÊM DỮ LIỆU LỚP HỌC PHẦN  **************** */
         $lopHocPhan->themLopHocPhan(
             intval($maLopHocPhan),
             intval($maNamHoc),
@@ -77,20 +80,60 @@ if (isset($_POST["submit"])) {
     $maHoatDongKhaoSat = substr($f[7], 31, 2);
 
 
-    echo "Mã loại phiếu: " . $maLoaiPhieu . "<br>";
-    echo "Mã hoạt động khảo sát: " . $maHoatDongKhaoSat . "<br><br>";
+    // echo "Mã loại phiếu: " . $maLoaiPhieu . "<br>";
+    // echo "Mã hoạt động khảo sát: " . $maHoatDongKhaoSat . "<br><br>";
 
-    if ($trungNhau === TRUE) {
-        // mã lớp học phần bên phiếu khảo sát 
-        $maLopHocPhanV2 = $lopHocPhan->getMaLopHocPhan(
+
+    if ($trungNhau === TRUE) { // không cho phép dữ liệu trùng nhau        
+        $maLopHocPhanV2 = $lopHocPhan->getMaLopHocPhan( // mã lớp học phần bên phiếu khảo sát 
+            // lấy dữ liệu chính xác với tất cả khóa phụ để có mã lớp chính xác         
             intval($maLopHocPhan),
             intval($maNamHoc),
             intval($hocKy),
             intval($maGiaoVien),
             intval($maNhom)
         );
-        echo "Mã lớp học phần V2: " . $maLopHocPhanV2 . "<br>";
-        $lopHocPhan->themPhieuKhaoSat($maLoaiPhieu, $maLopHocPhanV2, $maHoatDongKhaoSat);
+
+        // echo "Mã lớp học phần V2: " . $maLopHocPhanV2 . "<br>";
+
+        // check với từng phiếu trong file (row dữ liệu điểm đánh giá)
+
+        //đọc full dữ liệu
+        /*
+        for ($i = 13; $i < count($f); $i++) {
+            // echo $f[$i] . "<br>";
+
+            $arr = explode("	", $f[$i]);
+            if (trim($arr[0]) === "END") {
+                break;
+            } else { // đọc chưa hết thì đọc tiếp `(*>﹏<*)′
+                $lopHocPhan->themPhieuKhaoSat($maLoaiPhieu, $maLopHocPhanV2, $maHoatDongKhaoSat);
+            }
+
+            // for ($y = 1; $y < count($arr); $y++) { // thêm dữ liệu vào bảng chi tiết ở đây               
+            // }
+            echo '<br>';
+            print_r($arr);
+        }
+        */
+
+
+        // đọc 1,2 dòng để test
+        for ($i = 13; $i < 15; $i++) {
+            $arr = explode("	", $f[$i]);
+            echo '<br>';
+            print_r($arr);
+            echo '<br>';
+            // lấy mã phiếu mới nhất trong auto_increase của MYSQL DB
+            $maPhieuTesting = $lopHocPhan->getLastestMaPhieuKhaoSat();
+            $maPhieuHienTai = intval($maPhieuTesting);
+            // echo '<br> Lastest Mã phiếu khảo sát:  ' . $maPhieuHienTai . "<br>";
+            $lopHocPhan->themPhieuKhaoSat($maLoaiPhieu, $maLopHocPhanV2, $maHoatDongKhaoSat);
+
+            for ($y = 1; $y < count($arr); $y++) {
+                // $lopHocPhan->themChiTietPhieuKhaoSatTheoPhieu($maPhieuHienTai);
+            }
+        }
     } else {
         echo "insert failed : phiếu khảo sát <br><br>";
     }

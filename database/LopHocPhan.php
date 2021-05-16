@@ -33,6 +33,17 @@ class LopHocPhan
         }
     }
 
+    // thêm Chi tiết phiếu khảo sát theo phiếu
+    public function themChiTietPhieuKhaoSatTheoPhieu($maPhieuKhaoSat, $maTieuChiDanhGia, $maHinhThucPhanLoai, $diemSo)
+    {
+        $result = $this->db->con->query("INSERT INTO `chitietkhaosatphieu`(`MaPhieuKhaoSat`, `MaTieuChiDanhGia`, `MaHinhThucPhanLoai`, `DiemSo`) VALUES ('{$maPhieuKhaoSat}','{$maTieuChiDanhGia}','{$maHinhThucPhanLoai}','{$diemSo}')");
+        if ($result === TRUE) {
+            echo 'add new record in ChiTietPhieuKhaoSat';
+        } else {
+            echo 'Not thing add to ChiTietPhieuKhaoSat';
+        }
+    }
+
     //kiểm tra trùng lặp trong lớp học phần
     public function checkLopHocPhan($maHocPhan, $maNamHoc, $maHocKy, $maGiaoVien, $maNhomHocPhan)
     {
@@ -68,6 +79,20 @@ class LopHocPhan
             $resultArr[] = $row;
         }
         return $resultArr[0]['MaLopHocPhan'];
+    }
+
+    // get current mã phiếu khảo sát
+    public function getLastestMaPhieuKhaoSat()
+    {
+        $result = $this->db->con->query("SELECT `AUTO_INCREMENT`
+        FROM  INFORMATION_SCHEMA.TABLES
+        WHERE TABLE_SCHEMA = 'quanlydanhgia'
+        AND   TABLE_NAME   = 'PhieuKhaoSat'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr[0]['AUTO_INCREMENT'];
     }
 
     // get Mã năm học
