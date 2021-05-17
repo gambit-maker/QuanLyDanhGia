@@ -12,9 +12,9 @@ class LopHocPhan
     }
 
     //thêm lớp học phần
-    public function themLopHocPhan($maHocPhan, $maNamHoc, $maHocKy, $maGiaoVien, $maNhomHocPhan)
+    public function themLopHocPhan($maHocPhan, $maNamHoc, $maHocKy, $maGiaoVien, $maNhomHocPhan, $maHoatDongKhaoSat)
     {
-        $result = $this->db->con->query("INSERT INTO LopHocPhan (MaHocPhan,MaNamHoc,MaHocKy,MaGiaoVien,MaNhomHocPhan) VALUE('{$maHocPhan}','{$maNamHoc}','{$maHocKy}','{$maGiaoVien}','{$maNhomHocPhan}')");
+        $result = $this->db->con->query("INSERT INTO LopHocPhan (MaHocPhan,MaNamHoc,MaHocKy,MaGiaoVien,MaNhomHocPhan,MaHoatDongKhaosat) VALUE('{$maHocPhan}','{$maNamHoc}','{$maHocKy}','{$maGiaoVien}','{$maNhomHocPhan}','{$maHoatDongKhaoSat}')");
         if ($result === TRUE) {
             echo '<br>add new record in themLopHocPhan <br>';
         } else {
@@ -38,14 +38,14 @@ class LopHocPhan
     {
         $result = $this->db->con->query("INSERT INTO `chitietkhaosatphieu`(`MaPhieuKhaoSat`, `MaTieuChiDanhGia`, `MaHinhThucPhanLoai`, `DiemSo`) VALUES ('{$maPhieuKhaoSat}','{$maTieuChiDanhGia}','{$maHinhThucPhanLoai}','{$diemSo}')");
         if ($result === TRUE) {
-            echo '<br>add new record in ChiTietPhieuKhaoSat<br>';
+            echo ' add new record in ChiTietPhieuKhaoSat<br>';
         } else {
-            echo '<br>Not thing add to ChiTietPhieuKhaoSat<br>';
+            echo ' Not thing add to ChiTietPhieuKhaoSat<br>';
         }
     }
 
     //kiểm tra trùng lặp trong lớp học phần
-    public function checkLopHocPhan($maHocPhan, $maNamHoc, $maHocKy, $maGiaoVien, $maNhomHocPhan)
+    public function checkLopHocPhan($maHocPhan, $maNamHoc, $maHocKy, $maGiaoVien, $maNhomHocPhan, $maHoatDongKhaoSat)
     {
         $result = $this->db->con->query("SELECT * 
         FROM LopHocPhan 
@@ -54,6 +54,7 @@ class LopHocPhan
         AND MaHocKy = '{$maHocKy}' 
         AND MaGiaoVien = '{$maGiaoVien}'
         AND MaNhomHocPhan = '{$maNhomHocPhan}'
+        AND MaHoatDongKhaoSat = '{$maHoatDongKhaoSat}'
         ");
         $resultArr = array();
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -115,5 +116,16 @@ class LopHocPhan
             $resultArr[] = $row;
         }
         return $resultArr[0]['MaNamHoc'];
+    }
+
+    //get thông tin lớp học phần
+    public function getLopHocPhan()
+    {
+        $result = $this->db->con->query("SELECT * FROM LopHocPhan");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
     }
 }

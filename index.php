@@ -35,6 +35,7 @@
 
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
+    <link href="css/customTable.css" rel="stylesheet">
 </head>
 
 <?php
@@ -93,7 +94,7 @@ if (isset($_GET["page"])) {
                             <li class="nav-item">
                                 <a class="nav-link" href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=ratingInfo">
                                     <span data-feather="users"></span>
-                                    Đánh giá
+                                    Xem đánh giá
                                 </a>
                             </li>
                         <?php endif; ?>

@@ -53,10 +53,9 @@ if (isset($_POST["submit"])) {
     $maHocPhan = substr($f[9], 36); // 03/02 - Lập trình hướng đối tượng        
     $maLopHocPhan = substr($maHocPhan, 3, 2); // String 03
     $maNhom = substr($maHocPhan, 0, 2);
-
     $maGiaoVien = substr($f[10], 13, 2);
     $maNamHoc = $lopHocPhan->getMaNamHoc($namHoc);
-
+    $maHoatDongKhaoSat = substr($f[7], 31, 2);
     // Test dữ liệu
     // echo "Mã học phần(String): " . $maLopHocPhan . " Value(int): " . intval($maLopHocPhan) . "<br>";
     // echo "Mã giáo viên: " . $maGiaoVien . "<br>";
@@ -71,7 +70,8 @@ if (isset($_POST["submit"])) {
         intval($maNamHoc),
         intval($hocKy),
         intval($maGiaoVien),
-        intval($maNhom)
+        intval($maNhom),
+        intval($maHoatDongKhaoSat)
     );
 
     if ($trungNhau === TRUE) {
@@ -81,7 +81,8 @@ if (isset($_POST["submit"])) {
             intval($maNamHoc),
             intval($hocKy),
             intval($maGiaoVien),
-            intval($maNhom)
+            intval($maNhom),
+            intval($maHoatDongKhaoSat)
         );
     } else {
         echo "Dữ liệu trùng nhau: bảng lớp học phần <br><br>";
@@ -92,7 +93,7 @@ if (isset($_POST["submit"])) {
 
     // -------------------- [SECTION] thêm phiếu khảo sát -----------------------------//
     $maLoaiPhieu = substr($f[5], 17, 2);
-    $maHoatDongKhaoSat = substr($f[7], 31, 2);
+    // $maHoatDongKhaoSat = substr($f[7], 31, 2);
 
 
     // echo "Mã loại phiếu: " . $maLoaiPhieu . "<br>";
