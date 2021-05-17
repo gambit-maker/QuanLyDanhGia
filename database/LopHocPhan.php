@@ -16,9 +16,9 @@ class LopHocPhan
     {
         $result = $this->db->con->query("INSERT INTO LopHocPhan (MaHocPhan,MaNamHoc,MaHocKy,MaGiaoVien,MaNhomHocPhan) VALUE('{$maHocPhan}','{$maNamHoc}','{$maHocKy}','{$maGiaoVien}','{$maNhomHocPhan}')");
         if ($result === TRUE) {
-            echo 'add new record in themLopHocPhan <br>';
+            echo '<br>add new record in themLopHocPhan <br>';
         } else {
-            echo "not thing add to LopHocPhan <br>";
+            echo "<br>not thing add to LopHocPhan <br>";
         }
     }
 
@@ -27,9 +27,9 @@ class LopHocPhan
     {
         $result = $this->db->con->query("INSERT INTO PhieuKhaoSat (MaLoaiPhieu,MaLopHocPhan,MaHoatDongKhaoSat) VALUE ('{$maLoaiPhieu}','{$maLopHocPhan}','{$maHoatDongKhaoSat}')");
         if ($result === TRUE) {
-            echo 'add new record in PhieuKhaoSat <br>';
+            echo '<br>add new record in PhieuKhaoSat <br>';
         } else {
-            echo 'not thing add to PhieuKhaoSat <br>';
+            echo '<br>not thing add to PhieuKhaoSat <br>';
         }
     }
 
@@ -38,9 +38,9 @@ class LopHocPhan
     {
         $result = $this->db->con->query("INSERT INTO `chitietkhaosatphieu`(`MaPhieuKhaoSat`, `MaTieuChiDanhGia`, `MaHinhThucPhanLoai`, `DiemSo`) VALUES ('{$maPhieuKhaoSat}','{$maTieuChiDanhGia}','{$maHinhThucPhanLoai}','{$diemSo}')");
         if ($result === TRUE) {
-            echo 'add new record in ChiTietPhieuKhaoSat';
+            echo '<br>add new record in ChiTietPhieuKhaoSat<br>';
         } else {
-            echo 'Not thing add to ChiTietPhieuKhaoSat';
+            echo '<br>Not thing add to ChiTietPhieuKhaoSat<br>';
         }
     }
 
@@ -63,6 +63,17 @@ class LopHocPhan
             return FALSE;
         }
         return TRUE;
+    }
+
+    //get Mã hình thức phân loại
+    public function getMaHinhThucPhanLoai($maTieuChiDanhGia, $diemSo)
+    {
+        $result = $this->db->con->query("SELECT MaHinhThucPhanLoai FROM hinhthucphanloai WHERE MaTieuChiDanhGia = '{$maTieuChiDanhGia}' and Diem = '{$diemSo}' ");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr[0]['MaHinhThucPhanLoai'];
     }
 
     // get Mã lớp học phần
