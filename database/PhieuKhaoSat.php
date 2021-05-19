@@ -29,6 +29,16 @@ class PhieuKhaoSat
         return $item;
     }
 
+    public function getPhieuKhaoSatTheoMaLop($maLopHocPhan)
+    {
+        $result = $this->db->con->query("SELECT * FROM PhieuKhaoSat WHERE MaLopHocPhan = '{$maLopHocPhan}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
 
 
     /*

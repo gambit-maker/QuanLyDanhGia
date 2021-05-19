@@ -41,6 +41,9 @@ $khoa = $infoSmallTable->getThongTinBang('Khoa');
 <?php
 // get thông tin lớp học phần có phiếu đánh giá
 $thongTinLop = $lopHocPhan->getLopHocPhan();
+if (isset($_GET["TenChucVu"])) {
+    $tenChucVu = $_GET["TenChucVu"];
+}
 ?>
 <div class="container">
     <div class="top">
@@ -58,6 +61,7 @@ $thongTinLop = $lopHocPhan->getLopHocPhan();
                 <th>Năm học</th>
                 <th>Học kỳ</th>
                 <th>Hoạt động khảo sát</th>
+                <th colspan="2">Dữ liệu kết quả</th>
             </tr>
         </thead>
         <tbody>
@@ -131,6 +135,10 @@ $thongTinLop = $lopHocPhan->getLopHocPhan();
                         $tenHoatDongKhaoSat = $infoSmallTable->getThongTinHoatDongKhaoSat($item['MaHoatDongKhaoSat']);
                         echo $tenHoatDongKhaoSat;
                         ?>
+                    </td>
+                    <td>
+                        <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=htPhieu&MaLopHocPhan=<?php echo $item['MaLopHocPhan']; ?>" class="btn btn-sm btn-outline-secondary">Phiếu</a>
+                        <a href="" class="btn btn-sm btn-outline-secondary">Góp ý</a>
                     </td>
                 </tr>
             <?php

@@ -22,6 +22,17 @@ class InfoSmallTable
         return $resultArr;
     }
 
+    //get thông tin lớp học phần theo mã lớp
+    public function getThongTinLopHocPhanTheoMaLop($maLopHocPhan)
+    {
+        $result = $this->db->con->query("SELECT * FROM LopHocPhan WHERE MaLopHocPhan = '{$maLopHocPhan}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr[0]; // return duy nhất giá trị đầu tiên của bảng
+    }
+
     // ---------------------------- Lấy thông tin tên của các bảng nhỏ ---------------------------------//
 
     //get thông tin giáo viên

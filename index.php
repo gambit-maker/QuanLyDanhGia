@@ -162,6 +162,8 @@ if (isset($_GET["page"])) {
                                 break;
                             case 'ratingInfo':
                                 include('page/teacher/ratingInfo.php');
+                            case 'htPhieu':
+                                include('page/admin/calculate/hienThiPhieu.php');
                             default:
                                 # code...
                                 break;

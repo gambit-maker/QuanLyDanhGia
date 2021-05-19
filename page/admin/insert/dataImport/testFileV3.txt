@@ -1,0 +1,39 @@
+BỘ GIÁO DỤC VÀ ĐÀO TẠO		CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM
+TRƯỜNG ĐẠI HỌC NHA TRANG		Độc lập - Tự do - Hạnh phúc
+KẾT QUẢ KHẢO SÁT THEO PHIẾU
+Mã phiếu:		 P01
+Người cập nhật:	 nthhuong
+Tên phiếu:		 02 - PHIẾU THU THẬP THÔNG TIN DẠY VÀ HỌC
+Ngày lập:	 23-09-2022
+Hoạt động khảo sát:		 02 - DGHP - Đánh giá học phần
+Trạng thái:	 Sử dụng
+Nhóm học phần/Học phần:		 01/01 - Lập trình hướng đối tượng
+Cán bộ:	 02 - Phạm Thị Kim Ngoan
+Stt	Kết quả (%)
+	[1]	[2]	[3]	[4]	[5]	[6]	[7]	[8]	[9]	[10]	[11]	[12]	[13]	[14]	[15]	[16]	[17]	[18]	[19]
+1	5	5	5	5	5	5	5	5	5	5	4	4	5	5	5	5	1	1	2
+2	4	4	5	4	4	4	5	5	4	4	5	4	4	5	4	4	1	1	2
+3	5	5	5	5	5	5	5	4	5	5	5	5	5	5	5	5	1	1	2
+4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	4	1	1	3
+5	5	4	4	3	3	4	4	5	4	4	3	3	4	3	3	5	1	1	3
+END
+Ghi chú câu hỏi:
+[1]: GV có phương pháp truyền đạt rõ ràng, dễ hiểu.
+[2]: GV có tác phong và cách ứng xử chuẩn mực.
+[3]: GV đảm bảo giờ lên lớp đúng theo thời khóa biểu.
+[4]: GV giới thiệu đầy đủ giáo trình/bài giảng và các tài liệu tham khảo.
+[5]: GV giới thiệu đề cương chi tiết học phần với đầy đủ thông tin.
+[6]: GV nhiệt tình và có trách nhiệm trong giảng dạy.
+[7]: GV phối hợp hiệu quả các phương pháp giảng dạy.
+[8]: GV thường xuyên có sự liên hệ giữa lý thuyết và thực tiễn trong giảng dạy.
+[9]: GV thường xuyên kiểm tra kết quả tự học, tự nghiên cứu của SV.
+[10]: SV cảm thấy hứng thú trong giờ học.
+[11]: SV được GV tư vấn học tập ngoài giờ lên lớp (thông qua gặp gỡ hoặc email).
+[12]: SV được kiểm tra-đánh giá công bằng, đúng thực chất trong quá trình học.
+[13]: SV được kiểm tra-đánh giá theo đúng kế hoạch và nội dung đã công bố.
+[14]: SV được tạo nhiều cơ hội để chia sẻ ý kiến, quan điểm, hiểu biết.
+[15]: SV nhận được nhiều kiến thức, kỹ năng cần thiết từ học phần.
+[16]: Cảm nhận chung của anh/chị về học phần này:.
+[17]: Giới tính.
+[18]: Tỷ lệ thời gian tham dự lớp học của anh/chị đối với HP này:.
+[19]: Xếp loại học lực của anh/chị trong học kỳ vừa qua (nếu có):.
