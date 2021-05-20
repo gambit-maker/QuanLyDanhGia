@@ -35,3 +35,20 @@
 .content-table tbody tr:hover{    
     color: #009879;
 }
+
+/* Table cho hiển thị phiếu */
+.table-phieu{
+    /* font-family: arial, sans-serif; */
+    font-size: 0.9em;
+  border-collapse: collapse;
+  width: 100%;
+}
+.table-phieu thead th{
+    text-align: center;
+}
+.table-phieu td, th {
+    border: 1px solid black;
+    text-align: left;
+    /* padding: 8px; */
+  }
+  

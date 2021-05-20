@@ -133,4 +133,17 @@ class InfoSmallTable
         }
         return $resultArr[0]['TenKhoa'];
     }
+
+    //get thông tin điểm và nội dung phân loại
+    public function getDiemVaNoiDungPhanLoai($maHoatDong)
+    {
+        $result = $this->db->con->query("SELECT DISTINCT hinhthucphanloai.Diem, hinhthucphanloai.NoiDungHinhThucPhanLoai, hinhthucphanloai.NoiDungChiTiet
+        FROM hinhthucphanloai JOIN cauhoicuahoatdong
+        WHERE cauhoicuahoatdong.MaHoatDongKhaoSat = '{$maHoatDong}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
 }

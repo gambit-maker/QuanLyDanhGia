@@ -110,7 +110,13 @@ if (isset($_POST["submit"])) {
             intval($maNhom)
         );
         $idCauHoi = createArrayIDCauHoi($f[12]); //đọc line 12 trong file để lấy ra mã câu hỏi (mã tiêu chí)
-
+        foreach ($idCauHoi as $item) {
+            if ($lopHocPhan->checkCauHoiCuaHoatDong($item, $maHoatDongKhaoSat) === FALSE) {
+                $lopHocPhan->themCauHoiCuaHoatDong($item, $maHoatDongKhaoSat);
+            } else {
+                echo 'Dữ liệu đã có, nên sẽ không cần insert nữa<br>';
+            }
+        }
 
         // echo "Mã lớp học phần V2: " . $maLopHocPhanV2 . "<br>";
 

@@ -11,14 +11,40 @@ class LopHocPhan
         $this->db = $db;
     }
 
+    // thêm câu hỏi của hoạt động (mỗi hoạt động sẽ có 1 danh sách các câu hỏi khảo sát)
+    public function themCauHoiCuaHoatDong($maCauHoi, $maHoatDong)
+    {
+        $result = $this->db->con->query("INSERT INTO `cauhoicuahoatdong`(`MaHoatDongKhaoSat`, `MaCauHoi`) VALUES ('{$maHoatDong}','{$maCauHoi}')");
+        if ($result === TRUE) {
+            echo '----add new record in CauHoiCuaHoatDong----';
+        } else {
+            echo '----Not thing add to CauHoiCuaHoatDong----';
+        }
+    }
+
+    // check hoạt động khảo sát và mã câu hỏi có bị trùng lặp ko
+    public function checkCauHoiCuaHoatDong($maCauHoi, $maHoatDong)
+    {
+        $result = $this->db->con->query("SELECT * FROM `cauhoicuahoatdong` WHERE MaCauHoi = '{$maCauHoi}' AND MaHoatDongKhaoSat = '{$maHoatDong}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        if (count($resultArr) > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
     //thêm lớp học phần
     public function themLopHocPhan($maHocPhan, $maNamHoc, $maHocKy, $maGiaoVien, $maNhomHocPhan, $maHoatDongKhaoSat)
     {
         $result = $this->db->con->query("INSERT INTO LopHocPhan (MaHocPhan,MaNamHoc,MaHocKy,MaGiaoVien,MaNhomHocPhan,MaHoatDongKhaosat) VALUE('{$maHocPhan}','{$maNamHoc}','{$maHocKy}','{$maGiaoVien}','{$maNhomHocPhan}','{$maHoatDongKhaoSat}')");
         if ($result === TRUE) {
-            echo '<br>add new record in themLopHocPhan <br>';
+            echo '----add new record in themLopHocPhan ----';
         } else {
-            echo "<br>not thing add to LopHocPhan <br>";
+            echo "----not thing add to LopHocPhan ----";
         }
     }
 
@@ -27,9 +53,9 @@ class LopHocPhan
     {
         $result = $this->db->con->query("INSERT INTO PhieuKhaoSat (MaLoaiPhieu,MaLopHocPhan,MaHoatDongKhaoSat) VALUE ('{$maLoaiPhieu}','{$maLopHocPhan}','{$maHoatDongKhaoSat}')");
         if ($result === TRUE) {
-            echo '<br>add new record in PhieuKhaoSat <br>';
+            echo '----add new record in PhieuKhaoSat ----';
         } else {
-            echo '<br>not thing add to PhieuKhaoSat <br>';
+            echo '----not thing add to PhieuKhaoSat ----';
         }
     }
 
@@ -38,11 +64,13 @@ class LopHocPhan
     {
         $result = $this->db->con->query("INSERT INTO `chitietkhaosatphieu`(`MaPhieuKhaoSat`, `MaTieuChiDanhGia`, `MaHinhThucPhanLoai`, `DiemSo`) VALUES ('{$maPhieuKhaoSat}','{$maTieuChiDanhGia}','{$maHinhThucPhanLoai}','{$diemSo}')");
         if ($result === TRUE) {
-            echo ' add new record in ChiTietPhieuKhaoSat<br>';
+            echo '<br>add new record in ChiTietPhieuKhaoSat<br>';
         } else {
-            echo ' Not thing add to ChiTietPhieuKhaoSat<br>';
+            echo '<br>Not thing add to ChiTietPhieuKhaoSat<br>';
         }
     }
+
+
 
     //kiểm tra trùng lặp trong lớp học phần
     public function checkLopHocPhan($maHocPhan, $maNamHoc, $maHocKy, $maGiaoVien, $maNhomHocPhan, $maHoatDongKhaoSat)
