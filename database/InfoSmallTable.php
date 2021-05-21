@@ -146,4 +146,63 @@ class InfoSmallTable
         }
         return $resultArr;
     }
+
+    // các câu hỏi trong hoạt động khảo sát, đều thuộc trong 1 nhóm tiêu chí nào đó
+    // dùng hàm này để xác định có bao nhiêu nhóm
+    public function getNhomTieuChi($maHoatDongKhaoSat)
+    {
+        $result = $this->db->con->query("SELECT DISTINCT MaNhomTieuChi FROM cauhoicuahoatdong join tieuchidanhgia on tieuchidanhgia.MaTieuChi = cauhoicuahoatdong.MaCauHoi WHERE cauhoicuahoatdong.MaHoatDongKhaoSat = '{$maHoatDongKhaoSat}' ORDER BY MaNhomTieuChi ASC");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+    //get tên nhóm tiếu chí theo mã nhóm tiếu chí
+    public function getTenNhom($maNhom)
+    {
+        $result = $this->db->con->query("SELECT TenNhom FROM NhomTieuChi WHERE MaNhomTieuChi = '{$maNhom}'");
+        $row = $result->fetch_assoc();
+        return $row['TenNhom'];
+    }
+
+    // get các câu hỏi trong nhóm tiêu chí
+    public function getCauHoiTrongNhomTieuChi($maHoatDongKhaoSat, $maNhomTieuChi)
+    {
+        $result = $this->db->con->query("SELECT * 
+        FROM cauhoicuahoatdong join tieuchidanhgia join nhomtieuchi 
+        ON cauhoicuahoatdong.MaCauHoi = tieuchidanhgia.MaTieuChi AND
+        tieuchidanhgia.MaNhomTieuChi = nhomtieuchi.MaNhomTieuChi 
+        WHERE  cauhoicuahoatdong.MaHoatDongKhaoSat = '{$maHoatDongKhaoSat}' and tieuchidanhgia.MaNhomTieuChi = '{$maNhomTieuChi}'");
+
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+    //get các câu hỏi trong nhóm tiêu chí v2
+    public function getCauHoiTrongNhomTieuChiV2($maNhomTieuChi)
+    {
+        $result = $this->db->con->query("SELECT * FROM nhomtieuchi JOIN tieuchidanhgia ON nhomtieuchi.MaNhomTieuChi = tieuchidanhgia.MaNhomTieuChi 
+        WHERE nhomtieuchi.MaNhomTieuChi = '{$maNhomTieuChi}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+    //get nội dung hình thức phân loại theo mã câu hỏi(mã tiêu chí)
+    public function getNoiDungHinhThucPhanLoai($maTieuChi)
+    {
+        $result = $this->db->con->query("SELECT hinhthucphanloai.NoiDungHinhThucPhanLoai FROM hinhthucphanloai join tieuchidanhgia on hinhthucphanloai.MaTieuChiDanhGia = tieuchidanhgia.MaTieuChi WHERE tieuchidanhgia.MaTieuChi='{$maTieuChi}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
 }
