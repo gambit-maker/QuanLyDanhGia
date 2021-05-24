@@ -1,45 +1,50 @@
 <?php
+function tinhPhanTram($soPhanTram, $tong)
+{
+    return $soPhanTram / $tong * 100;
+}
+
 if (isset($_GET["MaLopHocPhan"])) {
     $maLopHocPhan = $_GET["MaLopHocPhan"];
-    $lopHocPhan = $infoSmallTable->getThongTinLopHocPhanTheoMaLop($maLopHocPhan);
-    $tenHoatDongKhaoSat = $infoSmallTable->getThongTinHoatDongKhaoSat($lopHocPhan['MaHoatDongKhaoSat']);
-    $tenHocKy = $infoSmallTable->getThongTinHocKy($lopHocPhan['MaHocKy']);
-    $namHoc = $infoSmallTable->getThongTinNam($lopHocPhan['MaNamHoc']);
-    $tenGiaoVien = $infoSmallTable->getThongTinGiaoVien($lopHocPhan['MaGiaoVien'], 'TenGiaoVien');
+    $lopHP = $infoSmallTable->getThongTinLopHocPhanTheoMaLop($maLopHocPhan);
+    $tenHoatDongKhaoSat = $infoSmallTable->getThongTinHoatDongKhaoSat($lopHP['MaHoatDongKhaoSat']);
+    $tenHocKy = $infoSmallTable->getThongTinHocKy($lopHP['MaHocKy']);
+    $namHoc = $infoSmallTable->getThongTinNam($lopHP['MaNamHoc']);
+    $tenGiaoVien = $infoSmallTable->getThongTinGiaoVien($lopHP['MaGiaoVien'], 'TenGiaoVien');
 
-    $maBoMon = $infoSmallTable->getThongTinGiaoVien($lopHocPhan['MaGiaoVien'], 'MaBoMon');
+    $maBoMon = $infoSmallTable->getThongTinGiaoVien($lopHP['MaGiaoVien'], 'MaBoMon');
     $tenBoMon = $infoSmallTable->getThongTinBoMon($maBoMon, 'TenBoMon');
 
     $maKhoa = $infoSmallTable->getThongTinBoMon($maBoMon, 'MaKhoa');
     $tenKhoa = $infoSmallTable->getTenKhoa($maKhoa);
 
     //Tính số phiếu của mỗi lớp
-    $soPhieuCuaLop = count($phieuKhaoSat->getPhieuKhaoSatTheoMaLop($lopHocPhan['MaLopHocPhan']));
+    $soPhieuCuaLop = count($phieuKhaoSat->getPhieuKhaoSatTheoMaLop($lopHP['MaLopHocPhan']));
 
     //get điểm và nội dung phân loại
-    $diemVaNoiDung = $infoSmallTable->getDiemVaNoiDungPhanLoai($lopHocPhan['MaHoatDongKhaoSat']);
+    $diemVaNoiDung = $infoSmallTable->getDiemVaNoiDungPhanLoai($lopHP['MaHoatDongKhaoSat']);
 
     // get số nhóm tiêu chí 
-    $nhomTieuChi = $infoSmallTable->getNhomTieuChi($lopHocPhan['MaHoatDongKhaoSat']); // return arr mã nhóm    
+    $nhomTieuChi = $infoSmallTable->getNhomTieuChi($lopHP['MaHoatDongKhaoSat']); // return arr mã nhóm    
 
 
     //testin count value số nhóm tiêu chí
     // echo count($infoSmallTable->getCauHoiTrongNhomTieuChi('1', '2'));        
     // echo count($infoSmallTable->getNoiDungHinhThucPhanLoai('17'));
-    foreach ($infoSmallTable->getCauHoiTrongNhomTieuChiV2('1') as $item) {
-        print_r($item);
-        echo "<br>";
-    }
-    echo "<br><br>";
+    // foreach ($infoSmallTable->getCauHoiTrongNhomTieuChiV2('1') as $item) {
+    //     print_r($item);
+    //     echo "<br>";
+    // }
+    // echo "<br><br>";
     $arrGiaTriPhanLoai = array();
 
 
-    foreach ($infoSmallTable->getNoiDungHinhThucPhanLoai('10') as $item) {
-        $arrGiaTriPhanLoai[] = $item['NoiDungHinhThucPhanLoai'];
-        print_r($item);
-        echo "<br>";
-    }
-    print_r($arrGiaTriPhanLoai);
+    // foreach ($infoSmallTable->getNoiDungHinhThucPhanLoai('10') as $item) {
+    //     $arrGiaTriPhanLoai[] = $item['NoiDungHinhThucPhanLoai'];
+    //     print_r($item);
+    //     echo "<br>";
+    // }
+    // print_r($arrGiaTriPhanLoai);
     $stt = 1;  // Số thứ tự
     $compareArr = array(); // array dùng để so sách các hình thức phân loại nếu trùng nhau
 
@@ -52,6 +57,14 @@ if (isset($_GET["MaLopHocPhan"])) {
         }
         return $arrGiaTriPhanLoai;
     }
+
+
+    $arrPhieuKhaoSat = $lopHocPhan->getPhieuKhaoSat($lopHP['MaLopHocPhan']);
+    // foreach ($arrPhieuKhaoSat as $item) {
+    //     echo "<br>";
+    //     print_r($item);
+    //     echo "<br>";
+    // }
 }
 ?>
 
@@ -142,17 +155,22 @@ if (isset($_GET["MaLopHocPhan"])) {
                     // echo "Số lượng:" . $soLuongPhanLoai;
                     $arr = getArrGiaTriPhanLoai($infoSmallTable->getNoiDungHinhThucPhanLoai($item['MaTieuChi']));
                     ?>
-                    <?php if ($soLuongPhanLoai === 1) : ?>
+                    <?php if ($soLuongPhanLoai === 2) : ?>
                         <tr>
                             <th></th>
                             <th></th>
-                            <th class="centerItem" colspan="6">
-                                <?php echo $noiDungHinhThucPhanLoai[0]['NoiDungHinhThucPhanLoai'];  ?>
-                            </th>
-                            <th class="centerItem" colspan="6">
-                                <?php echo $noiDungHinhThucPhanLoai[0]['NoiDungHinhThucPhanLoai'];  ?>
-                            </th>
+                            <?php for ($y = 0; $y < 2; $y++) : ?>
+                                <th class="centerItem" colspan="3">
+                                    <?php echo $noiDungHinhThucPhanLoai[$y]['NoiDungChiTiet'];  ?>
+                                </th>
+                            <?php endfor; ?>
+                            <?php for ($y = 0; $y < 2; $y++) : ?>
+                                <th class="centerItem" colspan="3">
+                                    <?php echo $noiDungHinhThucPhanLoai[$y]['NoiDungChiTiet'];  ?>
+                                </th>
+                            <?php endfor; ?>
                         </tr>
+
 
 
 
@@ -209,9 +227,7 @@ if (isset($_GET["MaLopHocPhan"])) {
                                 </th>
                             <?php endfor; ?>
                             <th class="centerItem" colspan="2">
-                                <?php echo $noiDungHinhThucPhanLoai[4]['NoiDungHinhThucPhanLoai'];
-
-                                ?>
+                                <?php echo $noiDungHinhThucPhanLoai[4]['NoiDungHinhThucPhanLoai']; ?>
                             </th>
                         </tr>
 
@@ -222,7 +238,8 @@ if (isset($_GET["MaLopHocPhan"])) {
 
 
                     <?php endif; ?>
-                    <?php $compareArr = $arr; ?>
+                    <?php $compareArr = $arr; // kiểm tra trùng các tiêu chí RD, D, TDD để không lặp lại cột
+                    ?>
                     <tr>
                         <th>
                             <?php
@@ -231,17 +248,214 @@ if (isset($_GET["MaLopHocPhan"])) {
                             ?>
                         </th>
                         <th>
-                            Câu hỏi
+                            <?php
+                            echo $item['NoiDung'];
+                            ?>
                         </th>
+
+                        <?php if ($soLuongPhanLoai === 2) : ?>
+                            <?php for ($y = 0; $y < 1; $y++) : // $y = 2 nếu phân biệt được nam nữ 
+                            ?>
+                                <th class="centerItem" colspan="6">
+                                    <?php
+                                    $soTieuChi = $lopHocPhan->getThongTinChiTietKetQuaCauHoiCuaLop(
+                                        $lopHP['MaLopHocPhan'],
+                                        $item['MaTieuChi'],
+                                        $noiDungHinhThucPhanLoai[$y]['NoiDungHinhThucPhanLoai']
+                                    );
+                                    $soTieuChi = count($soTieuChi);
+                                    echo $soTieuChi;
+                                    ?>
+                                </th>
+                            <?php endfor; ?>
+
+                            <?php for ($y = 0; $y < 1; $y++) : ?>
+                                <th class="centerItem" colspan="6">
+                                    <?php
+                                    $soTieuChi = $lopHocPhan->getThongTinChiTietKetQuaCauHoiCuaLop(
+                                        $lopHP['MaLopHocPhan'],
+                                        $item['MaTieuChi'],
+                                        $noiDungHinhThucPhanLoai[$y]['NoiDungHinhThucPhanLoai']
+                                    );
+                                    $soTieuChi = count($soTieuChi);
+                                    echo round(tinhPhanTram($soTieuChi, $soPhieuCuaLop), 2);
+                                    ?>
+                                </th>
+                            <?php endfor; ?>
+
+                        <?php elseif ($soLuongPhanLoai === 6) : ?>
+                            <?php for ($y = 0; $y < 6; $y++) : ?>
+                                <th class="centerItem" colspan="1">
+                                    <?php
+                                    $soTieuChi = $lopHocPhan->getThongTinChiTietKetQuaCauHoiCuaLop(
+                                        $lopHP['MaLopHocPhan'],
+                                        $item['MaTieuChi'],
+                                        $noiDungHinhThucPhanLoai[$y]['NoiDungHinhThucPhanLoai']
+                                    );
+                                    $soTieuChi = count($soTieuChi);
+                                    echo $soTieuChi;
+                                    ?>
+                                </th>
+                            <?php endfor; ?>
+
+                            <?php for ($y = 0; $y < 6; $y++) : ?>
+                                <th class="centerItem" colspan="1">
+                                    <?php
+                                    $soTieuChi = $lopHocPhan->getThongTinChiTietKetQuaCauHoiCuaLop(
+                                        $lopHP['MaLopHocPhan'],
+                                        $item['MaTieuChi'],
+                                        $noiDungHinhThucPhanLoai[$y]['NoiDungHinhThucPhanLoai']
+                                    );
+                                    $soTieuChi = count($soTieuChi);
+                                    echo round(tinhPhanTram($soTieuChi, $soPhieuCuaLop), 2);
+                                    ?>
+                                </th>
+                            <?php endfor; ?>
+
+                        <?php elseif ($soLuongPhanLoai === 3) : ?>
+                            <?php for ($y = 0; $y < 3; $y++) : ?>
+                                <th class="centerItem" colspan="2">
+                                    <?php
+                                    $soTieuChi = $lopHocPhan->getThongTinChiTietKetQuaCauHoiCuaLop(
+                                        $lopHP['MaLopHocPhan'],
+                                        $item['MaTieuChi'],
+                                        $noiDungHinhThucPhanLoai[$y]['NoiDungHinhThucPhanLoai']
+                                    );
+                                    $soTieuChi = count($soTieuChi);
+                                    echo $soTieuChi;
+                                    ?>
+                                </th>
+                            <?php endfor; ?>
+
+                            <?php for ($y = 0; $y < 3; $y++) : ?>
+                                <th class="centerItem" colspan="2">
+                                    <?php
+                                    $soTieuChi = $lopHocPhan->getThongTinChiTietKetQuaCauHoiCuaLop(
+                                        $lopHP['MaLopHocPhan'],
+                                        $item['MaTieuChi'],
+                                        $noiDungHinhThucPhanLoai[$y]['NoiDungHinhThucPhanLoai']
+                                    );
+                                    $soTieuChi = count($soTieuChi);
+                                    echo round(tinhPhanTram($soTieuChi, $soPhieuCuaLop), 2);
+                                    ?>
+                                </th>
+                            <?php endfor; ?>
+
+                        <?php elseif ($soLuongPhanLoai === 5) : ?>
+                            <?php for ($y = 0; $y < 4; $y++) : ?>
+                                <th class="centerItem" colspan="1">
+                                    <?php
+                                    $soTieuChi = $lopHocPhan->getThongTinChiTietKetQuaCauHoiCuaLop(
+                                        $lopHP['MaLopHocPhan'],
+                                        $item['MaTieuChi'],
+                                        $noiDungHinhThucPhanLoai[$y]['NoiDungHinhThucPhanLoai']
+                                    );
+                                    $soTieuChi = count($soTieuChi);
+                                    echo $soTieuChi;
+                                    ?>
+                                </th>
+                            <?php endfor; ?>
+                            <th class="centerItem" colspan="2">
+                                <?php
+                                $soTieuChi = $lopHocPhan->getThongTinChiTietKetQuaCauHoiCuaLop(
+                                    $lopHP['MaLopHocPhan'],
+                                    $item['MaTieuChi'],
+                                    $noiDungHinhThucPhanLoai[4]['NoiDungHinhThucPhanLoai']
+                                );
+                                $soTieuChi = count($soTieuChi);
+                                echo $soTieuChi;
+                                ?>
+                            </th>
+
+                            <?php for ($y = 0; $y < 4; $y++) : ?>
+                                <th class="centerItem" colspan="1">
+                                    <?php
+                                    $soTieuChi = $lopHocPhan->getThongTinChiTietKetQuaCauHoiCuaLop(
+                                        $lopHP['MaLopHocPhan'],
+                                        $item['MaTieuChi'],
+                                        $noiDungHinhThucPhanLoai[$y]['NoiDungHinhThucPhanLoai']
+                                    );
+                                    $soTieuChi = count($soTieuChi);
+                                    echo round(tinhPhanTram($soTieuChi, $soPhieuCuaLop), 2);
+                                    ?>
+                                </th>
+                            <?php endfor; ?>
+
+                            <th class="centerItem" colspan="2">
+                                <?php
+                                $soTieuChi = $lopHocPhan->getThongTinChiTietKetQuaCauHoiCuaLop(
+                                    $lopHP['MaLopHocPhan'],
+                                    $item['MaTieuChi'],
+                                    $noiDungHinhThucPhanLoai[$y]['NoiDungHinhThucPhanLoai']
+                                );
+                                $soTieuChi = count($soTieuChi);
+                                echo round(tinhPhanTram($soTieuChi, $soPhieuCuaLop), 2);
+                                ?>
+                            </th>
+
+
+
+                        <?php endif; ?>
                     </tr>
                 <?php endforeach; ?>
             <?php endfor; ?>
+            <tr>
+                <?php $tong = 0; ?>
+                <th class="centerItem" colspan="2"">TỔNG CỘNG</th>
+                <?php
+                $arrHinhThucPhanLoaiNhom2 = $infoSmallTable->getHinhThucPhanLoai($nhomTieuChi = 2);
+                $arrHinhThucPhanLoaiNhom3 = $infoSmallTable->getHinhThucPhanLoai($nhomTieuChi = 3);
 
+                for ($i = 0; $i < count($arrHinhThucPhanLoaiNhom2) - 1; $i++) :
+                ?>
+                <th class=" centerItem">
+                    <?php
+                    $tieuChiDay = $infoSmallTable->getCountHinhThucPhanLoai($lopHP['MaLopHocPhan'], $arrHinhThucPhanLoaiNhom2[$i]['NoiDungHinhThucPhanLoai']);
+                    $yKienKhac = $infoSmallTable->getCountHinhThucPhanLoai($lopHP['MaLopHocPhan'], $arrHinhThucPhanLoaiNhom3[$i]['NoiDungHinhThucPhanLoai']);
+                    $tongDiem = count($tieuChiDay) + count($yKienKhac);
+                    $tong += $tongDiem;
+                    echo $tongDiem;
+                    ?>
+                </th>
+
+            <?php endfor; ?>
+
+            <th class=" centerItem" colspan=" 2">
+                <?php
+                $tieuChiDay = $infoSmallTable->getCountHinhThucPhanLoai($lopHP['MaLopHocPhan'], $arrHinhThucPhanLoaiNhom2[4]['NoiDungHinhThucPhanLoai']);
+                $yKienKhac = $infoSmallTable->getCountHinhThucPhanLoai($lopHP['MaLopHocPhan'], $arrHinhThucPhanLoaiNhom3[4]['NoiDungHinhThucPhanLoai']);
+                $tongDiem = count($tieuChiDay) + count($yKienKhac);
+                $tong += $tongDiem;
+                echo $tongDiem;
+                ?>
+            </th>
+
+            <?php for ($i = 0; $i < count($arrHinhThucPhanLoaiNhom2) - 1; $i++) : ?>
+                <th>
+                    <?php
+                    $tieuChiDay = $infoSmallTable->getCountHinhThucPhanLoai($lopHP['MaLopHocPhan'], $arrHinhThucPhanLoaiNhom2[$i]['NoiDungHinhThucPhanLoai']);
+                    $yKienKhac = $infoSmallTable->getCountHinhThucPhanLoai($lopHP['MaLopHocPhan'], $arrHinhThucPhanLoaiNhom3[$i]['NoiDungHinhThucPhanLoai']);
+                    $tongDiem = count($tieuChiDay) + count($yKienKhac);
+                    echo round(tinhPhanTram($tongDiem, $tong), 2);
+                    ?>
+                </th>
+            <?php endfor; ?>
+
+            <th class="centerItem" colspan=" 2">
+                <?php
+                $tieuChiDay = $infoSmallTable->getCountHinhThucPhanLoai($lopHP['MaLopHocPhan'], $arrHinhThucPhanLoaiNhom2[4]['NoiDungHinhThucPhanLoai']);
+                $yKienKhac = $infoSmallTable->getCountHinhThucPhanLoai($lopHP['MaLopHocPhan'], $arrHinhThucPhanLoaiNhom3[4]['NoiDungHinhThucPhanLoai']);
+                $tongDiem = count($tieuChiDay) + count($yKienKhac);
+                echo round(tinhPhanTram($tongDiem, $tong), 2);
+                ?>
+            </th>
+
+            </tr>
 
             <!-- <tr>
                 <th></th>
                 <th></th>
-                <th colspan="3">NAM</th>
+                <th colspan=" 3">NAM</th>
                 <th colspan="3">NU</th>
                 <th colspan="3">NAM</th>
                 <th colspan="3">NU</th>

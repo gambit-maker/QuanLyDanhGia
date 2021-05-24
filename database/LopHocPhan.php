@@ -203,4 +203,40 @@ class LopHocPhan
         }
         return $resultArr;
     }
+
+    // get phiếu theo mã lớp học phần
+    public function getPhieuKhaoSat($maLopHocPhan)
+    {
+        $result = $this->db->con->query("SELECT * FROM PhieuKhaoSat WHERE MaLopHocPhan = '{$maLopHocPhan}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+    // get thông tin chi tiêt đánh giá của từng phiếu
+    // có bao nhiêu người đánh RD ở tiêu chí đánh giá 1 của lớp học phần 1
+    // có bao nhiêu người đánh TDD ở tiêu chí đánh giá 1 của lớp học phần 1
+    // vv...
+    public function getThongTinChiTietKetQuaCauHoiCuaLop($maLopHocPhan, $maTieuChiDanhGia, $noiDungHinhThucPhanLoai)
+    {
+        $result = $this->db->con->query("SELECT
+        hinhthucphanloai.NoiDungHinhThucPhanLoai,
+        chitietkhaosatphieu.MaTieuChiDanhGia,
+        hinhthucphanloai.MaTieuChiDanhGia
+        FROM phieukhaosat 
+        JOIN chitietkhaosatphieu 
+        ON phieukhaosat.MaPhieuKhaoSat = chitietkhaosatphieu.MaPhieuKhaoSat
+        JOIN hinhthucphanloai 
+        ON chitietkhaosatphieu.MaHinhThucPhanLoai = hinhthucphanloai.MaHinhThucPhanLoai
+        WHERE phieukhaosat.MaLopHocPhan = '{$maLopHocPhan}' 
+        AND hinhthucphanloai.MaTieuChiDanhGia = '{$maTieuChiDanhGia}' 
+        AND hinhthucphanloai.NoiDungHinhThucPhanLoai = '{$noiDungHinhThucPhanLoai}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
 }

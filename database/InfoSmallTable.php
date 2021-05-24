@@ -198,7 +198,39 @@ class InfoSmallTable
     //get nội dung hình thức phân loại theo mã câu hỏi(mã tiêu chí)
     public function getNoiDungHinhThucPhanLoai($maTieuChi)
     {
-        $result = $this->db->con->query("SELECT hinhthucphanloai.NoiDungHinhThucPhanLoai FROM hinhthucphanloai join tieuchidanhgia on hinhthucphanloai.MaTieuChiDanhGia = tieuchidanhgia.MaTieuChi WHERE tieuchidanhgia.MaTieuChi='{$maTieuChi}'");
+        $result = $this->db->con->query("SELECT hinhthucphanloai.NoiDungChiTiet,hinhthucphanloai.NoiDungHinhThucPhanLoai FROM hinhthucphanloai join tieuchidanhgia on hinhthucphanloai.MaTieuChiDanhGia = tieuchidanhgia.MaTieuChi WHERE tieuchidanhgia.MaTieuChi='{$maTieuChi}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+    // get thông tin hình thức phân loại để count số lượng tiêu chí
+    public function getCountHinhThucPhanLoai($maLopHocPhan, $noiDungTieuChi)
+    {
+        $result = $this->db->con->query("SELECT
+        hinhthucphanloai.NoiDungHinhThucPhanLoai,
+        hinhthucphanloai.MaTieuChiDanhGia
+        FROM phieukhaosat JOIN chitietkhaosatphieu on phieukhaosat.MaPhieuKhaoSat = chitietkhaosatphieu.MaPhieuKhaoSat
+        JOIN hinhthucphanloai on chitietkhaosatphieu.MaHinhThucPhanLoai = hinhthucphanloai.MaHinhThucPhanLoai
+        WHERE phieukhaosat.MaLopHocPhan = '{$maLopHocPhan}' AND hinhthucphanloai.NoiDungHinhThucPhanLoai = '{$noiDungTieuChi}' ");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+
+    //get thông tin hình thức phân loại
+    public function getHinhThucPhanLoai($nhomtieuchi)
+    {
+        $result = $this->db->con->query("SELECT DISTINCT hinhthucphanloai.NoiDungHinhThucPhanLoai 
+        FROM
+        nhomtieuchi JOIN tieuchidanhgia ON nhomtieuchi.MaNhomTieuChi = tieuchidanhgia.MaNhomTieuChi
+        JOIN hinhthucphanloai ON hinhthucphanloai.MaTieuChiDanhGia = tieuchidanhgia.MaTieuChi
+        WHERE nhomtieuchi.MaNhomTieuChi = '{$nhomtieuchi}'");
         $resultArr = array();
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             $resultArr[] = $row;
