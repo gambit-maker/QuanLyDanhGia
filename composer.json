@@ -1,0 +1,6 @@
+{
+    "require": {
+        "shuchkin/simplexlsx": "^0.8.24",
+        "soundasleep/html2text": "^1.1"
+    }
+}

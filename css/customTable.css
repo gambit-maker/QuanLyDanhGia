@@ -51,4 +51,7 @@
     text-align: left;
     /* padding: 8px; */
   }
-  
+
+  .centerItem{
+      text-align: center;
+  }

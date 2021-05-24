@@ -61,7 +61,7 @@ if (isset($_GET["MaLopHocPhan"])) {
 <h3 style="text-align: center;">Về hoạt động: <?php echo $tenHoatDongKhaoSat; ?></h3>
 <h4 style="text-align: center;">Học kỳ <?php echo $tenHocKy; ?> / Năm học <?php echo $namHoc . "-" . $namHoc + 1; ?></h4>
 
-<div class="container pt-5">
+<div class="container pt-5 ">
     <div class="row">
         <div class="col-sm">
             <p>Họ tên CBGD: <b> <?php echo $tenGiaoVien; ?></b></p>
@@ -101,7 +101,7 @@ if (isset($_GET["MaLopHocPhan"])) {
 </div>
 
 
-<div class="container pt-4">
+<div class="container pt-4 pb-5">
     <table class="table-phieu">
         <thead>
             <tr>
@@ -135,79 +135,94 @@ if (isset($_GET["MaLopHocPhan"])) {
 
                 foreach ($cauHoiTrongNhom as $item) : //Mỗi Item là 1 câu hỏi 
                 ?>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <?php
-                        $noiDungHinhThucPhanLoai = $infoSmallTable->getNoiDungHinhThucPhanLoai($item['MaTieuChi']);
-                        $soLuongPhanLoai = count($noiDungHinhThucPhanLoai);
-                        // echo "Số lượng:" . $soLuongPhanLoai;
-                        $arr = getArrGiaTriPhanLoai($infoSmallTable->getNoiDungHinhThucPhanLoai($item['MaTieuChi']));
-                        ?>
-                        <?php if ($soLuongPhanLoai === 1) : ?>
-                            <th colspan="6">
+
+                    <?php
+                    $noiDungHinhThucPhanLoai = $infoSmallTable->getNoiDungHinhThucPhanLoai($item['MaTieuChi']);
+                    $soLuongPhanLoai = count($noiDungHinhThucPhanLoai);
+                    // echo "Số lượng:" . $soLuongPhanLoai;
+                    $arr = getArrGiaTriPhanLoai($infoSmallTable->getNoiDungHinhThucPhanLoai($item['MaTieuChi']));
+                    ?>
+                    <?php if ($soLuongPhanLoai === 1) : ?>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th class="centerItem" colspan="6">
                                 <?php echo $noiDungHinhThucPhanLoai[0]['NoiDungHinhThucPhanLoai'];  ?>
                             </th>
-                            <th colspan="6">
+                            <th class="centerItem" colspan="6">
                                 <?php echo $noiDungHinhThucPhanLoai[0]['NoiDungHinhThucPhanLoai'];  ?>
                             </th>
+                        </tr>
 
-                        <?php elseif ($soLuongPhanLoai === 6) : ?>
+
+
+                    <?php elseif ($soLuongPhanLoai === 6) : ?>
+                        <tr>
+                            <th></th>
+                            <th></th>
                             <?php for ($y = 0; $y < 6; $y++) : ?>
-                                <th colspan="1">
+                                <th class="centerItem" colspan="1">
                                     <?php echo $noiDungHinhThucPhanLoai[$y]['NoiDungHinhThucPhanLoai'];  ?>
                                 </th>
                             <?php endfor; ?>
                             <?php for ($y = 0; $y < 6; $y++) : ?>
-                                <th colspan="1">
+                                <th class="centerItem" colspan="1">
                                     <?php echo $noiDungHinhThucPhanLoai[$y]['NoiDungHinhThucPhanLoai'];  ?>
                                 </th>
                             <?php endfor; ?>
+                        </tr>
 
-                        <?php elseif ($soLuongPhanLoai === 3) : ?>
+
+                    <?php elseif ($soLuongPhanLoai === 3) : ?>
+                        <tr>
+                            <th></th>
+                            <th></th>
                             <?php for ($y = 0; $y < 3; $y++) : ?>
-                                <th colspan="2">
+                                <th class="centerItem" colspan="2">
                                     <?php echo $noiDungHinhThucPhanLoai[$y]['NoiDungHinhThucPhanLoai'];  ?>
                                 </th>
                             <?php endfor; ?>
                             <?php for ($y = 0; $y < 3; $y++) : ?>
-                                <th colspan="2">
+                                <th class="centerItem" colspan="2">
                                     <?php echo $noiDungHinhThucPhanLoai[$y]['NoiDungHinhThucPhanLoai'];  ?>
                                 </th>
                             <?php endfor; ?>
+                        </tr>
 
-                        <?php
-                        elseif ($soLuongPhanLoai === 5 && $arr !== $compareArr) : ?>
 
+                    <?php elseif ($soLuongPhanLoai === 5 && $arr !== $compareArr) : ?>
+                        <tr>
+                            <th></th>
+                            <th></th>
                             <?php for ($y = 0; $y < 4; $y++) : ?>
-                                <th colspan="1">
+                                <th class="centerItem" colspan="1">
                                     <?php echo $noiDungHinhThucPhanLoai[$y]['NoiDungHinhThucPhanLoai'];  ?>
                                 </th>
                             <?php endfor; ?>
-                            <th colspan="2">
+                            <th class="centerItem" colspan="2">
                                 <?php echo $noiDungHinhThucPhanLoai[4]['NoiDungHinhThucPhanLoai'];  ?>
                             </th>
 
                             <?php for ($y = 0; $y < 4; $y++) : ?>
-                                <th colspan="1">
+                                <th class="centerItem" colspan="1">
                                     <?php echo $noiDungHinhThucPhanLoai[$y]['NoiDungHinhThucPhanLoai'];  ?>
                                 </th>
                             <?php endfor; ?>
-                            <th colspan="2">
+                            <th class="centerItem" colspan="2">
                                 <?php echo $noiDungHinhThucPhanLoai[4]['NoiDungHinhThucPhanLoai'];
 
                                 ?>
                             </th>
-
-                            <?php
-                            //elseif ($soLuongPhanLoai === 5 && $flag === TRUE) : 
-                            ?>
+                        </tr>
 
 
-                        <?php endif; ?>
-                        <?php $compareArr = $arr; ?>
-                    </tr>
-                    <!-- bảng trên tiếp tục tạo 1 column vì nếu số lượng phân loại = 5 thì sẽ bỏ qua -->
+                        <?php
+                        // elseif ($soLuongPhanLoai === 5 && $arr === $compareArr) :
+                        ?>
+
+
+                    <?php endif; ?>
+                    <?php $compareArr = $arr; ?>
                     <tr>
                         <th>
                             <?php

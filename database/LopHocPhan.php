@@ -156,4 +156,40 @@ class LopHocPhan
         }
         return $resultArr;
     }
+
+    // get thông tin hoatDongKhaoSat
+    public function getThongTinHoatDongKhaoSat($noiDungRutGon)
+    {
+        $result = $this->db->con->query("SELECT MaHoatDong FROM hoatdongkhaosat WHERE NoiDungRutGon = '{$noiDungRutGon}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr[0]['MaHoatDong'];
+    }
+
+    // get thong tin loại phiếu 
+    public function getThongTinLoaiPhieu()
+    {
+        $result = $this->db->con->query("SELECT * FROM loaiphieu");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+    // check giáo viên có trong DB
+    public function checkGiaoVienCoTrongDB($maGiaoVien)
+    {
+        $result = $this->db->con->query("SELECT * FROM giaovien WHERE MaGiaoVien = '{$maGiaoVien}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        if (count($resultArr) > 0) {
+            return TRUE;
+        }
+        return FALSE;
+    }
 }
