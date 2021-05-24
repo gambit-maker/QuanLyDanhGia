@@ -91,14 +91,14 @@ class InfoSmallTable
     }
 
     //get thông tin học phần
-    public function getThongTinHocPhan($maHocPhan)
+    public function getThongTinHocPhan($maHocPhan, $noiDung = 'TenHocPhan')
     {
-        $result = $this->db->con->query("SELECT TenHocPhan FROM HocPhan WHERE MaHocPhan = '{$maHocPhan}'");
+        $result = $this->db->con->query("SELECT $noiDung FROM HocPhan WHERE MaHocPhan = '{$maHocPhan}'");
         $resultArr = array();
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             $resultArr[] = $row;
         }
-        return $resultArr[0]['TenHocPhan'];
+        return $resultArr[0][$noiDung];
     }
 
     //get thông tin hoạt động khảo sát

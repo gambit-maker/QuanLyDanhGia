@@ -99,12 +99,14 @@ if (isset($_GET["TenChucVu"])) {
                         $maBoMon = $infoSmallTable->getThongTinGiaoVien($item['MaGiaoVien'], 'MaBoMon');
                         $tenBoMon = $infoSmallTable->getThongTinBoMon($maBoMon, 'TenBoMon');
                         echo $tenBoMon;
+
+
                         ?>
                     </td>
                     <td>
                         <?php
                         // tên học phần
-                        $tenHocPhan = $infoSmallTable->getThongTinHocPhan($item['MaHocPhan']);
+                        $tenHocPhan = $infoSmallTable->getThongTinHocPhan($item['MaHocPhan'], $noidung = 'TenHocPhan');
                         echo $tenHocPhan;
                         ?>
                     </td>

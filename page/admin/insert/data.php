@@ -61,8 +61,15 @@ if (isset($_POST["submit"])) {
         $hocKy = 3;
     }
 
-    $maLopHocPhan = substr($f[6], 34, 2);
-    $maNhom = substr($f[6], 37, 2);
+    $maNhom = substr($f[6], 34, 2);
+    $maLopHocPhan = '';
+    $arrDuLieuLopHocPhan = $lopHocPhan->getMaDuLieuHocPhan();
+    foreach ($arrDuLieuLopHocPhan as $item) {
+        if (str_contains($f[6], $item['MaDuLieuHocPhan'])) {
+            $maLopHocPhan = $item['MaHocPhan'];
+            break;
+        }
+    }
 
     $maNamHoc = $lopHocPhan->getMaNamHoc(intval($namHoc));
     $noiDungHoatDong = substr($f[5], 29, 4);
@@ -88,7 +95,6 @@ if (isset($_POST["submit"])) {
     // echo $namHoc . "<br>";
 
     // ======================================================================
-
     $trungNhau = $lopHocPhan->checkLopHocPhan(
         intval($maLopHocPhan),
         intval($maNamHoc),

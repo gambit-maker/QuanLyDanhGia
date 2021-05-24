@@ -192,4 +192,15 @@ class LopHocPhan
         }
         return FALSE;
     }
+
+    // get thông tin lớp học phần MaDuLieuHocPhan
+    public function getMaDuLieuHocPhan()
+    {
+        $result = $this->db->con->query("SELECT * FROM hocphan");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
 }
