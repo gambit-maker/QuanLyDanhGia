@@ -46,4 +46,18 @@ class Account // chỉ sử dụng trường 'mật khẩu' trong bảng giáo v
         }
         return $resultArray[0]['TenChucVu'];
     }
+
+
+    // Get nhân viên role
+    public function getTenNhanVien($userID, $table = 'giaovien', $key = 'MaGiaoVien')
+    {
+        $result = $this->db->con->query("SELECT TenNhanVien FROM $table as tb JOIN chucvu on tb.MaChucVu = chucvu.MaChucVu WHERE $key = '{$userID}'");
+        $resultArray = array();
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $resultArray[] = $row;
+            }
+        }
+        return $resultArray[0]['TenNhanVien'];
+    }
 }

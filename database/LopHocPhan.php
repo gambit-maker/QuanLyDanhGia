@@ -157,6 +157,17 @@ class LopHocPhan
         return $resultArr;
     }
 
+    // get thông tin lớp học phần theo mã giáo viên
+    public function getLopHocPhanGiaoVien($maGiaoVien)
+    {
+        $result = $this->db->con->query("SELECT * FROM LopHocPhan WHERE MaGiaoVien = '{$maGiaoVien}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
     // get thông tin hoatDongKhaoSat
     public function getThongTinHoatDongKhaoSat($noiDungRutGon)
     {
@@ -233,6 +244,19 @@ class LopHocPhan
         WHERE phieukhaosat.MaLopHocPhan = '{$maLopHocPhan}' 
         AND hinhthucphanloai.MaTieuChiDanhGia = '{$maTieuChiDanhGia}' 
         AND hinhthucphanloai.NoiDungHinhThucPhanLoai = '{$noiDungHinhThucPhanLoai}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+    //get lớp học trong bộ môn
+    public function getLopHocTrongBoMon($maBoMon)
+    {
+        $result = $this->db->con->query("SELECT *
+        FROM hocphan JOIN lophocphan ON hocphan.MaHocPhan = lophocphan.MaHocPhan
+        WHERE hocphan.MaBoMon = '{$maBoMon}'");
         $resultArr = array();
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             $resultArr[] = $row;

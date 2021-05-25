@@ -76,7 +76,9 @@ if (isset($_POST["submit"])) {
     $maHoatDongKhaoSat = $lopHocPhan->getThongTinHoatDongKhaoSat($noiDungHoatDong);
 
     // thông tin mã giáo viên line f[6] "Cán bộ:	2001023 - Phạm Thị Kim Ngoan"
-    $thongTinMaGiaoVien = substr($f[6], 80);
+    $viTriCanBo = strpos($f[6], 'Cán'); // tìm vị trí từ Cán bộ
+    $thongTinMaGiaoVien = substr($f[6], $viTriCanBo);
+    // echo substr($f[6], $viTriCanBo);
     $maGiaoVien = intval(preg_replace('/[^0-9]/', '', $thongTinMaGiaoVien));
     $giaoVienCoTrongDB  = $lopHocPhan->checkGiaoVienCoTrongDB($maGiaoVien);
     if ($giaoVienCoTrongDB === TRUE) {
@@ -115,7 +117,7 @@ if (isset($_POST["submit"])) {
             intval($maHoatDongKhaoSat)
         );
     } else {
-        echo "Dữ liệu trùng nhau: bảng lớp học phần PROVIP <br><br>";
+        echo "Dữ liệu trùng nhau: bảng lớp học phần <br><br>";
     }
 
 

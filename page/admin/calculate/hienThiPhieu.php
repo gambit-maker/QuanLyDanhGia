@@ -68,12 +68,34 @@ if (isset($_GET["MaLopHocPhan"])) {
 }
 ?>
 
+<style>
+    /* Table cho hiển thị phiếu  */
+    .table-phieu {
+        /* font-family: arial, sans-serif; */
+        font-size: 0.9em;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .table-phieu thead th {
+        text-align: center;
+    }
+
+    .table-phieu td,
+    th {
+        border: 1px solid black;
+        text-align: left;
+    }
+
+    .centerItem {
+        text-align: center;
+    }
+</style>
 
 
 <h2 style="text-align: center;">Thống kê kết quả lấy ý kiến phản hồi từ người học</h2>
 <h3 style="text-align: center;">Về hoạt động: <?php echo $tenHoatDongKhaoSat; ?></h3>
 <h4 style="text-align: center;">Học kỳ <?php echo $tenHocKy; ?> / Năm học <?php echo $namHoc . "-" . $namHoc + 1; ?></h4>
-
 <div class="container pt-5 ">
     <div class="row">
         <div class="col-sm">

@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -48,11 +52,11 @@
         $accountNhanVien = $account->getAccountNhanVien($maNguoiDung, $matKhau);
 
 
-        if ($accountGiaoVien != null) {
+        if ($accountGiaoVien != null) { // có giáo viên
             $accountInfo = $accountGiaoVien;
             $userID = $accountInfo[0]['MaGiaoVien'];
             $userRole = $account->getUserRoleGiaoVien($userID, 'giaovien', 'MaGiaoVien');
-        } else if ($accountNhanVien != null) {
+        } else if ($accountNhanVien != null) { // có nhân viên
             // mysql does not care about upper or lower case in sreach
             // so use this to check if it's exacly the same
             if ($accountNhanVien[0]['MaNhanVien'] == $maNguoiDung) {
@@ -68,7 +72,8 @@
 
 
 
-        if ($accountInfo != null) {
+        if ($accountInfo != null) { // có account
+            $_SESSION['MaDangNhap'] = $maNguoiDung;
             header("location: index.php?TenChucVu=" . $userRole);
         }
 

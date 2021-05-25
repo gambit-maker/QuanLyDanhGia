@@ -1,19 +1,5 @@
 <h2>Xem thông tin thống kê</h2>
-<!-- <form action="" method="POST">
-    <div class="d-flex align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group me-2">
-                <button type="button" name="submit" class="btn btn-sm btn-outline-secondary">Import</button>
 
-                <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-            </div>
-            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                <span data-feather="calendar"></span>
-                This week
-            </button>
-        </div>
-    </div>
-</form> -->
 
 <?php
 $khoa = $infoSmallTable->getThongTinBang('Khoa');
@@ -40,9 +26,21 @@ $khoa = $infoSmallTable->getThongTinBang('Khoa');
 
 <?php
 // get thông tin lớp học phần có phiếu đánh giá
-$thongTinLop = $lopHocPhan->getLopHocPhan();
+
+
 if (isset($_GET["TenChucVu"])) {
     $tenChucVu = $_GET["TenChucVu"];
+    if ($tenChucVu === 'admin') {
+        $thongTinLop = $lopHocPhan->getLopHocPhan(); // get all lớp học phần nếu là admin
+    } elseif ($tenChucVu === 'giaovien') {
+        $thongTinLop = $lopHocPhan->getLopHocPhanGiaoVien($_SESSION['MaDangNhap']);
+    } elseif ($tenChucVu === 'truongbomon') {
+        $maBoMon = $infoSmallTable->getThongTinGiaoVien($_SESSION['MaDangNhap'], 'MaBoMon');
+        $thongTinLop = $lopHocPhan->getLopHocTrongBoMon($maBoMon);
+    } elseif ($tenChucVu === 'truongkhoa') {
+        $maKhoaGiaoVien = $infoSmallTable->getMaKhoaGiaoVien($_SESSION['MaDangNhap']);
+        $thongTinLop = $infoSmallTable->getMonHocTrongKhoa($maKhoaGiaoVien);
+    }
 }
 ?>
 <div class="container">
@@ -146,17 +144,6 @@ if (isset($_GET["TenChucVu"])) {
             <?php
             endforeach;
             ?>
-            <!-- <tr>
-                <td>1</td>
-                <td>john</td>
-                <td>CNTT</td>
-                <td>Lorem, ipsum.</td>
-                <td>Lorem, ipsum.</td>
-                <td>Lorem, ipsum.</td>
-                <td>Lorem, ipsum.</td>
-                <td>Lorem, ipsum.</td>
-                <td>Lorem, ipsum.</td>
-            </tr> -->
         </tbody>
     </table>
 </div>

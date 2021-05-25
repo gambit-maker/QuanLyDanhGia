@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!doctype html>
 <html lang="en">
 
@@ -46,12 +49,37 @@ if ($_GET["TenChucVu"]) {
 if (isset($_GET["page"])) {
     $page = $_GET["page"];
 }
+$tenGiaoVien = NULL;
+if ($tenChucVu === 'giaovien') {
+    $tenGiaoVien = $infoSmallTable->getThongTinGiaoVien($_SESSION['MaDangNhap'], 'TenGiaoVien');
+    $tenCV = "Giáo Viên";
+}
+
+if ($tenChucVu === 'truongbomon') {
+    $tenGiaoVien = $infoSmallTable->getThongTinGiaoVien($_SESSION['MaDangNhap'], 'TenGiaoVien');
+    $tenCV = "Trưởng bộ môn";
+}
+if ($tenChucVu === 'truongkhoa') {
+    $tenGiaoVien = $infoSmallTable->getThongTinGiaoVien($_SESSION['MaDangNhap'], 'TenGiaoVien');
+    $tenCV = "Trưởng Khoa";
+}
+
+if ($tenChucVu === 'admin' || $tenChucVu === 'nhanvien') {
+    if ($tenChucVu === 'nhanvien') {
+        $tenCV = "Nhân Viên";
+    }
+    if ($tenChucVu === 'admin') {
+        $tenCV = "Admin";
+    }
+    $tenGiaoVien = $account->getTenNhanVien($_SESSION['MaDangNhap'], 'NhanVien', 'MaNhanVien');
+}
+
 ?>
 
 <body>
 
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#"><?php echo $tenChucVu; ?></a>
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#"><?php echo $tenCV . "<br>" . $tenGiaoVien; ?></a>
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -90,7 +118,7 @@ if (isset($_GET["page"])) {
                             </li>
                         <?php endif; ?>
 
-                        <?php if ($tenChucVu == 'giaovien') : ?>
+                        <?php if ($tenChucVu == 'giaovien' || $tenChucVu === 'truongbomon' || $tenChucVu === 'truongkhoa') : ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=ratingInfo">
                                     <span data-feather="users"></span>
@@ -150,7 +178,7 @@ if (isset($_GET["page"])) {
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 
-                <div class="table-responsive">
+                <div id="table-responsive">
                     <?php
                     if (isset($page)) {
                         switch ($page) {
@@ -161,9 +189,12 @@ if (isset($_GET["page"])) {
                                 include('page/admin/calculate/calculate.php');
                                 break;
                             case 'ratingInfo':
-                                include('page/teacher/ratingInfo.php');
+                                // include('page/teacher/ratingInfo.php');
+                                include('page/admin/calculate/calculate.php');
+                                break;
                             case 'htPhieu':
                                 include('page/admin/calculate/hienThiPhieu.php');
+                                break;
                             default:
                                 # code...
                                 break;

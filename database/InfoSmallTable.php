@@ -123,7 +123,7 @@ class InfoSmallTable
         return $resultArr[0][$thongTin];
     }
 
-    // get mã khoa
+    // get tên khoa
     public function getTenKhoa($maKhoa)
     {
         $result = $this->db->con->query("SELECT TenKhoa FROM Khoa WHERE MaKhoa = '{$maKhoa}'");
@@ -231,6 +231,34 @@ class InfoSmallTable
         nhomtieuchi JOIN tieuchidanhgia ON nhomtieuchi.MaNhomTieuChi = tieuchidanhgia.MaNhomTieuChi
         JOIN hinhthucphanloai ON hinhthucphanloai.MaTieuChiDanhGia = tieuchidanhgia.MaTieuChi
         WHERE nhomtieuchi.MaNhomTieuChi = '{$nhomtieuchi}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+    //get mã khoa của giáo viên
+    public function getMaKhoaGiaoVien($maGiaoVien)
+    {
+        $result = $this->db->con->query("SELECT * 
+        FROM khoa JOIN bomon ON khoa.MaKhoa = bomon.MaKhoa
+        JOIN giaovien ON giaovien.MaBoMon = bomon.MaBoMon
+        WHERE MaGiaoVien = '{$maGiaoVien}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr[0]['MaKhoa'];
+    }
+
+    //get tất cả môn học trong khoa
+    public function getMonHocTrongKhoa($maKhoa)
+    {
+        $result = $this->db->con->query("SELECT * FROM 
+        bomon JOIN hocphan ON bomon.MaBoMon = hocphan.MaBoMon
+        JOIN lophocphan on hocphan.MaHocPhan = lophocphan.MaHocPhan
+        WHERE bomon.MaKhoa = '{$maKhoa}'");
         $resultArr = array();
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             $resultArr[] = $row;
