@@ -16,7 +16,7 @@ class LopHocPhan
     {
         $result = $this->db->con->query("INSERT INTO `cauhoicuahoatdong`(`MaHoatDongKhaoSat`, `MaCauHoi`) VALUES ('{$maHoatDong}','{$maCauHoi}')");
         if ($result === TRUE) {
-            echo '----add new record in CauHoiCuaHoatDong----';
+            // echo '----add new record in CauHoiCuaHoatDong----';
         } else {
             echo '----Not thing add to CauHoiCuaHoatDong----';
         }
@@ -42,7 +42,7 @@ class LopHocPhan
     {
         $result = $this->db->con->query("INSERT INTO LopHocPhan (MaHocPhan,MaNamHoc,MaHocKy,MaGiaoVien,MaNhomHocPhan,MaHoatDongKhaosat) VALUE('{$maHocPhan}','{$maNamHoc}','{$maHocKy}','{$maGiaoVien}','{$maNhomHocPhan}','{$maHoatDongKhaoSat}')");
         if ($result === TRUE) {
-            echo '----add new record in themLopHocPhan ----';
+            // echo '----add new record in themLopHocPhan ----';
         } else {
             echo "----not thing add to LopHocPhan ----";
         }
@@ -53,7 +53,7 @@ class LopHocPhan
     {
         $result = $this->db->con->query("INSERT INTO PhieuKhaoSat (MaLoaiPhieu,MaLopHocPhan,MaHoatDongKhaoSat) VALUE ('{$maLoaiPhieu}','{$maLopHocPhan}','{$maHoatDongKhaoSat}')");
         if ($result === TRUE) {
-            echo '----add new record in PhieuKhaoSat ----';
+            // echo '----add new record in PhieuKhaoSat ----';
         } else {
             echo '----not thing add to PhieuKhaoSat ----';
         }
@@ -64,7 +64,7 @@ class LopHocPhan
     {
         $result = $this->db->con->query("INSERT INTO `chitietkhaosatphieu`(`MaPhieuKhaoSat`, `MaTieuChiDanhGia`, `MaHinhThucPhanLoai`, `DiemSo`) VALUES ('{$maPhieuKhaoSat}','{$maTieuChiDanhGia}','{$maHinhThucPhanLoai}','{$diemSo}')");
         if ($result === TRUE) {
-            echo '<br>add new record in ChiTietPhieuKhaoSat<br>';
+            // echo '<br>add new record in ChiTietPhieuKhaoSat<br>';
         } else {
             echo '<br>Not thing add to ChiTietPhieuKhaoSat<br>';
         }
@@ -143,7 +143,10 @@ class LopHocPhan
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             $resultArr[] = $row;
         }
-        return $resultArr[0]['MaNamHoc'];
+        if (count($resultArr) > 0) {
+            return $resultArr[0]['MaNamHoc'];
+        }
+        return NULL;
     }
 
     //get thông tin lớp học phần
@@ -176,7 +179,10 @@ class LopHocPhan
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             $resultArr[] = $row;
         }
-        return $resultArr[0]['MaHoatDong'];
+        if (count($resultArr) > 0) {
+            return $resultArr[0]['MaHoatDong'];
+        }
+        return NULL;
     }
 
     // get thong tin loại phiếu 

@@ -49,9 +49,9 @@ if (isset($_POST["submit"])) {
     $f = file($target_file);
 
     // -------------------- [SECTION] thêm lớp học phần -----------------------------//
-    $namHoc = substr($f[4], -20);
-    $month = substr($f[4], -23, 2);
-    $month = intval($month);
+    $viTriNgayLap = strpos($f[4], 'Ngày lập');
+    $namHoc = intval(substr($f[4], $viTriNgayLap + 19)); // VD Ngày lập: 01-02-'2021' lấy năm 2021    
+    $month = intval(substr($f[4], $viTriNgayLap + 16, 2));
 
     if ($month === 9 || $month === 10 || $month === 11 || $month === 12 || $month === 1) {
         $hocKy = 1;
@@ -62,7 +62,8 @@ if (isset($_POST["submit"])) {
     }
 
     $maNhom = substr($f[6], 34, 2);
-    $maLopHocPhan = '';
+    $checkMaNhom = $infoSmallTable->getThongTinNhom($maNhom);
+    $maLopHocPhan = null;
     $arrDuLieuLopHocPhan = $lopHocPhan->getMaDuLieuHocPhan();
     foreach ($arrDuLieuLopHocPhan as $item) {
         if (str_contains($f[6], $item['MaDuLieuHocPhan'])) {
@@ -81,11 +82,37 @@ if (isset($_POST["submit"])) {
     // echo substr($f[6], $viTriCanBo);
     $maGiaoVien = intval(preg_replace('/[^0-9]/', '', $thongTinMaGiaoVien));
     $giaoVienCoTrongDB  = $lopHocPhan->checkGiaoVienCoTrongDB($maGiaoVien);
-    if ($giaoVienCoTrongDB === TRUE) {
-        // echo "have teacher in DB";
-    } else {
-        echo "Dont have teacher in DB";
+    // if ($giaoVienCoTrongDB === TRUE) {
+    //     // echo "have teacher in DB";
+    // } else {
+    //     // echo "Dont have teacher in DB";
+    // }
+
+    $dataIsCLear = TRUE;
+    $trungNhau = FALSE;
+    // echo $maLopHocPhan;
+    if ($maLopHocPhan === NULL) {
+        echo "<br>Mã lớp học phần không có trong DB<br>";
+        $dataIsCLear = FALSE;
     }
+    if ($checkMaNhom === NULL) {
+        echo "Mã nhóm không có trong DB<br>";
+        $dataIsCLear = FALSE;
+    }
+    if ($maNamHoc === NULL) {
+        echo "Năm học không có trong DB<br>";
+        $dataIsCLear = FALSE;
+    }
+    if ($giaoVienCoTrongDB === FALSE) {
+        echo "Mã giáo viên không có trong DB<br>";
+        $dataIsCLear = FALSE;
+    }
+    if ($maHoatDongKhaoSat === NULL) {
+        echo "Hoạt động khảo sát không có trong DB<br>";
+        $dataIsCLear = FALSE;
+    }
+
+
 
     // echo $maHoatDongKhaoSat . "<br>";
     // echo $noiDungHoatDong . "<br>";
@@ -94,21 +121,10 @@ if (isset($_POST["submit"])) {
     // echo $maNhom . "<br>";
     // echo $maLopHocPhan . "<br>";
     // echo $month . "<br>";
-    // echo $namHoc . "<br>";
-
+    // echo $namHoc . "<br>";    
     // ======================================================================
-    $trungNhau = $lopHocPhan->checkLopHocPhan(
-        intval($maLopHocPhan),
-        intval($maNamHoc),
-        intval($hocKy),
-        intval($maGiaoVien),
-        intval($maNhom),
-        intval($maHoatDongKhaoSat)
-    );
-
-    if ($trungNhau === TRUE) {
-        /* ***************** 1. CODE THÊM DỮ LIỆU LỚP HỌC PHẦN **************** */
-        $lopHocPhan->themLopHocPhan(
+    if ($dataIsCLear === TRUE) {
+        $trungNhau = $lopHocPhan->checkLopHocPhan(
             intval($maLopHocPhan),
             intval($maNamHoc),
             intval($hocKy),
@@ -116,9 +132,26 @@ if (isset($_POST["submit"])) {
             intval($maNhom),
             intval($maHoatDongKhaoSat)
         );
+        if ($trungNhau === TRUE) {
+            /* ***************** 1. CODE THÊM DỮ LIỆU LỚP HỌC PHẦN **************** */
+            $lopHocPhan->themLopHocPhan(
+                intval($maLopHocPhan),
+                intval($maNamHoc),
+                intval($hocKy),
+                intval($maGiaoVien),
+                intval($maNhom),
+                intval($maHoatDongKhaoSat)
+            );
+        } else {
+            $trungNhau = FALSE;
+            echo "Dữ liệu trùng nhau: bảng lớp học phần<br>";
+        }
     } else {
-        echo "Dữ liệu trùng nhau: bảng lớp học phần <br><br>";
+        echo "<br>Hãy kiểm tra lại dữ liệu<br>";
     }
+
+
+
 
 
 
@@ -142,7 +175,7 @@ if (isset($_POST["submit"])) {
 
 
 
-    if ($trungNhau === TRUE) { // không cho phép dữ liệu trùng nhau
+    if ($trungNhau === TRUE && $dataIsCLear === TRUE) { // không cho phép dữ liệu trùng nhau và data hợp lệ
         $maLopHocPhanV2 = $lopHocPhan->getMaLopHocPhan( // mã lớp học phần bên phiếu khảo sát
             // lấy dữ liệu chính xác với tất cả khóa phụ để có mã lớp chính xác
             intval($maLopHocPhan),
@@ -198,7 +231,7 @@ if (isset($_POST["submit"])) {
             }
         }
     } else {
-        echo "insert failed : phiếu khảo sát <br><br>";
+        echo "insert failed : phiếu khảo sát <br>Hãy kiểm tra lại dữ liệu<br>";
     }
     //======================================================================
 

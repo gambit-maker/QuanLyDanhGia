@@ -87,7 +87,10 @@ class InfoSmallTable
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             $resultArr[] = $row;
         }
-        return $resultArr[0]['TenNhomHocPhan'];
+        if (count($resultArr) > 0) {
+            return $resultArr[0]['TenNhomHocPhan'];
+        }
+        return NULL;
     }
 
     //get thông tin học phần
