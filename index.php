@@ -18,6 +18,23 @@ session_start();
 
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- <link rel="stylesheet" href="/resources/demos/style.css"> bỏ -->
+    <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+    <!-- Filter With column -->
+    <script src="js/Filter.js"></script>
+    <link href="css/Filter.css" rel="stylesheet">
+
 
     <style>
         .bd-placeholder-img {
@@ -39,6 +56,8 @@ session_start();
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
     <link href="css/customTable.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/sidebar.css">
+
 </head>
 
 <?php
@@ -77,134 +96,160 @@ if ($tenChucVu === 'admin' || $tenChucVu === 'nhanvien') {
 ?>
 
 <body>
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h4>Page content</h4>
+            </div>
 
-    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#"><?php echo $tenCV . "<br>" . $tenGiaoVien; ?></a>
-        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
-        <ul class="navbar-nav px-3">
-            <li class="nav-item text-nowrap">
-                <a class="nav-link" href="login.php">Sign out</a>
-            </li>
-        </ul>
-    </header>
-
-    <div class="container-fluid">
-        <div class="row">
-            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-                <div class="position-sticky pt-3">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="index.php?TenChucVu=<?php echo $tenChucVu; ?>">
-                                <span data-feather="home"></span>
-                                Trang chủ
-                            </a>
-                        </li>
-
-                        <?php if ($tenChucVu == 'admin') : ?>
-                            <li class="nav-item">
-                                <a class="nav-link" href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=data">
-                                    <span data-feather="file"></span>
-                                    Dữ liệu
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=calculate">
-                                    <span data-feather="shopping-cart"></span>
-                                    Thống kê
-                                </a>
-                            </li>
-                        <?php endif; ?>
-
-                        <?php if ($tenChucVu == 'giaovien' || $tenChucVu === 'truongbomon' || $tenChucVu === 'truongkhoa') : ?>
-                            <li class="nav-item">
-                                <a class="nav-link" href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=ratingInfo">
-                                    <span data-feather="users"></span>
-                                    Xem đánh giá
-                                </a>
-                            </li>
-                        <?php endif; ?>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="bar-chart-2"></span>
-                                Reports
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="layers"></span>
-                                Integrations
-                            </a>
-                        </li>
-                    </ul>
-
-                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                        <span>Saved reports</span>
-                        <a class="link-secondary" href="#" aria-label="Add a new report">
-                            <span data-feather="plus-circle"></span>
+            <ul class="list-unstyled components">
+                <p>Page</p>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="index.php?TenChucVu=<?php echo $tenChucVu; ?>">
+                        <span data-feather="home"></span>
+                        Trang chủ
+                    </a>
+                </li>
+                <?php if ($tenChucVu === 'admin') : ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=data">
+                            <span data-feather="file"></span>
+                            Dữ liệu
                         </a>
-                    </h6>
-                    <ul class="nav flex-column mb-2">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="file-text"></span>
-                                Current month
-                            </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=calculate">
+                            <span data-feather="shopping-cart"></span>
+                            Thống kê
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=thongkenangcao">
+                            <span data-feather="shopping-cart"></span>
+                            Thống kê nâng cao
+                        </a>
+                    </li>
+                <?php endif; ?>
+                <?php if ($tenChucVu == 'giaovien' || $tenChucVu === 'truongbomon' || $tenChucVu === 'truongkhoa') : ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=ratingInfo">
+                            <span data-feather="users"></span>
+                            Xem đánh giá
+                        </a>
+                    </li>
+                <?php endif; ?>
+                <li>
+                    <a href="#">About</a>
+                </li>
+                <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a href="#">Page 1</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="file-text"></span>
-                                Last quarter
-                            </a>
+                        <li>
+                            <a href="#">Page 2</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="file-text"></span>
-                                Social engagement
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="file-text"></span>
-                                Year-end sale
-                            </a>
+                        <li>
+                            <a href="#">Page 3</a>
                         </li>
                     </ul>
+                </li>
+                <li>
+                    <a href="#">Portfolio</a>
+                </li>
+                <li>
+                    <a href="#">Contact</a>
+                </li>
+            </ul>
+
+            <ul class="list-unstyled CTAs">
+                <li>
+                    <a href="login.php" class="download">Sign out </a>
+                </li>
+                <!-- <li>
+                    <a href="login.php" class="article">Sign out</a>
+                </li> -->
+            </ul>
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                        <!-- <span>Toggle Sidebar</span> -->
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav m-auto">
+
+                            <li class="nav-item">
+                                <h4><a class="nav-link" href="#"><?php echo $tenCV . ": " . $tenGiaoVien; ?></a></h4>
+                            </li>
+                            <!-- <li class="nav-item">
+                                <a class="nav-link" href="#"><?php echo $tenGiaoVien; ?></a>
+                            </li> -->
+                        </ul>
+                    </div>
                 </div>
             </nav>
 
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <?php
+            if (isset($page)) {
+                switch ($page) {
+                    case 'data':
+                        include('page/admin/insert/data.php');
+                        break;
+                    case 'calculate':
+                        include('page/admin/calculate/calculate.php');
+                        break;
+                    case 'ratingInfo':
+                        // include('page/teacher/ratingInfo.php');
+                        include('page/admin/calculate/calculate.php');
+                        break;
+                    case 'htPhieu':
+                        include('page/admin/calculate/hienThiPhieu.php');
+                        break;
+                    case 'thongkenangcao':
+                        include('page/admin/calculate/thongKeNangCao.php');
+                        break;
+                    default:
+                        # code...
+                        break;
+                }
+            }
+            ?>
 
-                <div id="table-responsive">
-                    <?php
-                    if (isset($page)) {
-                        switch ($page) {
-                            case 'data':
-                                include('page/admin/insert/data.php');
-                                break;
-                            case 'calculate':
-                                include('page/admin/calculate/calculate.php');
-                                break;
-                            case 'ratingInfo':
-                                // include('page/teacher/ratingInfo.php');
-                                include('page/admin/calculate/calculate.php');
-                                break;
-                            case 'htPhieu':
-                                include('page/admin/calculate/hienThiPhieu.php');
-                                break;
-                            default:
-                                # code...
-                                break;
-                        }
-                    }
-                    ?>
-                </div>
-            </main>
+
         </div>
     </div>
+
+
+    <!-- easy filter ψ(｀∇´)ψ -->
+
+    <!-- <script src="https://www.w3schools.com/lib/w3.js"></script> -->
+    <script>
+        var myInput = document.querySelectorAll(".myInput");
+        console.log(myInput);
+        for (let i = 0; i < myInput.length; i++) {
+            myInput[i].setAttribute('size', myInput[i].getAttribute('placeholder').length);
+        }
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#sidebarCollapse').on('click', function() {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>

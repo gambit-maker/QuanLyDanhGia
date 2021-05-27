@@ -52,7 +52,6 @@ if (isset($_POST["submit"])) {
     $viTriNgayLap = strpos($f[4], 'Ngày lập');
     $namHoc = intval(substr($f[4], $viTriNgayLap + 19)); // VD Ngày lập: 01-02-'2021' lấy năm 2021    
     $month = intval(substr($f[4], $viTriNgayLap + 16, 2));
-
     if ($month === 9 || $month === 10 || $month === 11 || $month === 12 || $month === 1) {
         $hocKy = 1;
     } else if ($month === 2 || $month === 3 || $month === 4 || $month === 5 || $month === 6) {

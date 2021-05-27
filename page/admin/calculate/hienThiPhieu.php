@@ -71,7 +71,7 @@ if (isset($_GET["MaLopHocPhan"])) {
 <style>
     /* Table cho hiển thị phiếu  */
     .table-phieu {
-        /* font-family: arial, sans-serif; */
+        font-family: arial, sans-serif;
         font-size: 0.9em;
         border-collapse: collapse;
         width: 100%;
@@ -453,7 +453,7 @@ if (isset($_GET["MaLopHocPhan"])) {
             </th>
 
             <?php for ($i = 0; $i < count($arrHinhThucPhanLoaiNhom2) - 1; $i++) : ?>
-                <th>
+                <th class="centerItem">
                     <?php
                     $tieuChiDay = $infoSmallTable->getCountHinhThucPhanLoai($lopHP['MaLopHocPhan'], $arrHinhThucPhanLoaiNhom2[$i]['NoiDungHinhThucPhanLoai']);
                     $yKienKhac = $infoSmallTable->getCountHinhThucPhanLoai($lopHP['MaLopHocPhan'], $arrHinhThucPhanLoaiNhom3[$i]['NoiDungHinhThucPhanLoai']);
