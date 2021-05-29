@@ -135,131 +135,127 @@ if (isset($_GET["TenChucVu"])) {
     <div class="top">
         <h4>Danh sách phiếu theo lớp</h4>
     </div>
-    <div class="row">
-        <div class="panel panel-primary filterable">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span>Click To Apply Filter</button>
-                </h3>
-            </div>
-            <table class="table table-bordered table-striped " id="watch-table">
-                <thead>
-                    <tr class="filters">
-                        <div class="input-group input-group-sm">
-                            <th><input class="myInput form-control" type="text" disabled placeholder="STT"></th>
-                            <th><input class="myInput form-control" type="text" disabled placeholder="Giáo viên"></th>
-                            <th><input class="myInput form-control" type="text" disabled placeholder="Khoa"></th>
-                            <th><input class="myInput form-control" type="text" disabled placeholder="Bộ môn"></th>
-                            <th><input class="myInput form-control" type="text" disabled placeholder="Tên học phần"></th>
-                            <th><input class="myInput form-control" type="text" disabled placeholder="Nhóm"></th>
-                            <th><input class="myInput form-control" type="text" disabled placeholder="Năm học"></th>
-                            <th><input class="myInput form-control" type="text" disabled placeholder="Học kỳ"></th>
-                            <th><input class="myInput form-control" type="text" disabled placeholder="Hoạt động "></th>
-                        </div>
+    <table class="tfilter table table-striped">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Giáo viên</th>
+                <th>Khoa</th>
+                <th>Bộ môn</th>
+                <th>Tên học phần</th>
+                <th>Nhóm</th>
+                <th>Năm học</th>
+                <th>Học kỳ</th>
+                <th>Hoạt động khảo sát</th>
+                <th colspan="2">Dữ liệu kết quả</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $count = 1;
+            foreach ($thongTinLop as $item) :
+            ?>
+                <tr>
+                    <td>
+                        <?php
+                        // STT
+                        echo $count;
+                        $count++;
+                        ?>
+                    </td>
+                    <td>
+                        <?php
+                        //tên giáo viên
+                        $tenGiaoVien = $infoSmallTable->getThongTinGiaoVien($item['MaGiaoVien'], 'TenGiaoVien');
+                        echo $tenGiaoVien;
+                        ?>
+                    </td>
+                    <td>
+                        <?php
+                        //Tên khoa
+                        $maBoMon = $infoSmallTable->getThongTinGiaoVien($item['MaGiaoVien'], 'MaBoMon');
+                        $maKhoa = $infoSmallTable->getThongTinBoMon($maBoMon, 'MaKhoa');
+                        $tenKhoa = $infoSmallTable->getTenKhoa($maKhoa);
+                        echo $tenKhoa;
+                        ?>
+                    </td>
+                    <td>
+                        <?php
+                        //Tên bộ môn
+                        $maBoMon = $infoSmallTable->getThongTinGiaoVien($item['MaGiaoVien'], 'MaBoMon');
+                        $tenBoMon = $infoSmallTable->getThongTinBoMon($maBoMon, 'TenBoMon');
+                        echo $tenBoMon;
 
 
-                        <!-- <th>STT</th>
-                    <th>Giáo viên</th>
-                    <th>Khoa</th>
-                    <th>Bộ môn</th>
-                    <th>Tên học phần</th>
-                    <th>Nhóm</th>
-                    <th>Năm học</th>
-                    <th>Học kỳ</th>
-                    <th>Hoạt động khảo sát</th> -->
+                        ?>
+                    </td>
+                    <td>
+                        <?php
+                        // tên học phần
+                        $tenHocPhan = $infoSmallTable->getThongTinHocPhan($item['MaHocPhan'], $noidung = 'TenHocPhan');
+                        echo $tenHocPhan;
+                        ?>
+                    </td>
+                    <td>
+                        <?php
+                        // tên học nhóm
+                        $tenNhom = $infoSmallTable->getThongTinNhom($item['MaNhomHocPhan']);
+                        echo $tenNhom;
+                        ?>
+                    </td>
+                    <td>
+                        <?php
+                        // tên học năm học
+                        $tenNamHoc = $infoSmallTable->getThongTinNam($item['MaNamHoc']);
+                        echo $tenNamHoc;
+                        ?>
+                    </td>
+                    <td>
+                        <?php
+                        // tên học học kỳ
+                        $tenHocKy = $infoSmallTable->getThongTinHocKy($item['MaHocKy']);
+                        echo $tenHocKy;
+                        ?>
+                    </td>
+                    <td>
+                        <?php
+                        // tên học hoạt động khảo sát
+                        $tenHoatDongKhaoSat = $infoSmallTable->getThongTinHoatDongKhaoSat($item['MaHoatDongKhaoSat']);
+                        echo $tenHoatDongKhaoSat;
+                        ?>
+                    </td>
+                    <td>
+                        <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=htPhieu&MaLopHocPhan=<?php echo $item['MaLopHocPhan']; ?>" class="btn btn-sm btn-outline-secondary">Phiếu</a>
+                        <a href="" class="btn btn-sm btn-outline-secondary">Góp ý</a>
+                    </td>
+                </tr>
+            <?php
+            endforeach;
+            ?>
+        </tbody>
+    </table>
 
-                        <th colspan="2">Dữ liệu kết quả</th>
-                    </tr>
-                </thead>
-                <tbody style="text-align: center;">
-                    <?php
-                    $count = 1;
-                    foreach ($thongTinLop as $item) :
-                    ?>
-                        <tr class="item">
-                            <td>
-                                <?php
-                                // STT
-                                echo $count;
-                                $count++;
-                                ?>
-                            </td>
-                            <td>
-                                <?php
-                                //tên giáo viên
-                                $tenGiaoVien = $infoSmallTable->getThongTinGiaoVien($item['MaGiaoVien'], 'TenGiaoVien');
-                                echo $tenGiaoVien;
-                                ?>
-                            </td>
-                            <td>
-                                <?php
-                                //Tên khoa
-                                $maBoMon = $infoSmallTable->getThongTinGiaoVien($item['MaGiaoVien'], 'MaBoMon');
-                                $maKhoa = $infoSmallTable->getThongTinBoMon($maBoMon, 'MaKhoa');
-                                $tenKhoa = $infoSmallTable->getTenKhoa($maKhoa);
-                                echo $tenKhoa;
-                                ?>
-                            </td>
-                            <td>
-                                <?php
-                                //Tên bộ môn
-                                $maBoMon = $infoSmallTable->getThongTinGiaoVien($item['MaGiaoVien'], 'MaBoMon');
-                                $tenBoMon = $infoSmallTable->getThongTinBoMon($maBoMon, 'TenBoMon');
-                                echo $tenBoMon;
+    <script>
+        var tf = new TableFilter(document.querySelector('.tfilter'), {
+            base_path: 'js/tablefilter/',
 
+            highlight_keywords: true,
 
-                                ?>
-                            </td>
-                            <td>
-                                <?php
-                                // tên học phần
-                                $tenHocPhan = $infoSmallTable->getThongTinHocPhan($item['MaHocPhan'], $noidung = 'TenHocPhan');
-                                echo $tenHocPhan;
-                                ?>
-                            </td>
-                            <td>
-                                <?php
-                                // tên học nhóm
-                                $tenNhom = $infoSmallTable->getThongTinNhom($item['MaNhomHocPhan']);
-                                echo $tenNhom;
-                                ?>
-                            </td>
-                            <td>
-                                <?php
-                                // tên học năm học
-                                $tenNamHoc = $infoSmallTable->getThongTinNam($item['MaNamHoc']);
-                                echo $tenNamHoc;
-                                ?>
-                            </td>
-                            <td>
-                                <?php
-                                // tên học học kỳ
-                                $tenHocKy = $infoSmallTable->getThongTinHocKy($item['MaHocKy']);
-                                echo $tenHocKy;
-                                ?>
-                            </td>
-                            <td>
-                                <?php
-                                // tên học hoạt động khảo sát
-                                $tenHoatDongKhaoSat = $infoSmallTable->getThongTinHoatDongKhaoSat($item['MaHoatDongKhaoSat']);
-                                echo $tenHoatDongKhaoSat;
-                                ?>
-                            </td>
-                            <td>
-                                <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=htPhieu&MaLopHocPhan=<?php echo $item['MaLopHocPhan']; ?>" class="btn btn-sm btn-outline-secondary">Phiếu</a>
-                                <a href="" class="btn btn-sm btn-outline-secondary">Góp ý</a>
-                            </td>
-                        </tr>
-                    <?php
-                    endforeach;
-                    ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
+            paging: {
+                results_per_page: ['Records: ', [10, 25, 50, 100]]
+            },
+            // aligns filter at cell bottom when Bootstrap is enabled
+            // filters_cell_tag: 'th',
+            btn_reset: {
+                text: 'Clear'
+            },
 
-
-
-
-
+            // allows Bootstrap table styling
+            themes: [{
+                name: 'transparent'
+            }],
+            col_9: 'none'
+        });
+        tf.init();
+    </script>
 </div>

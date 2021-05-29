@@ -137,7 +137,7 @@ if (isset($_GET["MaLopHocPhan"])) {
 
 
 <div class="container pt-4 pb-5">
-    <table class="table-phieu">
+    <table class="table-phieu table">
         <thead>
             <tr>
                 <th style="width: 1%;">TT</th>
@@ -177,7 +177,8 @@ if (isset($_GET["MaLopHocPhan"])) {
                     // echo "Số lượng:" . $soLuongPhanLoai;
                     $arr = getArrGiaTriPhanLoai($infoSmallTable->getNoiDungHinhThucPhanLoai($item['MaTieuChi']));
                     ?>
-                    <?php if ($soLuongPhanLoai === 2) : ?>
+                    <?php if ($soLuongPhanLoai === 2) : //Đối với nhóm chỉ có 2 tiêu chí VD Nam, Nữ
+                    ?>
                         <tr>
                             <th></th>
                             <th></th>
@@ -196,7 +197,8 @@ if (isset($_GET["MaLopHocPhan"])) {
 
 
 
-                    <?php elseif ($soLuongPhanLoai === 6) : ?>
+                    <?php elseif ($soLuongPhanLoai === 6) : //đối với nhóm có 6 tiêu chí 
+                    ?>
                         <tr>
                             <th></th>
                             <th></th>
@@ -213,7 +215,8 @@ if (isset($_GET["MaLopHocPhan"])) {
                         </tr>
 
 
-                    <?php elseif ($soLuongPhanLoai === 3) : ?>
+                    <?php elseif ($soLuongPhanLoai === 3) : // 3 tiêu chí VD 80, 50, DUOI50 
+                    ?>
                         <tr>
                             <th></th>
                             <th></th>
@@ -276,7 +279,8 @@ if (isset($_GET["MaLopHocPhan"])) {
                         </th>
 
                         <?php if ($soLuongPhanLoai === 2) : ?>
-                            <?php for ($y = 0; $y < 1; $y++) : // $y = 2 nếu phân biệt được nam nữ 
+                            <?php for ($y = 0; $y < 1; $y++) :
+                                // $y = 2 nếu phân biệt được nam nữ dùng hoặc if cũng được ψ(｀∇´)ψ
                             ?>
                                 <th class="centerItem" colspan="6">
                                     <?php

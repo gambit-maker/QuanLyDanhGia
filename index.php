@@ -19,7 +19,6 @@ session_start();
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <!-- <link rel="stylesheet" href="/resources/demos/style.css"> bỏ -->
     <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 
@@ -31,10 +30,10 @@ session_start();
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
-    <!-- Filter With column -->
-    <script src="js/Filter.js"></script>
-    <link href="css/Filter.css" rel="stylesheet">
 
+    <!-- Super filter -->
+    <script src="js/tablefilter/tablefilter.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="/js/tablefilter/style/tablefilter.css" /> -->
 
     <style>
         .bd-placeholder-img {
@@ -231,17 +230,6 @@ if ($tenChucVu === 'admin' || $tenChucVu === 'nhanvien') {
         </div>
     </div>
 
-
-    <!-- easy filter ψ(｀∇´)ψ -->
-
-    <!-- <script src="https://www.w3schools.com/lib/w3.js"></script> -->
-    <script>
-        var myInput = document.querySelectorAll(".myInput");
-        console.log(myInput);
-        for (let i = 0; i < myInput.length; i++) {
-            myInput[i].setAttribute('size', myInput[i].getAttribute('placeholder').length);
-        }
-    </script>
 
     <script type="text/javascript">
         $(document).ready(function() {
