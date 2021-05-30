@@ -5,105 +5,6 @@
 $khoa = $infoSmallTable->getThongTinBang('Khoa');
 ?>
 
-
-<form action="" method="POST">
-    <!-- <div class="d-flex justify-content-around align-items-center pt-3 pb-2 mb-3">
-        <div>
-            <label class="text-align: center;">Khoa: </label>
-            <select class="btn btn-sm" name="hang" required>
-                <option value="" disabled selected>Chọn khoa</option>
-                <?php
-                foreach ($khoa as $item) :
-                ?>
-                    <option value="<?php echo $item['MaKhoa']; ?>"><?php echo $item['TenKhoa']; ?></option>
-                <?php
-                endforeach;
-                ?>
-            </select>
-        </div>
-
-        <div>
-            <label>Bộ môn: </label>
-            <select class="btn btn-sm" name="hang" required>
-                <option value="" disabled selected>Chọn bộ môn</option>
-                <?php
-                foreach ($khoa as $item) :
-                ?>
-                    <option value="<?php echo $item['MaKhoa']; ?>"><?php echo $item['TenKhoa']; ?></option>
-                <?php
-                endforeach;
-                ?>
-            </select>
-        </div>
-
-        <div>
-            <label>Môn học: </label>
-            <select class="btn btn-sm" name="hang" required>
-                <option value="" disabled selected>Chọn môn học</option>
-                <?php
-                foreach ($khoa as $item) :
-                ?>
-                    <option value="<?php echo $item['MaKhoa']; ?>"><?php echo $item['TenKhoa']; ?></option>
-                <?php
-                endforeach;
-                ?>
-            </select>
-        </div>
-    </div>
-
-    <div class="d-flex justify-content-around align-items-center pt-3 pb-2 mb-3">
-        <div>
-            <label>Kỳ: </label>
-            <select class="btn btn-sm" name="hang" required>
-                <option value="" disabled selected>Chọn kỳ</option>
-                <?php
-                foreach ($khoa as $item) :
-                ?>
-                    <option value="<?php echo $item['MaKhoa']; ?>"><?php echo $item['TenKhoa']; ?></option>
-                <?php
-                endforeach;
-                ?>
-            </select>
-        </div>
-
-        <div>
-            <label>Bộ môn: </label>
-            <select class="btn btn-sm" name="hang" required>
-                <option value="" disabled selected>Chọn bộ môn</option>
-                <?php
-                foreach ($khoa as $item) :
-                ?>
-                    <option value="<?php echo $item['MaKhoa']; ?>"><?php echo $item['TenKhoa']; ?></option>
-                <?php
-                endforeach;
-                ?>
-            </select>
-        </div>
-
-        <div>
-            <label>Năm học: </label>
-            <select class="btn btn-sm" name="hang" required>
-                <option value="" disabled selected>Chọn năm</option>
-                <?php
-                foreach ($khoa as $item) :
-                ?>
-                    <option value="<?php echo $item['MaKhoa']; ?>"><?php echo $item['TenKhoa']; ?></option>
-                <?php
-                endforeach;
-                ?>
-            </select>
-        </div>
-    </div> -->
-
-
-    <!-- <div class="input-group">
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="">Quick filter</span>
-        </div>
-        <input class="form-control" oninput="w3.filterHTML('#watch-table', '.item', this.value)" placeholder="quick sreach...">
-    </div> -->
-
-</form>
 <style>
     td,
     th {
@@ -114,6 +15,7 @@ $khoa = $infoSmallTable->getThongTinBang('Khoa');
 
 <?php
 // get thông tin lớp học phần có phiếu đánh giá
+
 
 
 if (isset($_GET["TenChucVu"])) {
@@ -131,7 +33,7 @@ if (isset($_GET["TenChucVu"])) {
     }
 }
 ?>
-<div class="">
+<div>
     <div class="top">
         <h4>Danh sách phiếu theo lớp</h4>
     </div>
