@@ -404,6 +404,383 @@ class LopHocPhan
         return $resultArr;
     }
 
+
+    // thống kê khoa theo năm học
+    public function getThongKeKhoaTheoNam($khoa, $namHoc)
+    {
+
+        $result = $this->db->con->query("SELECT *
+        FROM
+        lophocphan 
+        JOIN hocphan
+        ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        JOIN giaovien
+        ON giaovien.MaGiaoVien = lophocphan.MaGiaoVien
+        JOIN nhomhocphan
+        ON nhomhocphan.MaNhomHocPhan = lophocphan.MaNhomHocPhan
+        JOIN namhoc
+        ON namhoc.MaNamHoc = lophocphan.MaNamHoc
+        JOIN hocky
+        ON hocky.MaHocKy = lophocphan.MaHocKy
+        JOIN bomon
+        ON bomon.MaBoMon = giaovien.MaBoMon
+        JOIN khoa
+        ON khoa.MaKhoa = bomon.MaKhoa
+        WHERE khoa.TenKhoa = '{$khoa}' AND namhoc.ThoiGian = '{$namHoc}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+
+    //thống kê khoa theo năm học học kỳ
+    public function getThongKeKhoaHocKy($khoa, $namHoc, $hocKy)
+    {
+
+        $result = $this->db->con->query("SELECT *
+        FROM
+        lophocphan 
+        JOIN hocphan
+        ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        JOIN giaovien
+        ON giaovien.MaGiaoVien = lophocphan.MaGiaoVien
+        JOIN nhomhocphan
+        ON nhomhocphan.MaNhomHocPhan = lophocphan.MaNhomHocPhan
+        JOIN namhoc
+        ON namhoc.MaNamHoc = lophocphan.MaNamHoc
+        JOIN hocky
+        ON hocky.MaHocKy = lophocphan.MaHocKy
+        JOIN bomon
+        ON bomon.MaBoMon = giaovien.MaBoMon
+        JOIN khoa
+        ON khoa.MaKhoa = bomon.MaKhoa
+        WHERE khoa.TenKhoa = '{$khoa}' AND namhoc.ThoiGian = '{$namHoc}' AND hocky.TenHocKy = '{$hocKy}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+    //thống kê khoa theo khoảng năm học
+    public function getThongKeKhoaTheoKhoanNamHoc($khoa, $namHoc, $denNam)
+    {
+
+        $result = $this->db->con->query("SELECT *
+        FROM
+        lophocphan 
+        JOIN hocphan
+        ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        JOIN giaovien
+        ON giaovien.MaGiaoVien = lophocphan.MaGiaoVien
+        JOIN nhomhocphan
+        ON nhomhocphan.MaNhomHocPhan = lophocphan.MaNhomHocPhan
+        JOIN namhoc
+        ON namhoc.MaNamHoc = lophocphan.MaNamHoc
+        JOIN hocky
+        ON hocky.MaHocKy = lophocphan.MaHocKy
+        JOIN bomon
+        ON bomon.MaBoMon = giaovien.MaBoMon
+        JOIN khoa
+        ON khoa.MaKhoa = bomon.MaKhoa
+        WHERE khoa.TenKhoa = '{$khoa}' AND namhoc.ThoiGian BETWEEN '{$namHoc}' AND '{$denNam}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+
+    //thống kê khoa theo khoảng năm học hoc kỳ
+    public function getThongKeKhoaTheoKhoanNamHocVaHocKy($khoa, $namHoc, $denNam, $hocKy)
+    {
+
+        $result = $this->db->con->query("SELECT *
+        FROM
+        lophocphan 
+        JOIN hocphan
+        ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        JOIN giaovien
+        ON giaovien.MaGiaoVien = lophocphan.MaGiaoVien
+        JOIN nhomhocphan
+        ON nhomhocphan.MaNhomHocPhan = lophocphan.MaNhomHocPhan
+        JOIN namhoc
+        ON namhoc.MaNamHoc = lophocphan.MaNamHoc
+        JOIN hocky
+        ON hocky.MaHocKy = lophocphan.MaHocKy
+        JOIN bomon
+        ON bomon.MaBoMon = giaovien.MaBoMon
+        JOIN khoa
+        ON khoa.MaKhoa = bomon.MaKhoa
+        WHERE khoa.TenKhoa = '{$khoa}' 
+        AND namhoc.ThoiGian BETWEEN '{$namHoc}' AND '{$denNam}'
+        AND hocky.TenHocKy = '{$hocKy}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+
+    //thống kê bộ môn theo năm học
+    public function thongKeBoMonTheoNam($khoa, $boMon, $namHoc)
+    {
+
+        $result = $this->db->con->query("SELECT *
+        FROM
+        lophocphan 
+        JOIN hocphan
+        ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        JOIN giaovien
+        ON giaovien.MaGiaoVien = lophocphan.MaGiaoVien
+        JOIN nhomhocphan
+        ON nhomhocphan.MaNhomHocPhan = lophocphan.MaNhomHocPhan
+        JOIN namhoc
+        ON namhoc.MaNamHoc = lophocphan.MaNamHoc
+        JOIN hocky
+        ON hocky.MaHocKy = lophocphan.MaHocKy
+        JOIN bomon
+        ON bomon.MaBoMon = giaovien.MaBoMon
+        JOIN khoa
+        ON khoa.MaKhoa = bomon.MaKhoa
+        WHERE khoa.TenKhoa = '{$khoa}' 
+        AND namhoc.ThoiGian = '{$namHoc}' 
+        AND bomon.TenBoMon ='{$boMon}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+    //thống kê bộ môn theo năm học học kỳ
+    public function thongKeBoMonTheoNamVaHocKy($khoa, $boMon, $namHoc, $hocKy)
+    {
+
+        $result = $this->db->con->query("SELECT *
+        FROM
+        lophocphan 
+        JOIN hocphan
+        ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        JOIN giaovien
+        ON giaovien.MaGiaoVien = lophocphan.MaGiaoVien
+        JOIN nhomhocphan
+        ON nhomhocphan.MaNhomHocPhan = lophocphan.MaNhomHocPhan
+        JOIN namhoc
+        ON namhoc.MaNamHoc = lophocphan.MaNamHoc
+        JOIN hocky
+        ON hocky.MaHocKy = lophocphan.MaHocKy
+        JOIN bomon
+        ON bomon.MaBoMon = giaovien.MaBoMon
+        JOIN khoa
+        ON khoa.MaKhoa = bomon.MaKhoa
+        WHERE khoa.TenKhoa = '{$khoa}' 
+        AND namhoc.ThoiGian = '{$namHoc}' 
+        AND bomon.TenBoMon ='{$boMon}'
+        AND hocky.TenHocKy = '{$hocKy}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+    //thống kê bộ môn theo khoảng năm học
+    public function thongKeBoMonTheoKhoanNam($khoa, $boMon, $namHoc, $denNam)
+    {
+
+        $result = $this->db->con->query("SELECT *
+        FROM
+        lophocphan 
+        JOIN hocphan
+        ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        JOIN giaovien
+        ON giaovien.MaGiaoVien = lophocphan.MaGiaoVien
+        JOIN nhomhocphan
+        ON nhomhocphan.MaNhomHocPhan = lophocphan.MaNhomHocPhan
+        JOIN namhoc
+        ON namhoc.MaNamHoc = lophocphan.MaNamHoc
+        JOIN hocky
+        ON hocky.MaHocKy = lophocphan.MaHocKy
+        JOIN bomon
+        ON bomon.MaBoMon = giaovien.MaBoMon
+        JOIN khoa
+        ON khoa.MaKhoa = bomon.MaKhoa
+        WHERE khoa.TenKhoa = '{$khoa}' 
+        AND namhoc.ThoiGian BETWEEN '{$namHoc}' AND '{$denNam}' 
+        AND bomon.TenBoMon ='{$boMon}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+    //thống kê bộ môn theo khoảng năm học hoc kỳ
+    public function thongKeBoMonTheoKhoanNamCuaHocKy($khoa, $boMon, $namHoc, $denNam, $hocKy)
+    {
+
+        $result = $this->db->con->query("SELECT *
+        FROM
+        lophocphan 
+        JOIN hocphan
+        ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        JOIN giaovien
+        ON giaovien.MaGiaoVien = lophocphan.MaGiaoVien
+        JOIN nhomhocphan
+        ON nhomhocphan.MaNhomHocPhan = lophocphan.MaNhomHocPhan
+        JOIN namhoc
+        ON namhoc.MaNamHoc = lophocphan.MaNamHoc
+        JOIN hocky
+        ON hocky.MaHocKy = lophocphan.MaHocKy
+        JOIN bomon
+        ON bomon.MaBoMon = giaovien.MaBoMon
+        JOIN khoa
+        ON khoa.MaKhoa = bomon.MaKhoa
+        WHERE khoa.TenKhoa = '{$khoa}' 
+        AND namhoc.ThoiGian BETWEEN '{$namHoc}' AND '{$denNam}' 
+        AND bomon.TenBoMon ='{$boMon}'
+        AND hocky.TenHocKy = '{$hocKy}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+    //thống kê học phần theo năm học
+    public function thongKeHocPhanTheoNam($khoa, $boMon, $hocPhan, $namHoc)
+    {
+
+        $result = $this->db->con->query("SELECT *
+        FROM
+        lophocphan 
+        JOIN hocphan
+        ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        JOIN giaovien
+        ON giaovien.MaGiaoVien = lophocphan.MaGiaoVien
+        JOIN nhomhocphan
+        ON nhomhocphan.MaNhomHocPhan = lophocphan.MaNhomHocPhan
+        JOIN namhoc
+        ON namhoc.MaNamHoc = lophocphan.MaNamHoc
+        JOIN hocky
+        ON hocky.MaHocKy = lophocphan.MaHocKy
+        JOIN bomon
+        ON bomon.MaBoMon = giaovien.MaBoMon
+        JOIN khoa
+        ON khoa.MaKhoa = bomon.MaKhoa
+        WHERE khoa.TenKhoa = '{$khoa}' 
+        AND hocphan.TenHocPhan = '{$hocPhan}'
+        AND namhoc.ThoiGian = '{$namHoc}'
+        AND bomon.TenBoMon ='{$boMon}'        ");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+    //thống kê học phần theo năm học học kỳ
+    public function thongKeHocPhanTheoNamVaHocKy($khoa, $boMon, $hocPhan, $namHoc, $hocKy)
+    {
+
+        $result = $this->db->con->query("SELECT *
+        FROM
+        lophocphan 
+        JOIN hocphan
+        ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        JOIN giaovien
+        ON giaovien.MaGiaoVien = lophocphan.MaGiaoVien
+        JOIN nhomhocphan
+        ON nhomhocphan.MaNhomHocPhan = lophocphan.MaNhomHocPhan
+        JOIN namhoc
+        ON namhoc.MaNamHoc = lophocphan.MaNamHoc
+        JOIN hocky
+        ON hocky.MaHocKy = lophocphan.MaHocKy
+        JOIN bomon
+        ON bomon.MaBoMon = giaovien.MaBoMon
+        JOIN khoa
+        ON khoa.MaKhoa = bomon.MaKhoa
+        WHERE khoa.TenKhoa = '{$khoa}' 
+        AND hocphan.TenHocPhan = '{$hocPhan}'
+        AND namhoc.ThoiGian = '{$namHoc}'
+        AND bomon.TenBoMon ='{$boMon}'
+        AND hocky.TenHocKy = '{$hocKy}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+    //thống kê học phần theo khoảng năm học
+    public function thongKeHocPhanTheoKhoanNam($khoa, $boMon, $hocPhan, $namHoc, $denNam)
+    {
+
+        $result = $this->db->con->query("SELECT *
+        FROM
+        lophocphan 
+        JOIN hocphan
+        ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        JOIN giaovien
+        ON giaovien.MaGiaoVien = lophocphan.MaGiaoVien
+        JOIN nhomhocphan
+        ON nhomhocphan.MaNhomHocPhan = lophocphan.MaNhomHocPhan
+        JOIN namhoc
+        ON namhoc.MaNamHoc = lophocphan.MaNamHoc
+        JOIN hocky
+        ON hocky.MaHocKy = lophocphan.MaHocKy
+        JOIN bomon
+        ON bomon.MaBoMon = giaovien.MaBoMon
+        JOIN khoa
+        ON khoa.MaKhoa = bomon.MaKhoa
+        WHERE khoa.TenKhoa = '{$khoa}' 
+        AND hocphan.TenHocPhan = '{$hocPhan}'
+        AND namhoc.ThoiGian BETWEEN '{$namHoc}' AND '{$denNam}'
+        AND bomon.TenBoMon ='{$boMon}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+    //thống kê học phần theo khoảng năm học, hoc kỳ
+    public function thongKeHocPhanTheoKhoanNamVaHocKy($khoa, $boMon, $hocPhan, $namHoc, $denNam,$hocKy)
+    {
+
+        $result = $this->db->con->query("SELECT *
+        FROM
+        lophocphan 
+        JOIN hocphan
+        ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        JOIN giaovien
+        ON giaovien.MaGiaoVien = lophocphan.MaGiaoVien
+        JOIN nhomhocphan
+        ON nhomhocphan.MaNhomHocPhan = lophocphan.MaNhomHocPhan
+        JOIN namhoc
+        ON namhoc.MaNamHoc = lophocphan.MaNamHoc
+        JOIN hocky
+        ON hocky.MaHocKy = lophocphan.MaHocKy
+        JOIN bomon
+        ON bomon.MaBoMon = giaovien.MaBoMon
+        JOIN khoa
+        ON khoa.MaKhoa = bomon.MaKhoa
+        WHERE khoa.TenKhoa = '{$khoa}' 
+        AND hocphan.TenHocPhan = '{$hocPhan}'
+        AND namhoc.ThoiGian BETWEEN '{$namHoc}' AND '{$denNam}'
+        AND bomon.TenBoMon ='{$boMon}'
+        AND hocky.TenhocKy = '{$hocKy}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+
+
     //thống kê theo giáo viên
     public function getThongKeGiaoVien($maGiaoVien, $tenGiaoVien)
     {
@@ -426,6 +803,254 @@ class LopHocPhan
         JOIN khoa
         ON khoa.MaKhoa = bomon.MaKhoa
         WHERE giaovien.MaGiaoVien = '{$maGiaoVien}' AND giaovien.TenGiaoVien = '$tenGiaoVien'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+    // thống kê theo năm của giáo viên
+    public function getThongKeGiaoVienTheoNam($maGiaoVien, $tenGiaoVien, $namHoc)
+    {
+
+        $result = $this->db->con->query("SELECT *
+        FROM
+        lophocphan 
+        JOIN hocphan
+        ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        JOIN giaovien
+        ON giaovien.MaGiaoVien = lophocphan.MaGiaoVien
+        JOIN nhomhocphan
+        ON nhomhocphan.MaNhomHocPhan = lophocphan.MaNhomHocPhan
+        JOIN namhoc
+        ON namhoc.MaNamHoc = lophocphan.MaNamHoc
+        JOIN hocky
+        ON hocky.MaHocKy = lophocphan.MaHocKy
+        JOIN bomon
+        ON bomon.MaBoMon = giaovien.MaBoMon
+        JOIN khoa
+        ON khoa.MaKhoa = bomon.MaKhoa
+            WHERE giaovien.MaGiaoVien = '{$maGiaoVien}' 
+                AND giaovien.TenGiaoVien = '$tenGiaoVien' 
+                AND namhoc.ThoiGian = '{$namHoc}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+    // thống kê theo khoảng thời gian năm học giáo viên
+    public function getThongKeGiaoVienTheoKhoangThoiGian($maGiaoVien, $tenGiaoVien, $namHoc, $denNam)
+    {
+
+        $result = $this->db->con->query("SELECT *
+        FROM
+        lophocphan 
+        JOIN hocphan
+        ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        JOIN giaovien
+        ON giaovien.MaGiaoVien = lophocphan.MaGiaoVien
+        JOIN nhomhocphan
+        ON nhomhocphan.MaNhomHocPhan = lophocphan.MaNhomHocPhan
+        JOIN namhoc
+        ON namhoc.MaNamHoc = lophocphan.MaNamHoc
+        JOIN hocky
+        ON hocky.MaHocKy = lophocphan.MaHocKy
+        JOIN bomon
+        ON bomon.MaBoMon = giaovien.MaBoMon
+        JOIN khoa
+        ON khoa.MaKhoa = bomon.MaKhoa
+            WHERE giaovien.MaGiaoVien = '{$maGiaoVien}' 
+                AND giaovien.TenGiaoVien = '$tenGiaoVien' 
+                AND namhoc.ThoiGian BETWEEN '{$namHoc}' AND '{$denNam}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+    // thống kê khoảng thời gian theo học kỳ của giáo viên    
+    public function getThongKeGiaoVienTheoKhoangThoiGianHocKy($maGiaoVien, $tenGiaoVien, $namHoc, $denNam, $hocKy)
+    {
+
+        $result = $this->db->con->query("SELECT *
+        FROM
+        lophocphan 
+        JOIN hocphan
+        ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        JOIN giaovien
+        ON giaovien.MaGiaoVien = lophocphan.MaGiaoVien
+        JOIN nhomhocphan
+        ON nhomhocphan.MaNhomHocPhan = lophocphan.MaNhomHocPhan
+        JOIN namhoc
+        ON namhoc.MaNamHoc = lophocphan.MaNamHoc
+        JOIN hocky
+        ON hocky.MaHocKy = lophocphan.MaHocKy
+        JOIN bomon
+        ON bomon.MaBoMon = giaovien.MaBoMon
+        JOIN khoa
+        ON khoa.MaKhoa = bomon.MaKhoa
+            WHERE giaovien.MaGiaoVien = '{$maGiaoVien}' 
+                AND giaovien.TenGiaoVien = '$tenGiaoVien' 
+                AND namhoc.ThoiGian BETWEEN '{$namHoc}' AND '{$denNam}'
+                AND hocky.TenHocKy = '{$hocKy}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+
+
+    // thống kê theo năm học và học kỳ của giáo viên
+    public function getThongKeGiaoVienNamHocKy($maGiaoVien, $tenGiaoVien, $namHoc, $hocKy)
+    {
+
+        $result = $this->db->con->query("SELECT *
+        FROM
+        lophocphan 
+        JOIN hocphan
+        ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        JOIN giaovien
+        ON giaovien.MaGiaoVien = lophocphan.MaGiaoVien
+        JOIN nhomhocphan
+        ON nhomhocphan.MaNhomHocPhan = lophocphan.MaNhomHocPhan
+        JOIN namhoc
+        ON namhoc.MaNamHoc = lophocphan.MaNamHoc
+        JOIN hocky
+        ON hocky.MaHocKy = lophocphan.MaHocKy
+        JOIN bomon
+        ON bomon.MaBoMon = giaovien.MaBoMon
+        JOIN khoa
+        ON khoa.MaKhoa = bomon.MaKhoa
+            WHERE giaovien.MaGiaoVien = '{$maGiaoVien}' 
+                AND giaovien.TenGiaoVien = '$tenGiaoVien' 
+                AND namhoc.ThoiGian = '{$namHoc}'
+                AND hocky.TenHocKy = '{$hocKy}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+    //thống kê theo năm học của toàn trường
+    public function getThongKeNam($namHoc)
+    {
+
+        $result = $this->db->con->query("SELECT *
+        FROM
+        lophocphan 
+        JOIN hocphan
+        ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        JOIN giaovien
+        ON giaovien.MaGiaoVien = lophocphan.MaGiaoVien
+        JOIN nhomhocphan
+        ON nhomhocphan.MaNhomHocPhan = lophocphan.MaNhomHocPhan
+        JOIN namhoc
+        ON namhoc.MaNamHoc = lophocphan.MaNamHoc
+        JOIN hocky
+        ON hocky.MaHocKy = lophocphan.MaHocKy
+        JOIN bomon
+        ON bomon.MaBoMon = giaovien.MaBoMon
+        JOIN khoa
+        ON khoa.MaKhoa = bomon.MaKhoa
+            WHERE namhoc.ThoiGian = '{$namHoc}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+
+
+    // thống kê toàn trường từ năm xxx đến năm xxx
+    public function getThongTuNamDenNam($namHoc, $denNam)
+    {
+
+        $result = $this->db->con->query("SELECT *
+        FROM
+        lophocphan 
+        JOIN hocphan
+        ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        JOIN giaovien
+        ON giaovien.MaGiaoVien = lophocphan.MaGiaoVien
+        JOIN nhomhocphan
+        ON nhomhocphan.MaNhomHocPhan = lophocphan.MaNhomHocPhan
+        JOIN namhoc
+        ON namhoc.MaNamHoc = lophocphan.MaNamHoc
+        JOIN hocky
+        ON hocky.MaHocKy = lophocphan.MaHocKy
+        JOIN bomon
+        ON bomon.MaBoMon = giaovien.MaBoMon
+        JOIN khoa
+        ON khoa.MaKhoa = bomon.MaKhoa
+            WHERE namhoc.ThoiGian BETWEEN '{$namHoc}' AND '{$denNam}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+    // thống kê toàn trường từ năm xxx đến năm xxx theo học kỳ
+    public function getThongTuNamDenNamTheoHocKy($namHoc, $denNam, $hocKy)
+    {
+
+        $result = $this->db->con->query("SELECT *
+        FROM
+        lophocphan 
+        JOIN hocphan
+        ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        JOIN giaovien
+        ON giaovien.MaGiaoVien = lophocphan.MaGiaoVien
+        JOIN nhomhocphan
+        ON nhomhocphan.MaNhomHocPhan = lophocphan.MaNhomHocPhan
+        JOIN namhoc
+        ON namhoc.MaNamHoc = lophocphan.MaNamHoc
+        JOIN hocky
+        ON hocky.MaHocKy = lophocphan.MaHocKy
+        JOIN bomon
+        ON bomon.MaBoMon = giaovien.MaBoMon
+        JOIN khoa
+        ON khoa.MaKhoa = bomon.MaKhoa
+            WHERE namhoc.ThoiGian BETWEEN '{$namHoc}' AND '{$denNam}'
+            AND hocky.TenHocKy = '{$hocKy}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+
+    // thống kê toàn trường theo học kỳ của năm học
+    public function getToanTruongTheoHocKy($namHoc, $hocKy)
+    {
+        $result = $this->db->con->query("SELECT *
+        FROM
+        lophocphan 
+        JOIN hocphan
+        ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        JOIN giaovien
+        ON giaovien.MaGiaoVien = lophocphan.MaGiaoVien
+        JOIN nhomhocphan
+        ON nhomhocphan.MaNhomHocPhan = lophocphan.MaNhomHocPhan
+        JOIN namhoc
+        ON namhoc.MaNamHoc = lophocphan.MaNamHoc
+        JOIN hocky
+        ON hocky.MaHocKy = lophocphan.MaHocKy
+        JOIN bomon
+        ON bomon.MaBoMon = giaovien.MaBoMon
+        JOIN khoa
+        ON khoa.MaKhoa = bomon.MaKhoa
+            WHERE namhoc.ThoiGian = '{$namHoc}'
+            AND hocky.TenHocKy = '{$hocKy}'");
         $resultArr = array();
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             $resultArr[] = $row;

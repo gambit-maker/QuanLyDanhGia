@@ -30,10 +30,19 @@
         color: #ffffff;
     }
 
+    /* make table not overflow */
     td,
     th {
         white-space: nowrap;
         overflow: hidden;
+    }
+
+
+    /* hide arrow input type number */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
     }
 </style>
 
@@ -82,6 +91,9 @@ $KhoaKhongCoBoMonMessage = FALSE;
 $khongMonHocMessage = FALSE;
 $khongCoMonHocTrongBoMonMessage = FALSE;
 $khongCoGiaoVienMessage = FALSE;
+$khongTimThayNamHocMessage = FALSE;
+$khongTimThayDenNamHocMessage = FALSE;
+$denNamHocLonHonNamHocMessage = FALSE;
 
 
 // thông báo khi nhập chưa đủ dữ liệu
@@ -121,7 +133,7 @@ if (isset($_POST["submit"])) {
     }
     if (isset($_POST["inputDenNamHoc"]) && !empty($_POST["inputDenNamHoc"])) {
         $inputDenNamHoc = $_POST["inputDenNamHoc"];
-        echo $inputDenNamHoc . "<br>";
+        // echo $inputDenNamHoc . "<br>";
     }
     if (isset($_POST["inputHocKy"]) && !empty($_POST["inputHocKy"])) {
         $inputHocKy = $_POST["inputHocKy"];
@@ -133,41 +145,28 @@ if (isset($_POST["submit"])) {
     //check lỗi khi input thiếu điều kiện
     if (
         empty($inputKhoa)
-        && $inputBoMon !== null
-        && empty($inputMonHoc)
-        && empty($inputMaGiaoVien)
-        && empty($inputTenGiaoVien)
-        && empty($inputNamHoc)
-        && empty($inputDenNamHoc)
-        && empty($inputHocKy)
+        && $inputBoMon !== null // input Bộ môn ko rõ khoa nào
+        // && empty($inputMonHoc)
+        // && empty($inputMaGiaoVien)
+        // && empty($inputTenGiaoVien)
+        // && empty($inputNamHoc)
+        // && empty($inputDenNamHoc)
+        // && empty($inputHocKy)
     ) {
         $hayXacDinhKhoaMessage = TRUE;
     }
 
     if (
-        empty($inputKhoa)
-        && empty($inputBoMon)
-        && $inputMonHoc !== null
-        && empty($inputMaGiaoVien)
-        && empty($inputTenGiaoVien)
-        && empty($inputNamHoc)
-        && empty($inputDenNamHoc)
-        && empty($inputHocKy)
+        // empty($inputKhoa)
+        empty($inputBoMon)
+        && $inputMonHoc !== null // input môn học không rõ bộ môn nòa
+        // && empty($inputMaGiaoVien)
+        // && empty($inputTenGiaoVien)
+        // && empty($inputNamHoc)
+        // && empty($inputDenNamHoc)
+        // && empty($inputHocKy)
     ) {
         $hayXacDinhBoMon = TRUE;
-    }
-
-    if (
-        empty($inputKhoa)
-        && $inputBoMon !== null
-        && $inputMonHoc !== null
-        && empty($inputMaGiaoVien)
-        && empty($inputTenGiaoVien)
-        && empty($inputNamHoc)
-        && empty($inputDenNamHoc)
-        && empty($inputHocKy)
-    ) {
-        $hayXacDinhKhoaMessage = TRUE;
     }
 
 
@@ -245,6 +244,357 @@ if (isset($_POST["submit"])) {
         }
     }
 
+    //thống kê khoa theo năm học
+    if (
+        $inputKhoa !== null
+        && empty($inputBoMon)
+        && empty($inputMonHoc)
+        && empty($inputMaGiaoVien)
+        && empty($inputTenGiaoVien)
+        && $inputNamHoc !== null
+        && empty($inputDenNamHoc)
+        && empty($inputHocKy)
+    ) {
+        $thongTinLop = $lopHocPhan->getThongKeKhoaTheoNam($inputKhoa, $inputNamHoc);
+        if (!$lopHocPhan->getCountDuLieu('khoa', 'TenKhoa', $inputKhoa)) {
+            $khongCoKhoaMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputNamHoc)) {
+            $khongTimThayNamHocMessage = TRUE;
+        }
+    }
+
+    //thống kê khoa theo năm học học kỳ
+    if (
+        $inputKhoa !== null
+        && empty($inputBoMon)
+        && empty($inputMonHoc)
+        && empty($inputMaGiaoVien)
+        && empty($inputTenGiaoVien)
+        && $inputNamHoc !== null
+        && empty($inputDenNamHoc)
+        && $inputHocKy !== null
+    ) {
+        $thongTinLop = $lopHocPhan->getThongKeKhoaHocKy($inputKhoa, $inputNamHoc, $inputHocKy);
+        if (!$lopHocPhan->getCountDuLieu('khoa', 'TenKhoa', $inputKhoa)) {
+            $khongCoKhoaMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputNamHoc)) {
+            $khongTimThayNamHocMessage = TRUE;
+        }
+    }
+
+
+    //thống kê khoa theo khoảng năm học
+    if (
+        $inputKhoa !== null
+        && empty($inputBoMon)
+        && empty($inputMonHoc)
+        && empty($inputMaGiaoVien)
+        && empty($inputTenGiaoVien)
+        && $inputNamHoc !== null
+        && $inputDenNamHoc !== null
+        && empty($inputHocKy)
+    ) {
+        $thongTinLop = $lopHocPhan->getThongKeKhoaTheoKhoanNamHoc($inputKhoa, $inputNamHoc, $inputDenNamHoc);
+        if (!$lopHocPhan->getCountDuLieu('khoa', 'TenKhoa', $inputKhoa)) {
+            $khongCoKhoaMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputNamHoc)) {
+            $khongTimThayNamHocMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputDenNamHoc)) {
+            $khongTimThayDenNamHocMessage = TRUE;
+        }
+        if ($inputDenNamHoc <= $inputNamHoc) {
+            $denNamHocLonHonNamHocMessage = TRUE;
+        }
+    }
+
+    //thống kê khoa theo khoảng năm học hoc kỳ
+    if (
+        $inputKhoa !== null
+        && empty($inputBoMon)
+        && empty($inputMonHoc)
+        && empty($inputMaGiaoVien)
+        && empty($inputTenGiaoVien)
+        && $inputNamHoc !== null
+        && $inputDenNamHoc !== null
+        && $inputHocKy !== null
+    ) {
+        $thongTinLop = $lopHocPhan->getThongKeKhoaTheoKhoanNamHocVaHocKy($inputKhoa, $inputNamHoc, $inputDenNamHoc, $inputHocKy);
+        if (!$lopHocPhan->getCountDuLieu('khoa', 'TenKhoa', $inputKhoa)) {
+            $khongCoKhoaMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputNamHoc)) {
+            $khongTimThayNamHocMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputDenNamHoc)) {
+            $khongTimThayDenNamHocMessage = TRUE;
+        }
+        if ($inputDenNamHoc <= $inputNamHoc) {
+            $denNamHocLonHonNamHocMessage = TRUE;
+        }
+    }
+
+    //thống kê bộ môn theo năm học
+    if (
+        $inputKhoa !== null
+        && $inputBoMon !== null
+        && empty($inputMonHoc)
+        && empty($inputMaGiaoVien)
+        && empty($inputTenGiaoVien)
+        && $inputNamHoc !== null
+        && empty($inputDenNamHoc)
+        && empty($inputHocKy)
+    ) {
+        $thongTinLop = $lopHocPhan->thongKeBoMonTheoNam($inputKhoa, $inputBoMon, $inputNamHoc);
+        if (!$lopHocPhan->getCountDuLieu('khoa', 'TenKhoa', $inputKhoa)) {
+            $khongCoKhoaMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputNamHoc)) {
+            $khongTimThayNamHocMessage = TRUE;
+        }
+        if (!$lopHocPhan->kiemTraBoMonCoTrongKhoa($inputKhoa, $inputBoMon)) {
+            $KhoaKhongCoBoMonMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('bomon', 'TenBoMon', $inputBoMon)) {
+            $khongBoMonMessage = TRUE;
+        }
+    }
+
+    //thống kê bộ môn theo năm học, học kỳ
+    if (
+        $inputKhoa !== null
+        && $inputBoMon !== null
+        && empty($inputMonHoc)
+        && empty($inputMaGiaoVien)
+        && empty($inputTenGiaoVien)
+        && $inputNamHoc !== null
+        && empty($inputDenNamHoc)
+        && $inputHocKy !== null
+    ) {
+        $thongTinLop = $lopHocPhan->thongKeBoMonTheoNamVaHocKy($inputKhoa, $inputBoMon, $inputNamHoc, $inputHocKy);
+        if (!$lopHocPhan->getCountDuLieu('khoa', 'TenKhoa', $inputKhoa)) {
+            $khongCoKhoaMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputNamHoc)) {
+            $khongTimThayNamHocMessage = TRUE;
+        }
+        if (!$lopHocPhan->kiemTraBoMonCoTrongKhoa($inputKhoa, $inputBoMon)) {
+            $KhoaKhongCoBoMonMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('bomon', 'TenBoMon', $inputBoMon)) {
+            $khongBoMonMessage = TRUE;
+        }
+    }
+
+    //thống kê bộ môn theo khoảng năm học
+    if (
+        $inputKhoa !== null
+        && $inputBoMon !== null
+        && empty($inputMonHoc)
+        && empty($inputMaGiaoVien)
+        && empty($inputTenGiaoVien)
+        && $inputNamHoc !== null
+        && $inputDenNamHoc !== null
+        && empty($inputHocKy)
+    ) {
+        $thongTinLop = $lopHocPhan->thongKeBoMonTheoKhoanNam($inputKhoa, $inputBoMon, $inputNamHoc, $inputDenNamHoc);
+        if (!$lopHocPhan->getCountDuLieu('khoa', 'TenKhoa', $inputKhoa)) {
+            $khongCoKhoaMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputNamHoc)) {
+            $khongTimThayNamHocMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('bomon', 'TenBoMon', $inputBoMon)) {
+            $khongBoMonMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputDenNamHoc)) {
+            $khongTimThayDenNamHocMessage = TRUE;
+        }
+        if (!$lopHocPhan->kiemTraBoMonCoTrongKhoa($inputKhoa, $inputBoMon)) {
+            $KhoaKhongCoBoMonMessage = TRUE;
+        }
+        if ($inputDenNamHoc <= $inputNamHoc) {
+            $denNamHocLonHonNamHocMessage = TRUE;
+        }
+    }
+
+    //thống kê bộ môn theo khoảng năm học hoc kỳ
+    if (
+        $inputKhoa !== null
+        && $inputBoMon !== null
+        && empty($inputMonHoc)
+        && empty($inputMaGiaoVien)
+        && empty($inputTenGiaoVien)
+        && $inputNamHoc !== null
+        && $inputDenNamHoc !== null
+        && $inputHocKy !== null
+    ) {
+        $thongTinLop = $lopHocPhan->thongKeBoMonTheoKhoanNamCuaHocKy($inputKhoa, $inputBoMon, $inputNamHoc, $inputDenNamHoc, $inputHocKy);
+        if (!$lopHocPhan->getCountDuLieu('khoa', 'TenKhoa', $inputKhoa)) {
+            $khongCoKhoaMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputNamHoc)) {
+            $khongTimThayNamHocMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('bomon', 'TenBoMon', $inputBoMon)) {
+            $khongBoMonMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputDenNamHoc)) {
+            $khongTimThayDenNamHocMessage = TRUE;
+        }
+        if (!$lopHocPhan->kiemTraBoMonCoTrongKhoa($inputKhoa, $inputBoMon)) {
+            $KhoaKhongCoBoMonMessage = TRUE;
+        }
+        if ($inputDenNamHoc <= $inputNamHoc) {
+            $denNamHocLonHonNamHocMessage = TRUE;
+        }
+    }
+
+
+    //thống kê học phần theo năm học
+    if (
+        $inputKhoa !== null
+        && $inputBoMon !== null
+        && $inputMonHoc !== null
+        && empty($inputMaGiaoVien)
+        && empty($inputTenGiaoVien)
+        && $inputNamHoc !== null
+        && empty($inputDenNamHoc)
+        && empty($inputHocKy)
+    ) {
+        $thongTinLop = $lopHocPhan->thongKeHocPhanTheoNam($inputKhoa, $inputBoMon, $inputMonHoc, $inputNamHoc);
+        if (!$lopHocPhan->getCountDuLieu('khoa', 'TenKhoa', $inputKhoa)) {
+            $khongCoKhoaMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputNamHoc)) {
+            $khongTimThayNamHocMessage = TRUE;
+        }
+        if (!$lopHocPhan->kiemTraBoMonCoTrongKhoa($inputKhoa, $inputBoMon)) {
+            $KhoaKhongCoBoMonMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('bomon', 'TenBoMon', $inputBoMon)) {
+            $khongBoMonMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('hocphan', 'TenHocPhan', $inputMonHoc)) {
+            $khongMonHocMessage = TRUE;
+        }
+        if (!$lopHocPhan->kiemTraMonHocCoTrongBoMon($inputMonHoc, $inputBoMon)) {
+            $khongCoMonHocTrongBoMonMessage = TRUE;
+        }
+    }
+
+    //thống kê học phần theo năm học học kỳ
+    if (
+        $inputKhoa !== null
+        && $inputBoMon !== null
+        && $inputMonHoc !== null
+        && empty($inputMaGiaoVien)
+        && empty($inputTenGiaoVien)
+        && $inputNamHoc !== null
+        && empty($inputDenNamHoc)
+        && $inputHocKy !== null
+    ) {
+        $thongTinLop = $lopHocPhan->thongKeHocPhanTheoNamVaHocKy($inputKhoa, $inputBoMon, $inputMonHoc, $inputNamHoc, $inputHocKy);
+        if (!$lopHocPhan->getCountDuLieu('khoa', 'TenKhoa', $inputKhoa)) {
+            $khongCoKhoaMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputNamHoc)) {
+            $khongTimThayNamHocMessage = TRUE;
+        }
+        if (!$lopHocPhan->kiemTraBoMonCoTrongKhoa($inputKhoa, $inputBoMon)) {
+            $KhoaKhongCoBoMonMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('bomon', 'TenBoMon', $inputBoMon)) {
+            $khongBoMonMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('hocphan', 'TenHocPhan', $inputMonHoc)) {
+            $khongMonHocMessage = TRUE;
+        }
+        if (!$lopHocPhan->kiemTraMonHocCoTrongBoMon($inputMonHoc, $inputBoMon)) {
+            $khongCoMonHocTrongBoMonMessage = TRUE;
+        }
+    }
+    //thống kê học phần theo khoảng năm học
+    if (
+        $inputKhoa !== null
+        && $inputBoMon !== null
+        && $inputMonHoc !== null
+        && empty($inputMaGiaoVien)
+        && empty($inputTenGiaoVien)
+        && $inputNamHoc !== null
+        && $inputDenNamHoc !== null
+        && empty($inputHocKy)
+    ) {
+        $thongTinLop = $lopHocPhan->thongKeHocPhanTheoKhoanNam($inputKhoa, $inputBoMon, $inputMonHoc, $inputNamHoc, $inputDenNamHoc);
+        if (!$lopHocPhan->getCountDuLieu('khoa', 'TenKhoa', $inputKhoa)) {
+            $khongCoKhoaMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('bomon', 'TenBoMon', $inputBoMon)) {
+            $khongBoMonMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('hocphan', 'TenHocPhan', $inputMonHoc)) {
+            $khongMonHocMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputNamHoc)) {
+            $khongTimThayNamHocMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputDenNamHoc)) {
+            $khongTimThayDenNamHocMessage = TRUE;
+        }
+        if (!$lopHocPhan->kiemTraBoMonCoTrongKhoa($inputKhoa, $inputBoMon)) {
+            $KhoaKhongCoBoMonMessage = TRUE;
+        }
+        if (!$lopHocPhan->kiemTraMonHocCoTrongBoMon($inputMonHoc, $inputBoMon)) {
+            $khongCoMonHocTrongBoMonMessage = TRUE;
+        }
+        if ($inputDenNamHoc <= $inputNamHoc) {
+            $denNamHocLonHonNamHocMessage = TRUE;
+        }
+    }
+    //thống kê học phần theo khoảng năm học hoc kỳ
+    if (
+        $inputKhoa !== null
+        && $inputBoMon !== null
+        && $inputMonHoc !== null
+        && empty($inputMaGiaoVien)
+        && empty($inputTenGiaoVien)
+        && $inputNamHoc !== null
+        && $inputDenNamHoc !== null
+        && $inputHocKy !== null
+    ) {
+        $thongTinLop = $lopHocPhan->thongKeHocPhanTheoKhoanNamVaHocKy($inputKhoa, $inputBoMon, $inputMonHoc, $inputNamHoc, $inputDenNamHoc, $inputHocKy);
+        if (!$lopHocPhan->getCountDuLieu('khoa', 'TenKhoa', $inputKhoa)) {
+            $khongCoKhoaMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('bomon', 'TenBoMon', $inputBoMon)) {
+            $khongBoMonMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('hocphan', 'TenHocPhan', $inputMonHoc)) {
+            $khongMonHocMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputNamHoc)) {
+            $khongTimThayNamHocMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputDenNamHoc)) {
+            $khongTimThayDenNamHocMessage = TRUE;
+        }
+        if (!$lopHocPhan->kiemTraBoMonCoTrongKhoa($inputKhoa, $inputBoMon)) {
+            $KhoaKhongCoBoMonMessage = TRUE;
+        }
+        if (!$lopHocPhan->kiemTraMonHocCoTrongBoMon($inputMonHoc, $inputBoMon)) {
+            $khongCoMonHocTrongBoMonMessage = TRUE;
+        }
+        if ($inputDenNamHoc <= $inputNamHoc) {
+            $denNamHocLonHonNamHocMessage = TRUE;
+        }
+    }
+
+
+
+
     // thống kê theo giáo viên
     if (
         empty($inputKhoa)
@@ -264,7 +614,238 @@ if (isset($_POST["submit"])) {
             $khongCoGiaoVienMessage = TRUE;
         }
     }
+
+    // thống kê theo năm học của giáo viên
+    if (
+        empty($inputKhoa)
+        && empty($inputBoMon)
+        && empty($inputMonHoc)
+        && $inputMaGiaoVien !== null
+        && $inputTenGiaoVien !== null
+        && $inputNamHoc !== null
+        && empty($inputDenNamHoc)
+        && empty($inputHocKy)
+    ) {
+        if (
+            !$lopHocPhan->getCountDuLieu('giaovien', 'MaGiaoVien', $inputMaGiaoVien)
+            || !$lopHocPhan->getCountDuLieu('giaovien', 'TenGiaoVien', $inputTenGiaoVien)
+        ) {
+            $khongCoGiaoVienMessage = TRUE;
+        } else {
+            $thongTinLop = $lopHocPhan->getThongKeGiaoVienTheoNam(
+                $inputMaGiaoVien,
+                $inputTenGiaoVien,
+                $inputNamHoc
+            );
+            if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputNamHoc)) {
+                $khongTimThayNamHocMessage = TRUE;
+            }
+        }
+    }
+
+    // thống kê theo khoảng thời gian năm học của giáo viên
+    if (
+        empty($inputKhoa)
+        && empty($inputBoMon)
+        && empty($inputMonHoc)
+        && $inputMaGiaoVien !== null
+        && $inputTenGiaoVien !== null
+        && $inputNamHoc !== null
+        && $inputDenNamHoc !== null
+        && empty($inputHocKy)
+    ) {
+        if (
+            // check giáo viên có trong DB không
+            !$lopHocPhan->getCountDuLieu('giaovien', 'MaGiaoVien', $inputMaGiaoVien)
+            || !$lopHocPhan->getCountDuLieu('giaovien', 'TenGiaoVien', $inputTenGiaoVien)
+        ) {
+            $khongCoGiaoVienMessage = TRUE; // thông báo không có
+        } else {
+            if ($inputDenNamHoc > $inputNamHoc) {
+                $thongTinLop = $lopHocPhan->getThongKeGiaoVienTheoKhoangThoiGian(
+                    $inputMaGiaoVien,
+                    $inputTenGiaoVien,
+                    $inputNamHoc,
+                    $inputDenNamHoc
+                );
+                if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputNamHoc)) {
+                    $khongTimThayNamHocMessage = TRUE;
+                }
+                if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputDenNamHoc)) {
+                    $khongTimThayDenNamHocMessage = TRUE;
+                }
+            } else {
+                $denNamHocLonHonNamHocMessage = TRUE;
+            }
+        }
+    }
+
+
+
+    // thống kê theo khoảng năm học theo hoc kỳ của giáo viên
+    if (
+        empty($inputKhoa)
+        && empty($inputBoMon)
+        && empty($inputMonHoc)
+        && $inputMaGiaoVien !== null
+        && $inputTenGiaoVien !== null
+        && $inputNamHoc !== null
+        && $inputDenNamHoc !== null
+        && $inputHocKy !== null
+    ) {
+        if (
+            // check giáo viên có trong DB không
+            !$lopHocPhan->getCountDuLieu('giaovien', 'MaGiaoVien', $inputMaGiaoVien)
+            || !$lopHocPhan->getCountDuLieu('giaovien', 'TenGiaoVien', $inputTenGiaoVien)
+        ) {
+            $khongCoGiaoVienMessage = TRUE; // thông báo không có
+        } else {
+            if ($inputDenNamHoc > $inputNamHoc) {
+                // hoc kỳ
+                $thongTinLop = $lopHocPhan->getThongKeGiaoVienTheoKhoangThoiGianHocKy(
+                    $inputMaGiaoVien,
+                    $inputTenGiaoVien,
+                    $inputNamHoc,
+                    $inputDenNamHoc,
+                    $inputHocKy
+                );
+                if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputNamHoc)) {
+                    $khongTimThayNamHocMessage = TRUE;
+                }
+                if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputDenNamHoc)) {
+                    $khongTimThayDenNamHocMessage = TRUE;
+                }
+            } else {
+                $denNamHocLonHonNamHocMessage = TRUE;
+            }
+        }
+    }
+
+    // thống kê theo năm học và học kỳ của giáo viên
+    if (
+        empty($inputKhoa)
+        && empty($inputBoMon)
+        && empty($inputMonHoc)
+        && $inputMaGiaoVien !== null
+        && $inputTenGiaoVien !== null
+        && $inputNamHoc !== null
+        && empty($inputDenNamHoc)
+        && $inputHocKy !== null
+    ) {
+        if (
+            !$lopHocPhan->getCountDuLieu('giaovien', 'MaGiaoVien', $inputMaGiaoVien)
+            || !$lopHocPhan->getCountDuLieu('giaovien', 'TenGiaoVien', $inputTenGiaoVien)
+        ) {
+            $khongCoGiaoVienMessage = TRUE;
+        } else {
+            $thongTinLop = $lopHocPhan->getThongKeGiaoVienNamHocKy(
+                $inputMaGiaoVien,
+                $inputTenGiaoVien,
+                $inputNamHoc,
+                $inputHocKy
+            );
+            if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputNamHoc)) {
+                $khongTimThayNamHocMessage = TRUE;
+            }
+        }
+    }
+
+
+
+    // thống kê toàn trường theo năm học
+    if (
+        empty($inputKhoa)
+        && empty($inputBoMon)
+        && empty($inputMonHoc)
+        && empty($inputMaGiaoVien)
+        && empty($inputTenGiaoVien)
+        && $inputNamHoc !== null
+        && empty($inputDenNamHoc)
+        && empty($inputHocKy)
+    ) {
+        if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputNamHoc)) {
+            //nếu không tìm thấy năm học
+            $khongTimThayNamHocMessage = TRUE;
+        } else {
+            $thongTinLop = $lopHocPhan->getThongKeNam($inputNamHoc);
+        }
+    }
+
+    // thống kê toàn trường từ năm xxx đến năm xxx
+    if (
+        empty($inputKhoa)
+        && empty($inputBoMon)
+        && empty($inputMonHoc)
+        && empty($inputMaGiaoVien)
+        && empty($inputTenGiaoVien)
+        && $inputNamHoc !== null
+        && $inputDenNamHoc !== null
+        && empty($inputHocKy)
+    ) {
+        if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputNamHoc)) {
+            //nếu không tìm thấy năm học
+            $khongTimThayNamHocMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputDenNamHoc)) {
+            $khongTimThayDenNamHocMessage = TRUE;
+        }
+
+        if ($inputDenNamHoc > $inputNamHoc) {
+            $thongTinLop = $lopHocPhan->getThongTuNamDenNam($inputNamHoc, $inputDenNamHoc);
+        } else {
+            $denNamHocLonHonNamHocMessage = TRUE;
+        }
+    }
+
+
+    // thống kê toàn trường từ năm xxx đến năm xxx theo học kỳ    
+    if (
+        empty($inputKhoa)
+        && empty($inputBoMon)
+        && empty($inputMonHoc)
+        && empty($inputMaGiaoVien)
+        && empty($inputTenGiaoVien)
+        && $inputNamHoc !== null
+        && $inputDenNamHoc !== null
+        && $inputHocKy !== null
+    ) {
+        if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputNamHoc)) {
+            //nếu không tìm thấy năm học
+            $khongTimThayNamHocMessage = TRUE;
+        }
+        if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputDenNamHoc)) {
+            $khongTimThayDenNamHocMessage = TRUE;
+        }
+
+        if ($inputDenNamHoc > $inputNamHoc) {
+            $thongTinLop = $lopHocPhan->getThongTuNamDenNamTheoHocKy($inputNamHoc, $inputDenNamHoc, $inputHocKy);
+        } else {
+            $denNamHocLonHonNamHocMessage = TRUE;
+        }
+    }
+
+
+    // thống kê toàn trường theo học kỳ của năm học
+    if (
+        empty($inputKhoa)
+        && empty($inputBoMon)
+        && empty($inputMonHoc)
+        && empty($inputMaGiaoVien)
+        && empty($inputTenGiaoVien)
+        && $inputNamHoc !== null
+        && empty($inputDenNamHoc)
+        && $inputHocKy !== null
+    ) {
+        if (!$lopHocPhan->getCountDuLieu('namhoc', 'ThoiGian', $inputNamHoc)) {
+            //nếu không tìm thấy năm học
+            $khongTimThayNamHocMessage = TRUE;
+        } else {
+            $thongTinLop = $lopHocPhan->getToanTruongTheoHocKy($inputNamHoc, $inputHocKy);
+        }
+    }
 }
+
+
 ?>
 
 <form autocomplete="off" action="" method="POST">
@@ -280,15 +861,12 @@ if (isset($_POST["submit"])) {
                 <div class="autocomplete input-group-sm">
                     <input id="myInputKhoa" class="form-control" type="text" name="inputKhoa" placeholder="Tìm khoa" value="<?php if (!empty($inputKhoa)) echo $inputKhoa; ?>">
                 </div>
-                <?php if ($khongCoKhoaMessage === TRUE) : ?>
-            <td class="text-danger" colspan="2">Khoa không có trong hệ thống dữ liệu</td>
-        <?php elseif ($hayXacDinhKhoaMessage === TRUE) : ?>
-            <td class="text-danger" colspan="2">Hãy xác định khoa</td>
-        <?php endif; ?>
-
-
-
-        </td>
+            </td>
+            <?php if ($khongCoKhoaMessage === TRUE) : ?>
+                <td class="text-danger" colspan="2">Khoa không có trong hệ thống dữ liệu</td>
+            <?php elseif ($hayXacDinhKhoaMessage === TRUE) : ?>
+                <td class="text-danger" colspan="2">Hãy xác định khoa</td>
+            <?php endif; ?>
         </tr>
         <tr>
             <td style="text-align: right;">Bộ môn: </td>
@@ -301,15 +879,14 @@ if (isset($_POST["submit"])) {
                 <div class="autocomplete input-group-sm">
                     <input id="myInputBoMon" class="form-control" type="text" name="inputBoMon" placeholder="Tìm bộ môn" value="<?php if (!empty($inputBoMon)) echo $inputBoMon; ?>">
                 </div>
-                <?php if ($khongBoMonMessage) : ?>
-            <td class="text-danger" colspan="2">Bộ môn không có trong hệ thống dữ liệu</td>
-        <?php elseif ($KhoaKhongCoBoMonMessage) : ?>
-            <td class="text-danger" colspan="2">Khoa không có bộ môn</td>
-        <?php elseif ($hayXacDinhBoMon === TRUE) : ?>
-            <td class="text-danger" colspan="2">Hãy Xác định bộ môn</td>
-        <?php endif; ?>
-
-        </td>
+            </td>
+            <?php if ($khongBoMonMessage) : ?>
+                <td class="text-danger" colspan="2">Bộ môn không có trong hệ thống dữ liệu</td>
+            <?php elseif ($KhoaKhongCoBoMonMessage) : ?>
+                <td class="text-danger" colspan="2">Khoa không có bộ môn</td>
+            <?php elseif ($hayXacDinhBoMon === TRUE) : ?>
+                <td class="text-danger" colspan="2">Hãy Xác định bộ môn</td>
+            <?php endif; ?>
         </tr>
         <tr>
             <td style="text-align: right;">Học phần: </td>
@@ -322,12 +899,12 @@ if (isset($_POST["submit"])) {
                 <div class="autocomplete input-group-sm">
                     <input id="myInputMonHoc" class="form-control" type="text" name="inputMonHoc" placeholder="Tìm môn học" value="<?php if (!empty($inputMonHoc)) echo $inputMonHoc; ?>">
                 </div>
-                <?php if ($khongMonHocMessage) : ?>
-            <td class="text-danger" colspan="2">Môn học không có trong hệ thống dữ liệu</td>
-        <?php elseif ($khongCoMonHocTrongBoMonMessage) : ?>
-            <td class="text-danger" colspan="2">Môn học không có trong bộ môn này</td>
-        <?php endif; ?>
-        </td>
+            </td>
+            <?php if ($khongMonHocMessage) : ?>
+                <td class="text-danger" colspan="2">Môn học không có trong hệ thống dữ liệu</td>
+            <?php elseif ($khongCoMonHocTrongBoMonMessage) : ?>
+                <td class="text-danger" colspan="2">Môn học không có trong bộ môn này</td>
+            <?php endif; ?>
         </tr>
         <tr>
             <td style="text-align: right;">Giáo viên:</td>
@@ -340,10 +917,10 @@ if (isset($_POST["submit"])) {
                 <div class="autocomplete input-group-sm">
                     <input id="myInputGiaoVien" class="form-control" type="text" name="inputGiaoVien" placeholder="Tìm giáo viên" value="<?php if (!empty($inputTenGiaoVien)) echo $inputMaGiaoVien . "-" . $inputTenGiaoVien; ?>">
                 </div>
-                <?php if ($khongCoGiaoVienMessage === TRUE) : ?>
-            <td class="text-danger" colspan="2">Không tìm thấy giáo viên trong cơ sở dữ liệu</td>
-        <?php endif; ?>
-        </td>
+            </td>
+            <?php if ($khongCoGiaoVienMessage === TRUE) : ?>
+                <td class="text-danger" colspan="2">Không tìm thấy giáo viên trong cơ sở dữ liệu</td>
+            <?php endif; ?>
         </tr>
         <tr>
             <td style="text-align: right;">Năm học:</td>
@@ -354,15 +931,24 @@ if (isset($_POST["submit"])) {
                 }
                 ?>
                 <div class="autocomplete input-group-sm">
-                    <input id="myInputNamHoc" class="form-control" type="text" name="inputNamHoc" placeholder="Năm học">
+                    <input id="myInputNamHoc" class="form-control" type="number" name="inputNamHoc" placeholder="Năm học" value="<?php if (!empty($inputNamHoc)) echo $inputNamHoc; ?>">
                 </div>
+
             </td>
+            <?php if ($khongTimThayNamHocMessage === TRUE) : ?>
+                <td class="text-danger">Năm học không tồn tại</td>
+            <?php endif; ?>
             <td style="text-align: right;">Đến năm :</td>
             <td>
                 <div class="autocomplete input-group-sm">
-                    <input id="myInputDenNamHoc" class="form-control" type="text" name="inputDenNamHoc" placeholder="Năm học">
+                    <input id="myInputDenNamHoc" class="form-control" type="number" name="inputDenNamHoc" placeholder="Năm học" value="<?php if (!empty($inputDenNamHoc)) echo $inputDenNamHoc; ?>">
                 </div>
             </td>
+            <?php if ($denNamHocLonHonNamHocMessage === TRUE) : ?>
+                <td class="text-danger">Năm đến phải lớn hơn năm học</td>
+            <?php elseif ($khongTimThayDenNamHocMessage === TRUE) : ?>
+                <td class="text-danger">Năm học không tồn tại</td>
+            <?php endif; ?>
         </tr>
 
         <tr>
@@ -374,7 +960,7 @@ if (isset($_POST["submit"])) {
                 }
                 ?>
                 <div class="autocomplete input-group-sm">
-                    <input id="myInputHocKy" class="form-control" type="text" name="inputHocKy" placeholder="Học kỳ">
+                    <input id="myInputHocKy" min="1" max="3" class="form-control" type="number" name="inputHocKy" placeholder="Học kỳ" value="<?php if (!empty($inputHocKy)) echo $inputHocKy; ?>">
                 </div>
             </td>
         </tr>
@@ -383,7 +969,7 @@ if (isset($_POST["submit"])) {
             <th><input class="btn btn-sm btn-primary" type="submit" name="submit" value="Thống kê"></th>
             <?php if (!empty($thongTinLop)) : ?>
                 <th></th>
-                <th><input class="btn btn-sm btn-primary" type="submit" name="tongHop" value="Xem bảng tổng kết"></th>
+                <th><input class="btn btn-sm btn-primary" type="submit" name="tongHopKetQua" value="Xem bảng tổng kết"></th>
             <?php endif; ?>
         </tr>
     </table>
@@ -493,7 +1079,11 @@ if (isset($_POST["submit"])) {
                 ?>
             </tbody>
         </table>
-
+        <?php if (isset($_POST["submit"])) : ?>
+            <?php if (count($thongTinLop) === 0) : ?>
+                <h6 class="m-auto text-danger">Không tìm thấy kết quả</h6>
+            <?php endif; ?>
+        <?php endif; ?>
     </form>
 
 
@@ -516,7 +1106,10 @@ if (isset($_POST["submit"])) {
             themes: [{
                 name: 'transparent'
             }],
-            col_9: 'none'
+            col_9: 'none',
+            grid: false //hide filter bar
+
+
         });
         tf.init();
     </script>
