@@ -257,6 +257,32 @@ class LopHocPhan
         return $resultArr;
     }
 
+    // get thông tin chi tiêt đánh giá của từng phiếu của mỗi lớp học phần trong 1 nhóm
+    // có bao nhiêu người đánh RD ở tiêu chí đánh giá 1 của lớp học phần 1
+    // có bao nhiêu người đánh TDD ở tiêu chí đánh giá 1 của lớp học phần 1
+    // vv...
+    public function getThongTinChiTietKetQuaCauHoiCuaNhieuLop($arrPhieu, $maTieuChiDanhGia, $noiDungHinhThucPhanLoai)
+    {
+        $arrPhieu = join("','", $arrPhieu);
+        $result = $this->db->con->query("SELECT
+        hinhthucphanloai.NoiDungHinhThucPhanLoai,
+        chitietkhaosatphieu.MaTieuChiDanhGia,
+        hinhthucphanloai.MaTieuChiDanhGia
+        FROM phieukhaosat 
+        JOIN chitietkhaosatphieu 
+        ON phieukhaosat.MaPhieuKhaoSat = chitietkhaosatphieu.MaPhieuKhaoSat
+        JOIN hinhthucphanloai 
+        ON chitietkhaosatphieu.MaHinhThucPhanLoai = hinhthucphanloai.MaHinhThucPhanLoai
+        WHERE phieukhaosat.MaLopHocPhan IN('{$arrPhieu}')
+        AND hinhthucphanloai.MaTieuChiDanhGia = '{$maTieuChiDanhGia}' 
+        AND hinhthucphanloai.NoiDungHinhThucPhanLoai = '{$noiDungHinhThucPhanLoai}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
     //get lớp học trong bộ môn
     public function getLopHocTrongBoMon($maBoMon)
     {
@@ -747,7 +773,7 @@ class LopHocPhan
         return $resultArr;
     }
     //thống kê học phần theo khoảng năm học, hoc kỳ
-    public function thongKeHocPhanTheoKhoanNamVaHocKy($khoa, $boMon, $hocPhan, $namHoc, $denNam,$hocKy)
+    public function thongKeHocPhanTheoKhoanNamVaHocKy($khoa, $boMon, $hocPhan, $namHoc, $denNam, $hocKy)
     {
 
         $result = $this->db->con->query("SELECT *
@@ -1051,6 +1077,52 @@ class LopHocPhan
         ON khoa.MaKhoa = bomon.MaKhoa
             WHERE namhoc.ThoiGian = '{$namHoc}'
             AND hocky.TenHocKy = '{$hocKy}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+
+    //check hoạt động khảo sát có trùng nhau của các lớp học phần
+    // dùng để mở rộng nếu có nhiều hoạt động khảo sát khác nhau
+    public function checkHoatDongKhaoSatCoTrungNhau($arrPhieu)
+    {
+        $arrPhieu = join("','", $arrPhieu);
+        $result = $this->db->con->query("SELECT DISTINCT MaHoatDongKhaoSat FROM LopHocPhan 
+        WHERE  MaLopHocPhan IN('{$arrPhieu}')");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+
+        if (count($resultArr) > 1) {
+            echo 'Hoạt động khảo sát có sự không giống nhau';
+            return null;
+        }
+        return $resultArr;
+    }
+
+    // kiểm tra các phiếu có cùng 1 hoạt động
+    public function checkHoatDongCuaCacPhieu($arrPhieu, $maHoatDongKhaoSat)
+    {
+        $arrPhieu = join("','", $arrPhieu);
+        $result = $this->db->con->query("SELECT * FROM LopHocPhan 
+        WHERE MaHoatDongKhaoSat = '{$maHoatDongKhaoSat}' AND MaLopHocPhan IN('{$arrPhieu}')");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+    // get phiếu của nhiều lớp học
+    public function getPhieuNhieuLop($arrPhieu)
+    {
+        $arrPhieu = join("','", $arrPhieu);
+        $result = $this->db->con->query("SELECT * FROM PhieuKhaoSat 
+        WHERE MaLopHocPhan IN('{$arrPhieu}')");
         $resultArr = array();
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             $resultArr[] = $row;

@@ -195,6 +195,7 @@ if ($tenChucVu === 'admin' || $tenChucVu === 'nhanvien') {
                             <!-- <li class="nav-item">
                                 <a class="nav-link" href="#"><?php echo $tenGiaoVien; ?></a>
                             </li> -->
+
                         </ul>
                     </div>
                 </div>
@@ -218,6 +219,9 @@ if ($tenChucVu === 'admin' || $tenChucVu === 'nhanvien') {
                         break;
                     case 'thongkenangcao':
                         include('page/admin/calculate/thongKeNangCao.php');
+                        break;
+                    case 'tonghopketqua':
+                        include('page/admin/calculate/tongHopPhieu.php');
                         break;
                     default:
                         # code...

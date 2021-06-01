@@ -1,3 +1,5 @@
+
+
 <style>
     select {
         -webkit-appearance: none;
@@ -843,8 +845,30 @@ if (isset($_POST["submit"])) {
             $thongTinLop = $lopHocPhan->getToanTruongTheoHocKy($inputNamHoc, $inputHocKy);
         }
     }
+
+    $arrMaCacLopHocPhan = array(); // arr các lớp học phần
+    foreach ($thongTinLop as $item) {
+        $arrMaCacLopHocPhan[] = $item['MaLopHocPhan'];
+    }
+
+    $_SESSION['arrMaLopHocPhan'] = $arrMaCacLopHocPhan;
+
+    $_SESSION['inputKhoa'] = $inputKhoa;
+    $_SESSION['inputBoMon'] = $inputBoMon;
+    $_SESSION['inputMonHoc'] = $inputMonHoc;
+    $_SESSION['inputNamHoc'] = $inputNamHoc;
+    $_SESSION['inputDenNamHoc'] = $inputDenNamHoc;
+    $_SESSION['inputHocKy'] = $inputHocKy;
+    $_SESSION['inputTenGiaoVien'] = $inputTenGiaoVien;
 }
 
+if (isset($_POST["tongHopKetQua"])) {
+    $soLopHocPhanDangCo = count($_SESSION['arrMaLopHocPhan']);
+    $userRole = $_GET["TenChucVu"];
+    if ($soLopHocPhanDangCo > 0) {
+        echo ("<script>location.href = 'index.php?TenChucVu=" . $userRole . "&page=tonghopketqua" . "';</script>");
+    }
+}
 
 ?>
 

@@ -226,6 +226,24 @@ class InfoSmallTable
     }
 
 
+    // get thông tin hình thức phân loại để count số lượng tiêu chí trong nhiều lớp
+    public function getCountHinhThucPhanLoaiTrongNhieuLop($arrMaLopHocPhan, $noiDungTieuChi)
+    {
+        $arrMaLopHocPhan = join("','", $arrMaLopHocPhan);
+        $result = $this->db->con->query("SELECT
+        hinhthucphanloai.NoiDungHinhThucPhanLoai,
+        hinhthucphanloai.MaTieuChiDanhGia
+        FROM phieukhaosat JOIN chitietkhaosatphieu on phieukhaosat.MaPhieuKhaoSat = chitietkhaosatphieu.MaPhieuKhaoSat
+        JOIN hinhthucphanloai on chitietkhaosatphieu.MaHinhThucPhanLoai = hinhthucphanloai.MaHinhThucPhanLoai
+        WHERE phieukhaosat.MaLopHocPhan IN('{$arrMaLopHocPhan}') AND hinhthucphanloai.NoiDungHinhThucPhanLoai = '{$noiDungTieuChi}' ");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+
     //get thông tin hình thức phân loại
     public function getHinhThucPhanLoai($nhomtieuchi)
     {
