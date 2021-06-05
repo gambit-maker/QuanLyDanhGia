@@ -156,6 +156,9 @@ if (isset($_GET["TenChucVu"])) {
             themes: [{
                 name: 'transparent'
             }],
+            // extensions: [{
+            //     name: 'sort'
+            // }],
             col_9: 'none'
         });
         tf.init();
