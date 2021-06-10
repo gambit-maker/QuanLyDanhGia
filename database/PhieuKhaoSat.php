@@ -40,6 +40,57 @@ class PhieuKhaoSat
     }
 
 
+    public function getMaHocPhan($maDuLieuHocPhan)
+    {
+        $result = $this->db->con->query("SELECT MaHocPhan FROM hocphan WHERE MaDuLieuHocPhan = '{$maDuLieuHocPhan}'");
+        $row = $result->fetch_row();
+        $value = $row[0] ?? false;
+        return $value;
+    }
+
+
+    public function getMaNamHoc($thoiGian)
+    {
+        $result = $this->db->con->query("SELECT MaNamHoc FROM namhoc WHERE ThoiGian = '{$thoiGian}'");
+        $row = $result->fetch_row();
+        $value = $row[0] ?? false;
+        return $value;
+    }
+
+    public function getMaLopHocPhanChoCauHoiMo($maHocPhan, $maNamHoc, $maHocKy, $maGiaoVien, $maNhom, $maHoatDongKhaoSat = '1')
+    {
+        $result = $this->db->con->query("SELECT *
+        FROM lophocphan
+        WHERE MaHocPhan = '{$maHocPhan}' AND MaNamHoc = '{$maNamHoc}' AND MaHocKy = '{$maHocKy}' AND MaGiaoVien = '{$maGiaoVien}' AND MaNhomHocPhan = '{$maNhom}'
+        AND MaHoatDongKhaoSat = '{$maHoatDongKhaoSat}'");
+        $row = $result->fetch_row();
+        $value = $row[0] ?? false;
+        return $value;
+    }
+
+    //get Mã tiêu chí đánh giá
+    public function getMaTieuChiDanhGiaCauHoiMo($noiDungTieuChi)
+    {
+        $result = $this->db->con->query("SELECT MaTieuChi FROM tieuchidanhgia WHERE NoiDung = '{$noiDungTieuChi}'");
+        $row = $result->fetch_row();
+        $value = $row[0] ?? false;
+        return $value;
+    }
+
+
+    // thêm câu hỏi mở
+    public function themPhieuCauHoiMo($maLopHocPhan, $maTieuChiDanhGia, $noiDungGopY, $phanLop, $danhGia, $maHoatDongKhaoSat = '1')
+    {
+        $result = $this->db->con->query("INSERT INTO `chitietkhaosatcauhoimo`(`MaLopHocPhan`, `MaTieuChiDanhGia`, `MaHoatDongKhaoSat`, `NoiDungGopY`, `PhanLop`, `DanhGia`)
+         VALUES ('{$maLopHocPhan}','{$maTieuChiDanhGia}','{$maHoatDongKhaoSat}','{$noiDungGopY}','{$phanLop}','{$danhGia}')");
+        if ($result === TRUE) {
+            echo 'add new record phieu cau hoi mo';
+        }
+    }
+
+    //-----------------------
+
+
 
     /*
     public function getAccountGiaoVien($maNguoiDung, $matKhau)

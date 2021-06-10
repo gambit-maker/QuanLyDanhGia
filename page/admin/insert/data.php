@@ -290,43 +290,81 @@ if (isset($_POST["submit"])) {
             // ****************** (LƯU Ý) tất cả dữ liệu cần có thứ tự giống y hệt file mẫu ******************//
             $target_file = $path_parts['filename'] . ".txt";
             $myFile = fopen($target_file, 'r');
-            $f = file($target_file);
+            $f = file($target_file); // sau khi lưu dữ liệu vào biến $f thì xóa file
+            unlink($file['name']);
+            unlink($path_parts['filename'] . ".txt");
+            fclose($myFile);
 
             //get Mã học kỳ
-            $maHocKy = 0;
+            $hocKy = 0;
             if (str_contains($f[4], "HK1")) {
-                $maHocKy = 1;
+                $hocKy = 1;
             } elseif (str_contains($f[4], "HK2")) {
-                $maHocKy = 2;
+                $hocKy = 2;
             } elseif (str_contains($f[4], "HK3")) {
-                $maHocKy = 3;
+                $hocKy = 3;
             } else {
                 echo "Không tìm thấy học kỳ, hãy chắc rằng, học kỳ được viết dưới dạng HK1, HK2, HK3";
-                // continue; //dữ liệu không tìm thấy vẫn tiếp tục 'file sẽ không xóa sau khi continue' 
+                continue;
             }
+
 
             //get Mã năm học
             $namHocPos = strpos($f[4], 'Năm học'); // vị trí năm học
             $namHoc = substr($f[4], $namHocPos + 11, 4); // VD data str '2022'
+            $maNamHoc = $phieuKhaoSat->getMaNamHoc($namHoc); // mã năm học
 
+            if ($maNamHoc === false) {
+                echo "Năm học <b>" . $namHoc . "</b> Không có trong DB";
+            }
 
-
-
+            $maDuLieuHocPhanKhongCoTrongDB = array(); // dữ liệu học phần không có trong DB để kiểm tra
             for ($i = 9; $i < count($f); $i++) {
-                echo "<br>";
                 $toArr = explode("	", $f[$i]);
                 // dữ liệu mỗi dòng của file được lưu dưới dạng arr để chia từng ô ứng với dữ liệu
-                // VD Array ( [0] => 1 [1] => SOT304 - T.Hành Tin học cơ sở [2] => 27 [3] => 2008022 - Đoàn Vũ Thịnh [4] => Những ưu điểm nổi bật của GV trong quá trình giảng dạy học phần: [5] => Nhiệt tình, quan tâm trong việc giảng dạy và truyền đạt kiến thức [6] => thái độ GV [7] => pos )
-                foreach ($toArr as $item) {
-                    echo $item;
-                    echo "<br>";
+                // VD Array ( [0] => 1 [1] => SOT304 - T.Hành Tin học cơ sở [2] => 27 [3] => 2008022 - Đoàn Vũ Thịnh [4] => Những ưu điểm nổi bật của GV trong quá trình giảng dạy học phần: [5] => Nhiệt tình, quan tâm trong việc giảng dạy và truyền đạt kiến thức [6] => thái độ GV [7] => pos )                
+
+                $maDuLieuHocPhan = substr($toArr[1], 0, 6);
+                $maHocPhan = $phieuKhaoSat->getMaHocPhan($maDuLieuHocPhan);
+                if ($maHocPhan === false) {
+                    if (!in_array($maDuLieuHocPhan, $maDuLieuHocPhanKhongCoTrongDB)) {
+                        array_push($maDuLieuHocPhanKhongCoTrongDB, $maDuLieuHocPhan);
+                    }
                 }
+
+                // luôn luôn là 6 chữ đầu tiên cột môn học VD data: SOT304
+
+                $tenMonHoc = substr($toArr[1], 9);
+                // bắt đầu tại vị trí số 9 VD data: Tin học cơ sở, Ngôn ngữ lập trình C/C++
+                // lưu ý rằng dữ liệu tên môn học cần giống với cơ sở dữ liệu để thuần tiện cho việc tìm kiếm
+
+                $nhomHocPhan = $toArr[2];
+                // echo "nhom hoc phan" . $nhomHocPhan;
+
+                $viTriDauGachNgang = strpos($toArr[3], "-");
+                $maGiaoVien = substr($toArr[3], 0, $viTriDauGachNgang);
+                //Mã giáo viên VD data: 2008022 - Đoàn Vũ Thịnh
+                //lấy từ 0 đến vị trị dấu -
+
+                $cauHoi = $toArr[4];
+                $noiDungGopY = $toArr[5];
+
+                $maLopHocPhan = $phieuKhaoSat->getMaLopHocPhanChoCauHoiMo($maHocPhan, $maNamHoc, $hocKy, $maGiaoVien, $nhomHocPhan);
+
+                $maTieuChiDanhGiaCauHoiMo = $phieuKhaoSat->getMaTieuChiDanhGiaCauHoiMo($cauHoi);
+
+                // echo $cauHoi . "<br>";
+                // echo "ma tieu chi danh gia: " . $maTieuChiDanhGiaCauHoiMo . "<br>";
+
+                // echo "hoc phan " . $maHocPhan . " nam hoc " . $maNamHoc . " hoc ky " . $hocKy . "  giao vien " . $maGiaoVien . "nhom hoc phan " . intval($nhomHocPhan) . "<br>";
+
+                // echo "lop hoc phan code :" . $maLopHocPhan . "<br>";
+                // áp dụng machine learning ở đây
             }
 
 
-            unlink($file['name']);
-            unlink($path_parts['filename'] . ".txt");
-            fclose($myFile);
+            echo "<br><br>Dữ liệu học phần không có trong DB<BR>";
+            print_r($maDuLieuHocPhanKhongCoTrongDB);
         }
     } else {
         echo "Không có FILE Góp Ý. <br>";
