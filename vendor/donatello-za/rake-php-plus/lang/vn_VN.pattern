@@ -1,0 +1,121 @@
+/\bử(?!(-|'))\b|\bừ ừ\b|\bừ ào\b|\bừ thì\b|\bừ nhé\b|\bừ(?!(-|'))\b|\bứ ừ\b|\bứ hự\b|\bủa\b|\bở được\b|\bở đó\b|\bở đây\b|\bở vào\b|\bở trên\b|\bở năm\b|\bở nhờ\b|\bở như\b|\bở lại\b|\bở(?!(-
+|'))\b|\bờ ờ\b|\bờ(?!(-|'))\b|\bớ này\b|\bớ(?!(-|'))\b|\bổng\b|\bồ ồ\b|\bồ(?!(-|'))\b|\bối giời ơi\b|\bối giời\b|\bối dào\b|\bắt thật\b|\bắt phải\b|\bắt là\b|\bắt hẳn\b|\bắt\b|\bầu ơ\b|\bấy là
+\b|\bấy\b|\bạ ơi\b|\bạ(?!(-|'))\b|\bư(?!(-|'))\b|\bơi là\b|\bơi\b|\bơ kìa\b|\bơ hay\b|\bơ(?!(-|'))\b|\bđủ điểm\b|\bđủ điều\b|\bđủ số\b|\bđủ nơi\b|\bđủ dùng\b|\bđủ\b|\bđồng thời\b|\bđối với\b|\
+bđể đến nỗi\b|\bđể được\b|\bđể phần\b|\bđể mà\b|\bđể lại\b|\bđể lòng\b|\bđể không\b|\bđể giống\b|\bđể cho\b|\bđể\b|\bđều đều\b|\bđều nhau\b|\bđều bước\b|\bđều\b|\bđến đâu\b|\bđến điều\b|\bđến
+xem\b|\bđến tuổi\b|\bđến thế\b|\bđến thì\b|\bđến nỗi\b|\bđến nơi\b|\bđến ngày\b|\bđến nay\b|\bđến lời\b|\bđến lúc\b|\bđến khi\b|\bđến hay\b|\bđến gần\b|\bđến giờ\b|\bđến cả\b|\bđến cùng cực\b|
+\bđến cùng\b|\bđến bao giờ\b|\bđến\b|\bđặt để\b|\bđặt trước\b|\bđặt ra\b|\bđặt mức\b|\bđặt mình\b|\bđặt làm\b|\bđặt\b|\bđặc biệt\b|\bđầy tuổi\b|\bđầy phè\b|\bđầy năm\b|\bđầy\b|\bđầu tiên\b|\bđ
+ảm bảo\b|\bđạt\b|\bđại để\b|\bđại phàm\b|\bđại nhân\b|\bđại loại\b|\bđược tin\b|\bđược nước\b|\bđược lời\b|\bđược cái\b|\bđược\b|\bđưa đến\b|\bđưa xuống\b|\bđưa về\b|\bđưa vào\b|\bđưa tới\b|\b
+đưa tin\b|\bđưa tay\b|\bđưa ra\b|\bđưa em\b|\bđưa chuyện\b|\bđưa cho\b|\bđưa\b|\bđơn vị\b|\bđúng với\b|\bđúng tuổi\b|\bđúng ra\b|\bđúng ngày\b|\bđúng\b|\bđó đây\b|\bđó\b|\bđã đủ\b|\bđã vậy\b|\
+bđã thế\b|\bđã lâu\b|\bđã là\b|\bđã không\b|\bđã hay\b|\bđã\b|\bđây đó\b|\bđây rồi\b|\bđây này\b|\bđây\b|\bđâu đó\b|\bđâu đây\b|\bđâu đâu\b|\bđâu phải\b|\bđâu nào\b|\bđâu như\b|\bđâu cũng\b|\b
+đâu có\b|\bđâu\b|\bđáo để\b|\bđánh đùng\b|\bđánh giá\b|\bđáng số\b|\bđáng lẽ\b|\bđáng lý\b|\bđáng lí\b|\bđáng kể\b|\bđáng\b|\bđành đạch\b|\bđiểm đầu tiên\b|\bđiểm gặp\b|\bđiểm chính\b|\bđiểm\b
+|\bđiều kiện\b|\bđiều gì\b|\bđiều\b|\bđang thì\b|\bđang tay\b|\bđang\b|\băn về\b|\băn trên\b|\băn tay\b|\băn sáng\b|\băn riêng\b|\băn quá\b|\băn ngồi\b|\băn người\b|\băn làm\b|\băn hỏi\b|\băn
+hết\b|\băn cuộc\b|\băn chịu\b|\băn chắc\b|\băn chung\b|\băn\b|\bý hoặc\b|\bý da\b|\bý chừng\b|\bý(?!(-|'))\b|\búi dào\b|\búi chà\b|\búi\b|\bông ổng\b|\bông ấy\b|\bông từ\b|\bông tạo\b|\bông nh
+ỏ\b|\bông\b|\bôi thôi\b|\bôi chao\b|\bô kìa\b|\bô kê\b|\bô hô\b|\bô hay\b|\bít thấy\b|\bít thôi\b|\bít ra\b|\bít quá\b|\bít nữa\b|\bít nhất\b|\bít nhiều\b|\bít lâu\b|\bít khi\b|\bít hơn\b|\bít
+ có\b|\bít biết\b|\bít\b|\bâu là\b|\báng như\b|\báng\b|\bái dà\b|\bái chà\b|\bái\b|\bá à\b|\bá(?!(-|'))\b|\bào ào\b|\bào vào\b|\bào\b|\bà ơi\b|\bà này\b|\bà(?!(-|'))\b|\byêu cầu\b|\bxử lý\b|\b
+xệp\b|\bxềnh xệch\b|\bxảy ra\b|\bxăm xắm\b|\bxăm xăm\b|\bxăm xúi\b|\bxuống\b|\bxuể\b|\bxuất kỳ bất ý\b|\bxuất kì bất ý\b|\bxuất hiện\b|\bxoẹt\b|\bxoẳn\b|\bxoét\b|\bxoành xoạch\b|\bxon xón\b|\b
+xiết bao\b|\bxin vâng\b|\bxin gặp\b|\bxin\b|\bxem số\b|\bxem ra\b|\bxem lại\b|\bxem\b|\bxa xả\b|\bxa xa\b|\bxa tắp\b|\bxa tanh\b|\bxa nhà\b|\bxa gần\b|\bxa cách\b|\bxa\b|\bvừa vừa\b|\bvừa rồi\
+b|\bvừa qua\b|\bvừa mới\b|\bvừa lúc\b|\bvừa khi\b|\bvừa\b|\bvụt\b|\bvở\b|\bvới nhau\b|\bvới lại\b|\bvới\b|\bvốn dĩ\b|\bvị tất\b|\bvị trí\b|\bvề tay\b|\bvề sau\b|\bvề phần\b|\bvề nước\b|\bvề kh
+ông\b|\bvề\b|\bvậy ư\b|\bvậy thì\b|\bvậy ra\b|\bvậy nên\b|\bvậy mà\b|\bvậy là\b|\bvậy\b|\bvẫn thế\b|\bvẫn\b|\bvấn đề quan trọng\b|\bvấn đề\b|\bvả lại\b|\bvả chăng\b|\bvạn nhất\b|\bvượt quá\b|\
+bvượt khỏi\b|\bvượt\b|\bvăng tê\b|\bvùng nước\b|\bvùng lên\b|\bvùng\b|\bvô vàn\b|\bvô luận\b|\bvô kể\b|\bvô hình trung\b|\bví thử\b|\bví phỏng\b|\bví dù\b|\bví bằng\b|\bvì vậy\b|\bvì thế\b|\bv
+ì sao\b|\bvì rằng\b|\bvì chưng\b|\bvì\b|\bvèo vèo\b|\bvèo\b|\bvâng ý\b|\bvâng vâng\b|\bvâng dạ\b|\bvâng chịu\b|\bvâng\b|\bvào đến\b|\bvào vùng\b|\bvào lúc\b|\bvào khoảng\b|\bvào gặp\b|\bvào\b|
+\bvài điều\b|\bvài tên\b|\bvài nơi\b|\bvài nhà\b|\bvài người\b|\bvài ba\b|\bvài\b|\bvà\b|\bvung tán tàn\b|\bvung tàn tán\b|\bvung thiên địa\b|\bviệc gì\b|\bviệc\b|\bveo veo\b|\bveo\b|\btựu tru
+ng\b|\btự ăn\b|\btự ý\b|\btự vì\b|\btự tạo\b|\btự tính\b|\btự lượng\b|\btự khi\b|\btự cao\b|\btự\b|\btừng ấy\b|\btừng đơn vị\b|\btừng thời gian\b|\btừng phần\b|\btừng nhà\b|\btừng giờ\b|\btừng
+ cái\b|\btừng\b|\btừ ấy\b|\btừ đó\b|\btừ điều\b|\btừ ái\b|\btừ từ\b|\btừ tại\b|\btừ tính\b|\btừ thế\b|\btừ nay\b|\btừ loại\b|\btừ khi\b|\btừ giờ\b|\btừ căn\b|\btừ\b|\btức tốc\b|\btức thì\b|\bt
+ới thì\b|\btới nơi\b|\btới mức\b|\btới gần\b|\btới\b|\btớ\b|\btột cùng\b|\btột\b|\btốt ngày\b|\btốt mối\b|\btốt hơn\b|\btốt bộ\b|\btốt bạn\b|\btốt\b|\btối ư\b|\btốc tả\b|\btỏ vẻ\b|\btỏ ra\b|\b
+tọt\b|\btắp tắp\b|\btắp lự\b|\btắp\b|\btập trung\b|\btất tật\b|\btất tần tật\b|\btất thảy\b|\btất cả bao nhiêu\b|\btất cả\b|\btấn tới\b|\btấn\b|\btấm các\b|\btấm bản\b|\btấm\b|\btạo điều kiện\
+b|\btạo ý\b|\btạo ra\b|\btạo nên\b|\btạo cơ hội\b|\btạo\b|\btại đó\b|\btại đây\b|\btại đâu\b|\btại vì\b|\btại tôi\b|\btại sao\b|\btại nơi\b|\btại lòng\b|\btại\b|\btăng thế\b|\btăng thêm\b|\btă
+ng giảm\b|\btăng cấp\b|\btăng chúng\b|\btăng\b|\btăm tắp\b|\btù tì\b|\btông tốc\b|\btôi con\b|\btôi\b|\btò te\b|\btít mù\b|\btính từ\b|\btính phỏng\b|\btính người\b|\btính căn\b|\btính cách\b|
+\btính\b|\btình trạng\b|\btìm việc\b|\btìm ra\b|\btìm hiểu\b|\btìm cách\b|\btìm bạn\b|\btìm\b|\btênh tênh\b|\btênh\b|\btên tự\b|\btên họ\b|\btên cái\b|\btên chính\b|\btên\b|\btà tà\b|\btuổi tô
+i\b|\btuổi cả\b|\btuổi\b|\btuốt tuột\b|\btuốt tuồn tuột\b|\btuốt luốt\b|\btuần tự\b|\btuyệt nhiên\b|\btuy đã\b|\btuy vậy\b|\btuy thế\b|\btuy rằng\b|\btuy nhiên\b|\btuy là\b|\btuy có\b|\btuy\b|
+\btrực tiếp làm\b|\btrực tiếp\b|\btrừ phi\b|\btrở thành\b|\btrời đất ơi\b|\btrỏng\b|\btrệu trạo\b|\btrệt\b|\btrển\b|\btrếu tráo\b|\btrả trước\b|\btrả ngay\b|\btrả lại\b|\btrả của\b|\btrả\b|\bt
+rước đó\b|\btrước đây\b|\btrước tuổi\b|\btrước tiên\b|\btrước sau\b|\btrước nhất\b|\btrước ngày\b|\btrước nay\b|\btrước kia\b|\btrước khi\b|\btrước hết\b|\btrước\b|\btrên dưới\b|\btrên bộ\b|\b
+trên\b|\btránh xa\b|\btránh tình trạng\b|\btránh ra\b|\btránh khỏi\b|\btránh\b|\btrong ấy\b|\btrong đó\b|\btrong vùng\b|\btrong số\b|\btrong này\b|\btrong ngoài\b|\btrong mình\b|\btrong lúc\b|
+\btrong khi\b|\btrong\b|\btoẹt\b|\btoé khói\b|\btoà\b|\btiện thể\b|\btiếp đó\b|\btiếp tục\b|\btiếp theo\b|\btin vào\b|\btin thêm\b|\btin\b|\bthực vậy\b|\bthực tế\b|\bthực sự\b|\bthực ra\b|\bth
+ực hiện đúng\b|\bthực hiện\b|\bthửa\b|\bthứ đến\b|\bthứ bản\b|\bthứ\b|\bthục mạng\b|\bthời điểm\b|\bthời gian tính\b|\bthời gian sử dụng\b|\bthời gian\b|\bthộc\b|\bthốt thôi\b|\bthốt nói\b|\bt
+hốt nhiên\b|\bthốt\b|\bthốc tháo\b|\bthốc\b|\bthỏm\b|\bthỉnh thoảng\b|\bthếch\b|\bthế đó\b|\bthế à\b|\bthế thế\b|\bthế thường\b|\bthế thôi\b|\bthế thì\b|\bthế sự\b|\bthế ra\b|\bthế nên\b|\bthế
+ nào\b|\bthế mà\b|\bthế lại\b|\bthế là\b|\bthế chuẩn bị\b|\bthế\b|\bthật vậy\b|\bthật tốt\b|\bthật thà\b|\bthật sự\b|\bthật ra\b|\bthật quả\b|\bthật lực\b|\bthật là\b|\bthật chắc\b|\bthật\b|\b
+thậm từ\b|\bthậm cấp\b|\bthậm chí\b|\bthậm\b|\bthẩy\b|\bthấy tháng\b|\bthấy\b|\bthấp xuống\b|\bthấp thỏm\b|\bthấp cơ\b|\bthấp\b|\bthảo nào\b|\bthảo hèn\b|\bthường đến\b|\bthường xuất hiện\b|\b
+thường tại\b|\bthường tính\b|\bthường thường\b|\bthường thôi\b|\bthường sự\b|\bthường số\b|\bthường khi\b|\bthường hay\b|\bthường bị\b|\bthường\b|\bthương ôi\b|\bthúng thắng\b|\bthôi việc\b|\b
+thôi\b|\bthím\b|\bthích ý\b|\bthích tự\b|\bthích thuộc\b|\bthích cứ\b|\bthích\b|\bthình lình\b|\bthì thôi\b|\bthì ra\b|\bthì phải\b|\bthì là\b|\bthì giờ\b|\bthì\b|\bthêm vào\b|\bthêm giờ\b|\bt
+hêm chuyện\b|\bthêm\b|\btháng tháng\b|\btháng năm\b|\btháng ngày\b|\btháng\b|\bthái quá\b|\bthành thử\b|\bthành ra\b|\bthà rằng\b|\bthà là\b|\bthà\b|\bthuộc từ\b|\bthuộc lại\b|\bthuộc cách\b|\
+bthuộc bài\b|\bthuộc\b|\bthuần ái\b|\bthuần\b|\bthoắt\b|\bthoạt nhiên\b|\bthoạt nghe\b|\bthoạt\b|\bthiếu điểm\b|\bthiếu gì\b|\bthiếu\b|\bthi thoảng\b|\btheo tin\b|\btheo như\b|\btheo bước\b|\b
+theo\b|\bthay đổi tình trạng\b|\bthay đổi\b|\bthanh điểm\b|\bthanh điều kiện\b|\bthanh tính\b|\bthanh thanh\b|\bthanh không\b|\bthanh chuyển\b|\bthanh ba\b|\bthanh\b|\bthan ôi\b|\btha hồ ăn\b|
+\btha hồ chơi\b|\btha hồ\b|\btay quay\b|\btay\b|\btanh tanh\b|\btanh\b|\bsự việc\b|\bsự thế\b|\bsự\b|\bsử dụng\b|\bsở dĩ\b|\bsớm ngày\b|\bsớm\b|\bsốt sột\b|\bsố thiếu\b|\bsố phần\b|\bsố người\
+b|\bsố là\b|\bsố loại\b|\bsố cụ thể\b|\bsố cho biết\b|\bsố\b|\bsẽ hay\b|\bsẽ biết\b|\bsẽ\b|\bsắp đặt\b|\bsắp\b|\bsất\b|\bsì sì\b|\bsì\b|\bsáng ý\b|\bsáng thế\b|\bsáng rõ\b|\bsáng ngày\b|\bsáng
+\b|\bsuýt nữa\b|\bsuýt\b|\bsong le\b|\bso với\b|\bso\b|\bsau đó\b|\bsau đây\b|\bsau sau\b|\bsau nữa\b|\bsau này\b|\bsau hết\b|\bsau cùng\b|\bsau cuối\b|\bsau chót\b|\bsau\b|\bsao đang\b|\bsao
+vậy\b|\bsao cho\b|\bsao bằng\b|\bsao bản\b|\bsao\b|\bsang tay\b|\bsang sáng\b|\bsang năm\b|\bsang\b|\bsa sả\b|\brứa\b|\brồi đây\b|\brồi xem\b|\brồi thì\b|\brồi tay\b|\brồi sau\b|\brồi sao\b|\b
+rồi ra\b|\brồi nữa\b|\brồi\b|\brốt cục\b|\brốt cuộc\b|\brằng là\b|\brằng\b|\brất lâu\b|\brất\b|\brăng răng\b|\brăng\b|\brút cục\b|\brõ thật\b|\brõ là\b|\brõ\b|\brón rén\b|\brích\b|\brén bước\b
+|\brén\b|\bráo trọi\b|\bráo nước\b|\bráo cả\b|\bráo\b|\brày\b|\briệt\b|\briêng từng\b|\briêng\b|\briu ríu\b|\bren rén\b|\bra đây\b|\bra điều\b|\bra ý\b|\bra vào\b|\bra tay\b|\bra sao\b|\bra ng
+ười\b|\bra ngôi\b|\bra lời\b|\bra lại\b|\bra gì\b|\bra chơi\b|\bra bộ\b|\bra bài\b|\bra\b|\bquận\b|\bquả vậy\b|\bquả thế\b|\bquả thật\b|\bquả là\b|\bquả\b|\bquá ư\b|\bquá đáng\b|\bquá tuổi\b|\
+bquá trình\b|\bquá tin\b|\bquá thì\b|\bquá tay\b|\bquá nhiều\b|\bquá mức\b|\bquá lời\b|\bquá giờ\b|\bquá bộ\b|\bquá bán\b|\bquá\b|\bquay đi\b|\bquay số\b|\bquay lại\b|\bquay bước\b|\bquay\b|\b
+quan tâm\b|\bquan trọng vấn đề\b|\bquan trọng\b|\bqua đi\b|\bqua thì\b|\bqua tay\b|\bqua ngày\b|\bqua lần\b|\bqua lại\b|\bqua khỏi\b|\bqua chuyện\b|\bqua\b|\bphứt\b|\bphụt\b|\bphốc\b|\bphỏng t
+ính\b|\bphỏng theo\b|\bphỏng nước\b|\bphỏng như\b|\bphỏng\b|\bphỉ phui\b|\bphắt\b|\bphần việc\b|\bphần sau\b|\bphần nào\b|\bphần nhiều\b|\bphần lớn\b|\bphần\b|\bphải tay\b|\bphải rồi\b|\bphải
+như\b|\bphải người\b|\bphải lời\b|\bphải lại\b|\bphải không\b|\bphải khi\b|\bphải giờ\b|\bphải cái\b|\bphải cách\b|\bphải chăng\b|\bphải chi\b|\bphải biết\b|\bphải\b|\bphương chi\b|\bphăn phắt
+\b|\bphù hợp\b|\bphót\b|\bphóc\b|\bphía trước\b|\bphía trên\b|\bphía trong\b|\bphía sau\b|\bphía dưới\b|\bphía bạn\b|\bphía bên\b|\bphía\b|\bphè phè\b|\bphè\b|\bpho\b|\boái\b|\boai oái\b|\bnữa
+ rồi\b|\bnữa là\b|\bnữa khi\b|\bnữa\b|\bnức nở\b|\bnớ\b|\bnọ\b|\bnền\b|\bnếu được\b|\bnếu vậy\b|\bnếu thế\b|\bnếu như\b|\bnếu mà\b|\bnếu không\b|\bnếu cần\b|\bnếu có\b|\bnếu\b|\bnặng về\b|\bnặ
+ng mình\b|\bnặng căn\b|\bnặng\b|\bnấy\b|\bnước đến\b|\bnước ăn\b|\bnước xuống\b|\bnước quả\b|\bnước nặng\b|\bnước lên\b|\bnước cùng\b|\bnước bài\b|\bnước\b|\bnơi nơi\b|\bnơi\b|\bnăm tháng\b|\b
+năm\b|\bnói đủ\b|\bnói đến\b|\bnói ý\b|\bnói xa\b|\bnói với\b|\bnói tốt\b|\bnói trước\b|\bnói toẹt\b|\bnói thật\b|\bnói thêm\b|\bnói rõ\b|\bnói riêng\b|\bnói ra\b|\bnói qua\b|\bnói phải\b|\bnó
+i nhỏ\b|\bnói lại\b|\bnói lên\b|\bnói là\b|\bnói khó\b|\bnói chung\b|\bnói bông\b|\bnói\b|\bnóc\b|\bnó\b|\bnên tránh\b|\bnên người\b|\bnên làm\b|\bnên chăng\b|\bnên chi\b|\bnên\b|\bnày nọ\b|\b
+này\b|\bnào đó\b|\bnào đâu\b|\bnào phải\b|\bnào là\b|\bnào hay\b|\bnào cũng\b|\bnào\b|\bnhững như\b|\bnhững muốn\b|\bnhững lúc\b|\bnhững là\b|\bnhững khi\b|\bnhững ai\b|\bnhững\b|\bnhỡ ra\b|\b
+nhờ đó\b|\bnhờ nhờ\b|\bnhờ có\b|\bnhờ chuyển\b|\bnhờ\b|\bnhớ ra\b|\bnhớ lấy\b|\bnhớ lại\b|\bnhớ bập bõm\b|\bnhớ\b|\bnhỏ người\b|\bnhỏ\b|\bnhỉ\b|\bnhằm để\b|\bnhằm vào\b|\bnhằm lúc\b|\bnhằm khi
+\b|\bnhằm\b|\bnhận được\b|\bnhận việc\b|\bnhận thấy\b|\bnhận ra\b|\bnhận nhau\b|\bnhận làm\b|\bnhận họ\b|\bnhận biết\b|\bnhận\b|\bnhất định\b|\bnhất đán\b|\bnhất tề\b|\bnhất tâm\b|\bnhất thì\b
+|\bnhất thiết\b|\bnhất sinh\b|\bnhất quyết\b|\bnhất nhất\b|\bnhất mực\b|\bnhất là\b|\bnhất luật\b|\bnhất loạt\b|\bnhất\b|\bnhược bằng\b|\bnhưng mà\b|\bnhưng\b|\bnhư ý\b|\bnhư vậy\b|\bnhư tuồng
+\b|\bnhư trước\b|\bnhư trên\b|\bnhư thể\b|\bnhư thế nào\b|\bnhư thế\b|\bnhư thường\b|\bnhư sau\b|\bnhư quả\b|\bnhư nhau\b|\bnhư là\b|\bnhư không\b|\bnhư chơi\b|\bnhư ai\b|\bnhư\b|\bnhón nhén\b
+|\bnhóm\b|\bnhìn xuống\b|\bnhìn thấy\b|\bnhìn theo\b|\bnhìn nhận\b|\bnhìn lại\b|\bnhìn chung\b|\bnhìn\b|\bnhé\b|\bnhân tiện\b|\bnhân dịp\b|\bnhà việc\b|\bnhà tôi\b|\bnhà ngươi\b|\bnhà ngoài\b|
+\bnhà làm\b|\bnhà khó\b|\bnhà chung\b|\bnhà\b|\bnhung nhăng\b|\bnhiệt liệt\b|\bnhiều ít\b|\bnhiều\b|\bnhiên hậu\b|\bnhau\b|\bnhanh tay\b|\bnhanh lên\b|\bnhanh\b|\bngộ nhỡ\b|\bngồi trệt\b|\bngồ
+i sau\b|\bngồi không\b|\bngồi bệt\b|\bngồi\b|\bngọt\b|\bngọn nguồn\b|\bngọn\b|\bngười nhận\b|\bngười người\b|\bngười nghe\b|\bngười mình\b|\bngười khách\b|\bngười khác\b|\bngười hỏi\b|\bngười\
+b|\bngươi\b|\bngăn ngắt\b|\bngõ hầu\b|\bngôi thứ\b|\bngôi nhà\b|\bngôi\b|\bngày ấy\b|\bngày đến\b|\bngày xửa\b|\bngày xưa\b|\bngày tháng\b|\bngày rày\b|\bngày qua\b|\bngày nọ\b|\bngày này\b|\b
+ngày nào\b|\bngày ngày\b|\bngày giờ\b|\bngày cấp\b|\bngày càng\b|\bngày\b|\bnguồn\b|\bngoải\b|\bngoài xa\b|\bngoài ra\b|\bngoài này\b|\bngoài\b|\bnghỉm\b|\bnghĩ đến\b|\bnghĩ xa\b|\bnghĩ tới\b|
+\bnghĩ ra\b|\bnghĩ lại\b|\bnghĩ\b|\bnghiễm nhiên\b|\bnghen\b|\bnghe được\b|\bnghe đâu như\b|\bnghe đâu\b|\bnghe trực tiếp\b|\bnghe tin\b|\bnghe thấy\b|\bnghe rõ\b|\bnghe ra\b|\bnghe nói\b|\bng
+he như\b|\bnghe nhìn\b|\bnghe lại\b|\bnghe không\b|\bnghe hiểu\b|\bnghe chừng\b|\bnghe\b|\bngay từ\b|\bngay tức thì\b|\bngay tức khắc\b|\bngay thật\b|\bngay lập tức\b|\bngay lúc này\b|\bngay l
+úc\b|\bngay khi đến\b|\bngay khi\b|\bngay cả\b|\bngay bây giờ\b|\bngay\b|\bnay\b|\bmức\b|\bmợ\b|\bmở ra\b|\bmở nước\b|\bmở mang\b|\bmở\b|\bmới đây\b|\bmới rồi\b|\bmới hay\b|\bmới\b|\bmột ít\b|
+\bmột vài\b|\bmột số\b|\bmột lúc\b|\bmột khi\b|\bmột cơn\b|\bmột cách\b|\bmột\b|\bmỗi người\b|\bmỗi ngày\b|\bmỗi một\b|\bmỗi lần\b|\bmỗi lúc\b|\bmỗi\b|\bmối\b|\bmọi việc\b|\bmọi thứ\b|\bmọi sự
+\b|\bmọi nơi\b|\bmọi người\b|\bmọi lúc\b|\bmọi khi\b|\bmọi giờ\b|\bmọi\b|\bmất còn\b|\bmất\b|\bmạnh\b|\bmình\b|\bmà vẫn\b|\bmà thôi\b|\bmà lại\b|\bmà không\b|\bmà cả\b|\bmà\b|\bmuốn\b|\bmang v
+ề\b|\bmang nặng\b|\bmang mang\b|\bmang lại\b|\bmang\b|\blời nói\b|\blời chú\b|\blời\b|\blớn nhỏ\b|\blớn lên\b|\blớn\b|\blần tìm\b|\blần trước\b|\blần theo\b|\blần sau\b|\blần sang\b|\blần này\
+b|\blần nào\b|\blần lần\b|\blần khác\b|\blần\b|\blấy để\b|\blấy được\b|\blấy xuống\b|\blấy vào\b|\blấy thế\b|\blấy thêm\b|\blấy số\b|\blấy sau\b|\blấy ráo\b|\blấy ra\b|\blấy lại\b|\blấy lý do\
+b|\blấy làm\b|\blấy giống\b|\blấy cả\b|\blấy có\b|\blấy\b|\blại đây\b|\blại ăn\b|\blại thôi\b|\blại quả\b|\blại nữa\b|\blại nói\b|\blại người\b|\blại làm\b|\blại giống\b|\blại còn\b|\blại cái\
+b|\blại bộ\b|\blại\b|\blượng từ\b|\blượng số\b|\blượng cả\b|\blượng\b|\blý do\b|\blúc ấy\b|\blúc đến\b|\blúc đó\b|\blúc đi\b|\blúc trước\b|\blúc sáng\b|\blúc này\b|\blúc nào\b|\blúc lâu\b|\blú
+c khác\b|\blúc\b|\blòng không\b|\blòng\b|\blên đến\b|\blên xuống\b|\blên số\b|\blên nước\b|\blên ngôi\b|\blên mạnh\b|\blên cơn\b|\blên cao\b|\blên\b|\blâu ngày\b|\blâu nay\b|\blâu lâu\b|\blâu
+các\b|\blâu\b|\blàm được\b|\blàm đúng\b|\blàm vì\b|\blàm tắp lự\b|\blàm tại\b|\blàm tăng\b|\blàm tôi\b|\blàm tin\b|\blàm thế nào\b|\blàm theo\b|\blàm sao\b|\blàm riêng\b|\blàm ra\b|\blàm nên\b
+|\blàm như\b|\blàm ngay\b|\blàm mất\b|\blàm lấy\b|\blàm lại\b|\blàm lòng\b|\blàm gì\b|\blàm dần dần\b|\blàm cho\b|\blàm bằng\b|\blàm\b|\blà ít\b|\blà vì\b|\blà thế nào\b|\blà phải\b|\blà nhiều
+\b|\blà là\b|\blà cùng\b|\blà\b|\bluôn tay\b|\bluôn luôn\b|\bluôn cả\b|\bluôn\b|\bloại từ\b|\bloại\b|\bliên quan\b|\bkể từ\b|\bkể tới\b|\bkể như\b|\bkể cả\b|\bkể\b|\bkhỏi nói\b|\bkhỏi\b|\bkhẳn
+g định\b|\bkhông để\b|\bkhông đầy\b|\bkhông được\b|\bkhông điều kiện\b|\bkhông tính\b|\bkhông thể\b|\bkhông phải không\b|\bkhông phải\b|\bkhông những\b|\bkhông nhận\b|\bkhông ngoài\b|\bkhông k
+ể\b|\bkhông khỏi\b|\bkhông hay\b|\bkhông gì\b|\bkhông dùng\b|\bkhông cứ\b|\bkhông cần\b|\bkhông cùng\b|\bkhông có gì\b|\bkhông có\b|\bkhông còn\b|\bkhông chỉ\b|\bkhông bán\b|\bkhông biết\b|\bk
+hông bao lâu\b|\bkhông bao giờ\b|\bkhông ai\b|\bkhông\b|\bkhó tránh\b|\bkhó thấy\b|\bkhó nói\b|\bkhó nghĩ\b|\bkhó nghe\b|\bkhó mở\b|\bkhó làm\b|\bkhó khăn\b|\bkhó chơi\b|\bkhó biết\b|\bkhó\b|\
+bkhách\b|\bkhác xa\b|\bkhác thường\b|\bkhác nào\b|\bkhác nhau\b|\bkhác khác\b|\bkhác gì\b|\bkhác\b|\bkhá tốt\b|\bkhá\b|\bkhoảng không\b|\bkhoảng cách\b|\bkhoảng\b|\bkhiến\b|\bkhi trước\b|\bkhi
+ nên\b|\bkhi nào\b|\bkhi không\b|\bkhi khác\b|\bkhi\b|\bhỗ trợ\b|\bhỏi xin\b|\bhỏi xem\b|\bhỏi lại\b|\bhỏi\b|\bhọ xa\b|\bhọ gần\b|\bhọ\b|\bhết ý\b|\bhết rồi\b|\bhết ráo\b|\bhết nói\b|\bhết của
+\b|\bhết cả\b|\bhết chuyện\b|\bhết\b|\bhầu hết\b|\bhơn trước\b|\bhơn nữa\b|\bhơn là\b|\bhơn hết\b|\bhơn cả\b|\bhơn\b|\bhãy còn\b|\bhãy\b|\bhoặc là\b|\bhoặc\b|\bhoàn toàn\b|\bhiện tại\b|\bhiện
+nay\b|\bhiểu\b|\bhay đâu\b|\bhay tin\b|\bhay sao\b|\bhay nói\b|\bhay nhỉ\b|\bhay làm\b|\bhay là\b|\bhay không\b|\bhay hay\b|\bhay biết\b|\bhay\b|\bgồm\b|\bgặp phải\b|\bgặp khó khăn\b|\bgặp\b|\
+bgần đến\b|\bgần đây\b|\bgần xa\b|\bgần như\b|\bgần ngày\b|\bgần hết\b|\bgần bên\b|\bgần\b|\bgì đó\b|\bgì gì\b|\bgì\b|\bgây thêm\b|\bgây ra\b|\bgây giống\b|\bgây cho\b|\bgây\b|\bgiữa lúc\b|\bg
+iữa\b|\bgiữ ý\b|\bgiữ lấy\b|\bgiữ\b|\bgiờ đến\b|\bgiờ đây\b|\bgiờ đi\b|\bgiờ này\b|\bgiờ lâu\b|\bgiờ\b|\bgiống như\b|\bgiống nhau\b|\bgiống người\b|\bgiống\b|\bgiảm thế\b|\bgiảm thấp\b|\bgiảm
+chính\b|\bgiảm\b|\bgiá trị thực tế\b|\bgiá trị\b|\bem em\b|\bem\b|\bdữ cách\b|\bdữ\b|\bdở chừng\b|\bdễ đâu\b|\bdễ ăn\b|\bdễ thấy\b|\bdễ thường\b|\bdễ sử dụng\b|\bdễ sợ\b|\bdễ như chơi\b|\bdễ n
+gươi\b|\bdễ nghe\b|\bdễ khiến\b|\bdễ gì\b|\bdễ dùng\b|\bdễ\b|\bdẫu sao\b|\bdẫu rằng\b|\bdẫu mà\b|\bdẫu\b|\bdẫn\b|\bdầu sao\b|\bdần dần\b|\bdần dà\b|\bdạ khách\b|\bdạ dạ\b|\bdạ dài\b|\bdạ con\b
+|\bdạ bán\b|\bdạ\b|\bdưới nước\b|\bdưới\b|\bdùng đến\b|\bdùng làm\b|\bdùng hết\b|\bdùng cho\b|\bdùng\b|\bdù sao\b|\bdù rằng\b|\bdù gì\b|\bdù dì\b|\bdù cho\b|\bdù\b|\bdì\b|\bdào\b|\bdành dành\b
+|\bdành\b|\bdài ra\b|\bdài lời\b|\bdài\b|\bduy có\b|\bduy chỉ\b|\bduy\b|\bdo đó\b|\bdo vậy\b|\bdo vì\b|\bdo\b|\bcực lực\b|\bcứ điểm\b|\bcứ việc\b|\bcứ như\b|\bcứ\b|\bcủa tin\b|\bcủa ngọt\b|\bc
+ủa\b|\bcụ thể như\b|\bcụ thể là\b|\bcụ thể\b|\bcổ lai\b|\bcậu\b|\bcật sức\b|\bcật lực\b|\bcần số\b|\bcần gì\b|\bcần cấp\b|\bcần\b|\bcấp trực tiếp\b|\bcấp số\b|\bcấp\b|\bcảm ơn\b|\bcảm thấy\b|\
+bcả đến\b|\bcả ăn\b|\bcả tin\b|\bcả thể\b|\bcả thảy\b|\bcả năm\b|\bcả nhà\b|\bcả người\b|\bcả ngày\b|\bcả nghĩ\b|\bcả nghe\b|\bcả\b|\bcơn\b|\bcơ mà\b|\bcơ hội\b|\bcơ hồ\b|\bcơ dẫn\b|\bcơ cùng\
+b|\bcơ chừng\b|\bcơ chỉ\b|\bcơ\b|\bcũng được\b|\bcũng vậy thôi\b|\bcũng vậy\b|\bcũng thế\b|\bcũng nên\b|\bcũng như\b|\bcũng\b|\bcăn tính\b|\bcăn cắt\b|\bcăn cái\b|\bcăn\b|\bcùng ăn\b|\bcùng vớ
+i\b|\bcùng tột\b|\bcùng tuổi\b|\bcùng nhau\b|\bcùng cực\b|\bcùng chung\b|\bcùng\b|\bcông nhiên\b|\bcô ấy\b|\bcô tăng\b|\bcô quả\b|\bcô mình\b|\bcô\b|\bcóc khô\b|\bcó được\b|\bcó đâu\b|\bcó đán
+g\b|\bcó điều kiện\b|\bcó điều\b|\bcó ăn\b|\bcó ý\b|\bcó vẻ\b|\bcó thể\b|\bcó thế\b|\bcó tháng\b|\bcó số\b|\bcó phải\b|\bcó nhà\b|\bcó nhiều\b|\bcó người\b|\bcó ngày\b|\bcó khi\b|\bcó họ\b|\bc
+ó dễ\b|\bcó cơ\b|\bcó chứ\b|\bcó chăng là\b|\bcó chăng\b|\bcó chuyện\b|\bcó ai\b|\bcó\b|\bcòn về\b|\bcòn thời gian\b|\bcòn nữa\b|\bcòn như\b|\bcòn\b|\bcây nước\b|\bcây\b|\bcâu hỏi\b|\bcái ấy\b
+|\bcái đó\b|\bcái đã\b|\bcái họ\b|\bcái gì\b|\bcái\b|\bcách đều\b|\bcách nhau\b|\bcách không\b|\bcách bức\b|\bcách\b|\bcác cậu\b|\bcác\b|\bcá nhân\b|\bcàng hay\b|\bcàng càng\b|\bcàng\b|\bcuộc\
+b|\bcuốn\b|\bcuối điểm\b|\bcuối cùng\b|\bcuối\b|\bcu cậu\b|\bcon tính\b|\bcon nhà\b|\bcon dạ\b|\bcon con\b|\bcon\b|\bcoi mòi\b|\bcoi bộ\b|\bchứ sao\b|\bchứ như\b|\bchứ lị\b|\bchứ lại\b|\bchứ k
+hông phải\b|\bchứ không\b|\bchứ gì\b|\bchứ còn\b|\bchứ ai\b|\bchứ\b|\bchủn\b|\bchợt nhìn\b|\bchợt nghe\b|\bchợt\b|\bchớ như\b|\bchớ kể\b|\bchớ không\b|\bchớ gì\b|\bchớ chi\b|\bchớ\b|\bchốc chố
+c\b|\bchọn ra\b|\bchọn bên\b|\bchọn\b|\bchịu ăn\b|\bchịu tốt\b|\bchịu lời\b|\bchịu chưa\b|\bchịu\b|\bchị ấy\b|\bchị bộ\b|\bchị\b|\bchỉn\b|\bchỉ tên\b|\bchỉ là\b|\bchỉ có\b|\bchỉ chính\b|\bchỉ\
+b|\bchết tiệt\b|\bchết thật\b|\bchết nỗi\b|\bchẳng phải\b|\bchẳng nữa\b|\bchẳng những\b|\bchẳng lẽ\b|\bchắc ăn\b|\bchắc vào\b|\bchắc người\b|\bchắc lòng\b|\bchắc hẳn\b|\bchắc dạ\b|\bchắc chắn\
+b|\bchắc\b|\bchậc\b|\bchầm chập\b|\bchưa từng\b|\bchưa tính\b|\bchưa kể\b|\bchưa dễ\b|\bchưa dùng\b|\bchưa cần\b|\bchưa có\b|\bchưa chắc\b|\bchưa bao giờ\b|\bchưa\b|\bchơi họ\b|\bchơi\b|\bchăn
+g nữa\b|\bchăng chắc\b|\bchăng\b|\bchăn chắn\b|\bchúng ông\b|\bchúng tôi\b|\bchúng ta\b|\bchúng mình\b|\bchúng\b|\bchú mình\b|\bchú mày\b|\bchú khách\b|\bchú dẫn\b|\bchú\b|\bchùn chũn\b|\bchùn
+ chùn\b|\bchính điểm\b|\bchính thị\b|\bchính là\b|\bchính giữa\b|\bchính bản\b|\bchính\b|\bchí chết\b|\bchành chạnh\b|\bchuẩn bị\b|\bchuyện\b|\bchuyển đạt\b|\bchuyển tự\b|\bchuyển\b|\bchung ái
+\b|\bchung quy lại\b|\bchung quy\b|\bchung qui\b|\bchung nhau\b|\bchung cục\b|\bchung cuộc\b|\bchung chung\b|\bchung cho\b|\bchung\b|\bchui cha\b|\bchu cha\b|\bchoa\b|\bcho đến nỗi\b|\bcho đến
+ khi\b|\bcho đến\b|\bcho được\b|\bcho đang\b|\bcho ăn\b|\bcho về\b|\bcho tới khi\b|\bcho tới\b|\bcho tin\b|\bcho thấy\b|\bcho rồi\b|\bcho rằng\b|\bcho nên\b|\bcho nhau\b|\bcho hay\b|\bcho chắc
+\b|\bcho biết\b|\bcho\b|\bchiếc\b|\bchia sẻ\b|\bchao ôi\b|\bcha chả\b|\bcha\b|\bcao xa\b|\bcao thế\b|\bcao thấp\b|\bcao số\b|\bcao sang\b|\bcao răng\b|\bcao ráo\b|\bcao lâu\b|\bcao\b|\bbức\b|\
+bbởi đâu\b|\bbởi vậy\b|\bbởi vì\b|\bbởi tại\b|\bbởi thế cho nên\b|\bbởi thế\b|\bbởi sao\b|\bbởi nhưng\b|\bbởi chưng\b|\bbởi ai\b|\bbởi\b|\bbớ\b|\bbội phần\b|\bbộ điều\b|\bbộ thuộc\b|\bbộ\b|\bb
+ỗng đâu\b|\bbỗng thấy\b|\bbỗng nhưng\b|\bbỗng nhiên\b|\bbỗng không\b|\bbỗng dưng\b|\bbỗng chốc\b|\bbỗng\b|\bbỏ xa\b|\bbỏ việc\b|\bbỏ riêng\b|\bbỏ ra\b|\bbỏ quá\b|\bbỏ nhỏ\b|\bbỏ mẹ\b|\bbỏ mất\
+b|\bbỏ mình\b|\bbỏ lại\b|\bbỏ không\b|\bbỏ cuộc\b|\bbỏ cha\b|\bbỏ bà\b|\bbỏ\b|\bbị vì\b|\bbị chú\b|\bbị\b|\bbệt\b|\bbển\b|\bbằng ấy\b|\bbằng được\b|\bbằng vào\b|\bbằng nấy\b|\bbằng nào\b|\bbằn
+g như\b|\bbằng nhau\b|\bbằng người\b|\bbằng không\b|\bbằng cứ\b|\bbằng\b|\bbắt đầu từ\b|\bbắt đầu\b|\bbập bõm\b|\bbập bà bập bõm\b|\bbấy nhiêu\b|\bbấy nay\b|\bbấy lâu nay\b|\bbấy lâu\b|\bbấy g
+iờ\b|\bbấy chừ\b|\bbấy chầy\b|\bbấy\b|\bbất đồ\b|\bbất tử\b|\bbất thình lình\b|\bbất quá chỉ\b|\bbất quá\b|\bbất nhược\b|\bbất ngờ\b|\bbất luận\b|\bbất kỳ\b|\bbất kể\b|\bbất kì\b|\bbất giác\b|
+\bbất cứ\b|\bbất chợt\b|\bbản ý\b|\bbản thân\b|\bbản riêng\b|\bbản bộ\b|\bbản\b|\bbạn\b|\bbước đi\b|\bbước tới\b|\bbước khỏi\b|\bbước\b|\bbông\b|\bbên cạnh\b|\bbên có\b|\bbên bị\b|\bbên\b|\bbé
+ng\b|\bbèn\b|\bbây nhiêu\b|\bbây giờ\b|\bbây chừ\b|\bbây bẩy\b|\bbán thế\b|\bbán dạ\b|\bbán cấp\b|\bbán\b|\bbác\b|\bbài cái\b|\bbài bỏ\b|\bbài bác\b|\bbài\b|\bbà ấy\b|\bbà\b|\bbuổi sớm\b|\bbuổ
+i ngày\b|\bbuổi mới\b|\bbuổi làm\b|\bbuổi\b|\bbiết được\b|\bbiết đâu đấy\b|\bbiết đâu chừng\b|\bbiết đâu\b|\bbiết việc\b|\bbiết trước\b|\bbiết thế\b|\bbiết mấy\b|\bbiết mình\b|\bbiết chừng nào
+\b|\bbiết chắc\b|\bbiết bao nhiêu\b|\bbiết bao\b|\bbiết\b|\bbay biến\b|\bbao nả\b|\bbao nhiêu\b|\bbao lâu\b|\bbao giờ\b|\bba tăng\b|\bba ngôi\b|\bba ngày\b|\bba họ\b|\bba cùng\b|\bba bản\b|\bb
+a ba\b|\bba\b|\banh ấy\b|\banh\b|\bamen\b|\balô\b|\bai đó\b|\bai nấy\b|\bai ai\b|\bai\b|\ba lô\b|\ba ha\b/i

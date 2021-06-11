@@ -1,12 +1,33 @@
 <?php
-
+// ini_set('max_execution_time', '300');
 $rootPath = $_SERVER['DOCUMENT_ROOT'] . "\\QuanLyDanhGia";
 include_once $rootPath . './vendor/autoload.php';
+
+
+use DonatelloZa\RakePlus\RakePlus;
+use TeamTNT\TNTSearch\Classifier\TNTClassifier;
+
+$filePython = $rootPath . "/vn_words_translate.py ";
+
 
 $options = array(
     'ignore_errors' => true,
     // other options go here
 );
+
+// binary to string chuyển đổi dữ liệu của python
+function binaryToString($binary)
+{
+    $binaries = explode(' ', $binary);
+
+    $string = null;
+    foreach ($binaries as $binary) {
+        $string .= pack('H*', dechex(bindec($binary)));
+    }
+
+    return $string;
+}
+
 
 
 // function chỉ áp dụng cho line 12 trong file text input
@@ -349,7 +370,21 @@ if (isset($_POST["submit"])) {
                 $cauHoi = $toArr[4];
                 $noiDungGopY = $toArr[5];
 
+                // xử lý nội dung góp ý                            
+                $noiDungGopY = mb_strtolower($noiDungGopY);
+
+                // bỏ ký tự đặc biệt
+                $noiDungGopY = preg_replace('~[^\\pL\d]+~u', ' ', strip_tags($noiDungGopY));
+
+                // bỏ số
+                $noiDungGopY = preg_replace('/[0-9]+/', '', $noiDungGopY);
+
+                // chuẩn hóa âm tiết VD hayyyy -> hay
+                $noiDungGopY = preg_replace('{(.)\1+}', '$1', $noiDungGopY);
+
                 $maLopHocPhan = $phieuKhaoSat->getMaLopHocPhanChoCauHoiMo($maHocPhan, $maNamHoc, $hocKy, $maGiaoVien, $nhomHocPhan);
+
+
 
                 $maTieuChiDanhGiaCauHoiMo = $phieuKhaoSat->getMaTieuChiDanhGiaCauHoiMo($cauHoi);
 
@@ -359,7 +394,51 @@ if (isset($_POST["submit"])) {
                 // echo "hoc phan " . $maHocPhan . " nam hoc " . $maNamHoc . " hoc ky " . $hocKy . "  giao vien " . $maGiaoVien . "nhom hoc phan " . intval($nhomHocPhan) . "<br>";
 
                 // echo "lop hoc phan code :" . $maLopHocPhan . "<br>";
+
+
                 // áp dụng machine learning ở đây
+                // thêm phiếu câu hỏi mở
+
+
+
+
+
+
+
+                if ($maLopHocPhan === false) {
+                    // echo "Không tìm thấy Mã học phần " . $maDuLieuHocPhan . "<br>";
+                    if ($maTieuChiDanhGiaCauHoiMo === false) {
+                        echo "Không tìm thấy Mã tiêu chí ";
+                    }
+                } else {
+                    // áp dụng RAKE để xử lý và tính điểm nội dung                                        
+                    $rake = RakePlus::create($noiDungGopY, 'vn_VN');
+                    $phrase_scores = $rake->sortByScore('desc')->scores();
+                    $getTValue = floor(count($phrase_scores) / 3); // size của số lượng từ lấy ra trong RAKE
+                    // print_r($phrase_scores);
+
+                    $cauSauKhiXuLyRake = '';
+                    if (count($phrase_scores) === 0) { // không có nội dung vì đã bị stop word lấy mất
+                        $cauSauKhiXuLyRake = $noiDungGopY . " ,";
+                    } else {
+                        if ($getTValue >= 3) {
+                            $arr = array_slice($phrase_scores, 0, $getTValue);
+                        } else {
+                            $arr = array_slice($phrase_scores, 0, count($phrase_scores));
+                        }
+                        // print_r($arr);                    
+                        $arrKey = array_keys($arr);
+                        foreach ($arrKey as $item) {
+                            $cauSauKhiXuLyRake .= $item . " ,";
+                        }
+                    }
+
+                    $cauSauKhiXuLyRake = substr($cauSauKhiXuLyRake, 0, -2);
+                    echo "sau khi xu ly rake " . $cauSauKhiXuLyRake;
+                    echo "<br>";
+
+                    // $phieuKhaoSat->themPhieuCauHoiMo($maLopHocPhan,$maTieuChiDanhGiaCauHoiMo,$noiDungGopY);
+                }
             }
 
 

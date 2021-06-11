@@ -6,17 +6,37 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit60c87afa026f539c29e44d42433da3d6
 {
+    public static $files = array (
+        '290dd4ba42f11019134caca05dbefe3f' => __DIR__ . '/..' . '/teamtnt/tntsearch/helper/helpers.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
+        'T' => 
+        array (
+            'TeamTNT\\TNTSearch\\' => 18,
+        ),
         'S' => 
         array (
             'Soundasleep\\' => 12,
         ),
+        'D' => 
+        array (
+            'DonatelloZa\\RakePlus\\' => 21,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'TeamTNT\\TNTSearch\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/teamtnt/tntsearch/src',
+        ),
         'Soundasleep\\' => 
         array (
             0 => __DIR__ . '/..' . '/soundasleep/html2text/src',
+        ),
+        'DonatelloZa\\RakePlus\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/donatello-za/rake-php-plus/src',
         ),
     );
 

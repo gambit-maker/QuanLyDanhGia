@@ -6,5 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'TeamTNT\\TNTSearch\\' => array($vendorDir . '/teamtnt/tntsearch/src'),
     'Soundasleep\\' => array($vendorDir . '/soundasleep/html2text/src'),
+    'DonatelloZa\\RakePlus\\' => array($vendorDir . '/donatello-za/rake-php-plus/src'),
 );
