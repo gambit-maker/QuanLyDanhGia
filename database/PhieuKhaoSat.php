@@ -79,12 +79,25 @@ class PhieuKhaoSat
 
 
     // thêm câu hỏi mở
-    public function themPhieuCauHoiMo($maLopHocPhan, $maTieuChiDanhGia, $noiDungGopY, $phanLop, $danhGia, $maHoatDongKhaoSat = '1')
+    public function themPhieuCauHoiMo($maLopHocPhan, $maTieuChiDanhGia, $thuTuCauHoi, $noiDungGopY, $phanLop, $danhGia, $maHoatDongKhaoSat = '1')
     {
-        $result = $this->db->con->query("INSERT INTO `chitietkhaosatcauhoimo`(`MaLopHocPhan`, `MaTieuChiDanhGia`, `MaHoatDongKhaoSat`, `NoiDungGopY`, `PhanLop`, `DanhGia`)
-         VALUES ('{$maLopHocPhan}','{$maTieuChiDanhGia}','{$maHoatDongKhaoSat}','{$noiDungGopY}','{$phanLop}','{$danhGia}')");
+        $result = $this->db->con->query("INSERT INTO `chitietkhaosatcauhoimo`(`MaLopHocPhan`, `MaTieuChiDanhGia`, `MaHoatDongKhaoSat`, `ThuTuCauHoi`,`NoiDungGopY`, `PhanLop`, `DanhGia`)
+         VALUES ('{$maLopHocPhan}','{$maTieuChiDanhGia}','{$maHoatDongKhaoSat}','{$thuTuCauHoi}','{$noiDungGopY}','{$phanLop}','{$danhGia}')");
         if ($result === TRUE) {
             echo 'add new record phieu cau hoi mo';
+        } else {
+            echo "not thing add to cau hoi mo";
+        }
+    }
+
+    public function checkViTriCauHoiTrongFile($maLopHocPhan, $viTriCauHoi)
+    {
+        $result = $this->db->con->query("SELECT * FROM chitietkhaosatcauhoimo WHERE MaLopHocPhan = '{$maLopHocPhan}' AND ThuTuCauHoi = '{$viTriCauHoi}'");
+        $row = $result->fetch_row();
+        if ($row === null) { // không có trong DB
+            return true;
+        } else {
+            return false;
         }
     }
 

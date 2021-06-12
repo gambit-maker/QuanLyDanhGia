@@ -9,6 +9,12 @@ use TeamTNT\TNTSearch\Classifier\TNTClassifier;
 
 $filePython = $rootPath . "/vn_words_translate.py ";
 
+// AI learning load FILE
+$status = new TNTClassifier();
+$class = new TNTClassifier();
+$status->load('DataAI/status.cls');
+$class->load('DataAI/class.cls');
+
 
 $options = array(
     'ignore_errors' => true,
@@ -418,8 +424,9 @@ if (isset($_POST["submit"])) {
                     // print_r($phrase_scores);
 
                     $cauSauKhiXuLyRake = '';
-                    if (count($phrase_scores) === 0) { // không có nội dung vì đã bị stop word lấy mất
-                        $cauSauKhiXuLyRake = $noiDungGopY . " ,";
+                    if (count($phrase_scores) === 0) { // không có nội dung vì đã bị stop word lấy mất thì trả về nguyên câu đó ko cần RAKE
+                        // $cauSauKhiXuLyRake = $noiDungGopY . " ,";
+                        $cauSauKhiXuLyRake = $noiDungGopY . " ";
                     } else {
                         if ($getTValue >= 3) {
                             $arr = array_slice($phrase_scores, 0, $getTValue);
@@ -429,15 +436,30 @@ if (isset($_POST["submit"])) {
                         // print_r($arr);                    
                         $arrKey = array_keys($arr);
                         foreach ($arrKey as $item) {
-                            $cauSauKhiXuLyRake .= $item . " ,";
+                            // $cauSauKhiXuLyRake .= $item . " ,"; // ngăn cách câu để xem từng câu tách
+                            $cauSauKhiXuLyRake .= $item . " ";
                         }
                     }
 
-                    $cauSauKhiXuLyRake = substr($cauSauKhiXuLyRake, 0, -2);
-                    echo "sau khi xu ly rake " . $cauSauKhiXuLyRake;
-                    echo "<br>";
 
-                    // $phieuKhaoSat->themPhieuCauHoiMo($maLopHocPhan,$maTieuChiDanhGiaCauHoiMo,$noiDungGopY);
+                    $dataPredictStatus = $status->predict($noiDungGopY)['label'];
+                    $dataPredictClass = $class->predict($noiDungGopY)['label'];
+                    // $cauSauKhiXuLyRake = substr($cauSauKhiXuLyRake, 0, -2);
+                    echo "Vij tris:  " . $toArr[0] . "<br>";
+                    echo "Noi dung gop y:  " . $noiDungGopY;
+                    echo "<br>sau khi xu ly rake :" . $cauSauKhiXuLyRake;
+                    echo "<br>Status:  " . $dataPredictStatus;
+                    echo "<br>Class:  " . $dataPredictClass;
+
+
+                    if ($phieuKhaoSat->checkViTriCauHoiTrongFile($maLopHocPhan, $toArr[0])) {
+                        $phieuKhaoSat->themPhieuCauHoiMo($maLopHocPhan, $maTieuChiDanhGiaCauHoiMo, $toArr[0], $noiDungGopY, $dataPredictClass, $dataPredictStatus);
+                    } else {
+                        echo "<br>";
+                        echo 'Du lieu trung nhau cung 1 phiếu sẽ không được lưu lại';
+                        echo "<br>";
+                        echo "<br>";
+                    }
                 }
             }
 
