@@ -30,6 +30,8 @@ session_start();
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
+    <!-- Chart -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js" integrity="sha512-VCHVc5miKoln972iJPvkQrUYYq7XpxXzvqNfiul1H4aZDwGBGC0lq373KNleaB2LpnC2a/iNfE5zoRYmB4TRDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Super filter -->
     <script src="js/tablefilter/tablefilter.js"></script>
@@ -216,6 +218,9 @@ if ($tenChucVu === 'admin' || $tenChucVu === 'nhanvien') {
                         break;
                     case 'htPhieu':
                         include('page/admin/calculate/hienThiPhieu.php');
+                        break;
+                    case 'htGopY':
+                        include('page/admin/calculate/hienThiGopY.php');
                         break;
                     case 'thongkenangcao':
                         include('page/admin/calculate/thongKeNangCao.php');

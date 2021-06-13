@@ -1,5 +1,3 @@
-
-
 <style>
     select {
         -webkit-appearance: none;

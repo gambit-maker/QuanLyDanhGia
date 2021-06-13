@@ -101,6 +101,81 @@ class PhieuKhaoSat
         }
     }
 
+    // get thông tin câu hởi mở của lớp
+    public function getThongTinCauHoiMo($maLopHocPhan)
+    {
+        $result = $this->db->con->query("SELECT * FROM chitietkhaosatcauhoimo WHERE MaLopHocPhan = '{$maLopHocPhan}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+
+    //get nội dung phân lớp trong phiếu câu hỏi mở
+    // VD DATA: phương pháp, thái độ, cơ sở vật chất, khác
+    // public function getNoiDungPhanLop($maLopHocPhan)
+    // {
+    //     $result = $this->db->con->query("SELECT DISTINCT PhanLop FROM chitietkhaosatcauhoimo
+    //     WHERE MaLopHocPhan = '{$maLopHocPhan}'");
+    //     $resultArr = array();
+    //     while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+    //         $resultArr[] = $row;
+    //     }
+    //     return $resultArr;
+    // }
+
+
+    public function getNoiDungPhanLop()
+    {
+        $result = $this->db->con->query("SELECT DISTINCT PhanLop FROM chitietkhaosatcauhoimo");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+    // đếm số phiếu tương ứng nội dung phân lớp để tính tỉ lệ phần trăm
+    public function demNoiDungPhanLop($maLopHocPhan, $noiDung)
+    {
+        $result = $this->db->con->query("SELECT PhanLop FROM chitietkhaosatcauhoimo
+        WHERE MaLopHocPhan = '{$maLopHocPhan}' AND PhanLop = '{$noiDung}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return count($resultArr);
+    }
+
+
+
+    public function getNoiDungPhanLoai()
+    {
+        $result = $this->db->con->query("SELECT DISTINCT DanhGia FROM chitietkhaosatcauhoimo");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+
+    public function demNoiDungPhanLoai($maLopHocPhan, $danhGia)
+    {
+        $result = $this->db->con->query("SELECT PhanLop FROM chitietkhaosatcauhoimo
+        WHERE MaLopHocPhan = '{$maLopHocPhan}' AND DanhGIa = '{$danhGia}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return count($resultArr);
+    }
+
+
+
+
     //-----------------------
 
 

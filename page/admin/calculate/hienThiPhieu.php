@@ -99,13 +99,13 @@ if (isset($_GET["MaLopHocPhan"])) {
 <div class="container pt-5 ">
     <div class="row">
         <div class="col-sm">
-            <p>Họ tên CBGD: <b> <?php echo $tenGiaoVien; ?></b></p>
+            <h6 style="font-size: medium;">Họ tên CBGD: <b> <?php echo $tenGiaoVien; ?></b></h6>
         </div>
         <div class="col-sm">
-            <p>Bộ môn: <b><?php echo $tenBoMon; ?></b> </p>
+            <h6 style="font-size: medium;">Bộ môn: <b><?php echo $tenBoMon; ?></b> </h6>
         </div>
         <div class="col-sm">
-            <p>Khoa: <b><?php echo $tenKhoa; ?></b></p>
+            <h6 style="font-size: medium;">Khoa: <b><?php echo $tenKhoa; ?></b></h6>
         </div>
     </div>
 
