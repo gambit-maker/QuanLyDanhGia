@@ -149,6 +149,21 @@ class PhieuKhaoSat
         return count($resultArr);
     }
 
+    // đếm nội dung phân lớp trong nhiều lớp
+    public function demNoiDungPhanLopCuaNhieuLop($arrLop, $noiDung)
+    {
+        $arrLop = join("','", $arrLop);
+        $result = $this->db->con->query("SELECT PhanLop FROM chitietkhaosatcauhoimo
+        WHERE MaLopHocPhan IN ('{$arrLop}') AND PhanLop = '{$noiDung}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return count($resultArr);
+    }
+
+
+
 
 
     public function getNoiDungPhanLoai()
@@ -171,6 +186,32 @@ class PhieuKhaoSat
             $resultArr[] = $row;
         }
         return count($resultArr);
+    }
+
+    // đếm nội dung phân loại của nhiều lớp
+    public function demNoiDungPhanLoaiCuaNhieuLop($arrLop, $danhGia)
+    {
+        $arrLop = join("','", $arrLop);
+        $result = $this->db->con->query("SELECT PhanLop FROM chitietkhaosatcauhoimo
+        WHERE MaLopHocPhan IN ('{$arrLop}') AND DanhGia = '{$danhGia}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return count($resultArr);
+    }
+
+    // get nội dung góp ý của nhiều phiếu
+    public function getPhieuGopYNhieuLop($arrPhieu, $maHoatDongKhaoSat)
+    {
+        $arrPhieu = join("','", $arrPhieu);
+        $result = $this->db->con->query("SELECT * FROM chitietkhaosatcauhoimo 
+        WHERE MaLopHocPhan IN('{$arrPhieu}') AND MaHoatDongKhaoSat = '{$maHoatDongKhaoSat}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
     }
 
 

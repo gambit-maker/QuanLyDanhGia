@@ -4,58 +4,71 @@ function tinhPhanTram($soPhanTram, $tong)
     return $soPhanTram / $tong * 100;
 }
 
-if (isset($_GET["MaLopHocPhan"])) {
-    $maLopHocPhan = $_GET["MaLopHocPhan"];
-    $lopHP = $infoSmallTable->getThongTinLopHocPhanTheoMaLop($maLopHocPhan);
-    $tenHoatDongKhaoSat = $infoSmallTable->getThongTinHoatDongKhaoSat($lopHP['MaHoatDongKhaoSat']);
-    $tenHocKy = $infoSmallTable->getThongTinHocKy($lopHP['MaHocKy']);
-    $namHoc = $infoSmallTable->getThongTinNam($lopHP['MaNamHoc']);
-    $tenGiaoVien = $infoSmallTable->getThongTinGiaoVien($lopHP['MaGiaoVien'], 'TenGiaoVien');
-    $maBoMon = $infoSmallTable->getThongTinGiaoVien($lopHP['MaGiaoVien'], 'MaBoMon');
-    $tenBoMon = $infoSmallTable->getThongTinBoMon($maBoMon, 'TenBoMon');
-
-    $maKhoa = $infoSmallTable->getThongTinBoMon($maBoMon, 'MaKhoa');
-    $tenKhoa = $infoSmallTable->getTenKhoa($maKhoa);
-
-
-
-    // lấy thông tin câu hỏi mở của lớp
-    $thongTinBangCauHoiMo = $phieuKhaoSat->getThongTinCauHoiMo($maLopHocPhan);
-
-    $tongSoPhieuCuaLop = count($thongTinBangCauHoiMo);
-
-    // lấy thông tin phân lớp của câu hỏi
-
-    $thongTinPhanLop = $phieuKhaoSat->getNoiDungPhanLop();
-    $tenPhanLopJS = ""; // sử dụng cho dữ liệu của javascript chart
-    $SoPhanLopJS = "";
-    foreach ($thongTinPhanLop as $item) {
-        $tenPhanLop = $item['PhanLop'];
-        $tenPhanLopJS .= "'" . $tenPhanLop . "',";
-        $soPhanLop = $phieuKhaoSat->demNoiDungPhanLop($maLopHocPhan, $tenPhanLop);
-        // $soPhanLop = tinhPhanTram($soPhanLop, $tongSoPhieuCuaLop);
-        $SoPhanLopJS .= $soPhanLop . ",";
+$tenKhoa = '';
+$tenBoMon = '';
+$tenGiaoVien = '';
+$monHoc = '';
+$namHoc = '';
+$tenHocKy = '';
+if ($_SESSION['inputKhoa'] != null) {
+    $tenKhoa = "Khoa: <b>" . $_SESSION['inputKhoa'] . "</b>";
+}
+if ($_SESSION['inputBoMon'] != null) {
+    $tenBoMon = "Bộ môn: <b>" . $_SESSION['inputBoMon'] . "</b>";
+}
+if ($_SESSION['inputTenGiaoVien'] != null) {
+    $tenGiaoVien = "Họ tên CBGD: <b>" .  $_SESSION['inputTenGiaoVien'] . "</b>";
+}
+if ($_SESSION['inputMonHoc'] != null) {
+    $monHoc =  $_SESSION['inputMonHoc'];
+}
+if ($_SESSION['inputNamHoc'] != null) {
+    $namHoc = "/ Năm học " . $_SESSION['inputNamHoc'];
+    if ($_SESSION['inputDenNamHoc'] != null) {
+        $namHoc .= '-' . $_SESSION['inputDenNamHoc'];
     }
-    $tenPhanLopJS = substr($tenPhanLopJS, 0, -1);
-    $SoPhanLopJS = substr($SoPhanLopJS, 0, -1);
-    // $SoPhanLopJS .= "," . $tongSoPhieuCuaLop;
-
-
-    $thongTinPhanLoai = $phieuKhaoSat->getNoiDungPhanLoai();
-    $tenPhanLoaiJS = "";
-    $soPhanLoaiJS = "";
-    foreach ($thongTinPhanLoai as $item) {
-        $tenPhanLoai = $item['DanhGia'];
-        $tenPhanLoaiJS .= "'" . $tenPhanLoai . "',";
-        $soPhanLoai = $phieuKhaoSat->demNoiDungPhanLoai($maLopHocPhan, $tenPhanLoai);
-        $soPhanLoaiJS .= $soPhanLoai . ",";
-    }
-    $tenPhanLoaiJS = substr($tenPhanLoaiJS, 0, -1);
-    $soPhanLoaiJS = substr($soPhanLoaiJS, 0, -1);
-    // echo $soPhanLoaiJS . "<br>";
-    // echo $tenPhanLoaiJS;
+}
+if ($_SESSION['inputHocKy'] != null) {
+    $tenHocKy = "Học kỳ " . $_SESSION['inputHocKy'];
 }
 
+
+$arrLopHocPhan = $_SESSION['arrMaLopHocPhan'];
+$maHoatDongKhaoSat = $lopHocPhan->checkHoatDongKhaoSatCoTrungNhau($arrLopHocPhan); //áp dụng phân biệt nhiều hoạt động khảo sát nếu có
+$maHoatDongKhaoSat = $maHoatDongKhaoSat[0]['MaHoatDongKhaoSat'];
+$tenHoatDongKhaoSat = $infoSmallTable->getThongTinHoatDongKhaoSat($maHoatDongKhaoSat);
+$phieuGopYCuaCaLop = $phieuKhaoSat->getPhieuGopYNhieuLop($arrLopHocPhan, $maHoatDongKhaoSat);
+$tongSoPhieuCuaLop = count($phieuGopYCuaCaLop);
+
+
+$thongTinPhanLop = $phieuKhaoSat->getNoiDungPhanLop();
+$tenPhanLopJS = ""; // sử dụng cho dữ liệu của javascript chart
+$SoPhanLopJS = "";
+foreach ($thongTinPhanLop as $item) {
+    $tenPhanLop = $item['PhanLop'];
+    $tenPhanLopJS .= "'" . $tenPhanLop . "',";
+    $soPhanLop = $phieuKhaoSat->demNoiDungPhanLopCuaNhieuLop($arrLopHocPhan, $tenPhanLop);
+    // $soPhanLop = tinhPhanTram($soPhanLop, $tongSoPhieuCuaLop);
+    $SoPhanLopJS .= $soPhanLop . ",";
+}
+$tenPhanLopJS = substr($tenPhanLopJS, 0, -1);
+$SoPhanLopJS = substr($SoPhanLopJS, 0, -1);
+// $SoPhanLopJS .= "," . $tongSoPhieuCuaLop;
+
+
+$thongTinPhanLoai = $phieuKhaoSat->getNoiDungPhanLoai();
+$tenPhanLoaiJS = "";
+$soPhanLoaiJS = "";
+foreach ($thongTinPhanLoai as $item) {
+    $tenPhanLoai = $item['DanhGia'];
+    $tenPhanLoaiJS .= "'" . $tenPhanLoai . "',";
+    $soPhanLoai = $phieuKhaoSat->demNoiDungPhanLoaiCuaNhieuLop($arrLopHocPhan, $tenPhanLoai);
+    $soPhanLoaiJS .= $soPhanLoai . ",";
+}
+$tenPhanLoaiJS = substr($tenPhanLoaiJS, 0, -1);
+$soPhanLoaiJS = substr($soPhanLoaiJS, 0, -1);
+// echo $soPhanLoaiJS . "<br>";
+// echo $tenPhanLoaiJS;
 ?>
 
 
@@ -70,21 +83,20 @@ if (isset($_GET["MaLopHocPhan"])) {
         overflow: hidden;
     }
 </style>
-
-<h2 style="text-align: center;">Thống kê góp ý</h2>
+<h2 style="text-align: center;">Thống kê kết quả lấy ý kiến góp ý từ người học</h2>
 <h3 style="text-align: center;">Về hoạt động: <?php echo $tenHoatDongKhaoSat; ?></h3>
-<h4 style="text-align: center;">Học kỳ <?php echo $tenHocKy; ?> / Năm học <?php echo $namHoc . "-" . $namHoc + 1; ?></h4>
+<h4 style="text-align: center;"><?php echo $tenHocKy; ?> <?php echo $namHoc; ?></h4>
 
 <div class="container pt-4">
-    <div class="row gx-5">
-        <div class="col-sm">
-            <h6 style="font-size: medium;">Họ tên CBGD: <b> <?php echo $tenGiaoVien; ?></b></h6>
+    <div class="row">
+        <div class="col-sm-auto">
+            <p> <?php echo $tenGiaoVien; ?></p>
         </div>
-        <div class="col-sm">
-            <h6 style="font-size: medium;">Bộ môn: <b><?php echo $tenBoMon; ?></b> </h6>
+        <div class="col-sm-auto">
+            <p><?php echo $tenBoMon; ?> </p>
         </div>
-        <div class="col-sm">
-            <h6 style="font-size: medium;">Khoa: <b><?php echo $tenKhoa; ?></b></h6>
+        <div class="col-sm-auto">
+            <p><?php echo $tenKhoa; ?></p>
         </div>
     </div>
     <h6 style="font-size: medium;">Tổng số góp ý: <b><?php echo $tongSoPhieuCuaLop; ?></b> </h6>
@@ -99,7 +111,7 @@ if (isset($_GET["MaLopHocPhan"])) {
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($thongTinBangCauHoiMo as $item) : ?>
+            <?php foreach ($phieuGopYCuaCaLop as $item) : ?>
                 <tr>
                     <td colspan="1"><?php echo $item['NoiDungGopY']; ?></td>
                     <td class="noWarp"><?php echo $item['PhanLop']; ?></td>
@@ -143,9 +155,10 @@ if (isset($_GET["MaLopHocPhan"])) {
         extensions: [{
             name: 'sort'
         }],
+        rows_counter: true,
         col_0: 'none',
-        col_1: 'none',
-        col_2: 'none',
+        // col_1: 'none',
+        // col_2: 'none',
 
         // grid: false //hide filter bar    
 

@@ -866,6 +866,12 @@ if (isset($_POST["tongHopKetQua"])) {
     if ($soLopHocPhanDangCo > 0) {
         echo ("<script>location.href = 'index.php?TenChucVu=" . $userRole . "&page=tonghopketqua" . "';</script>");
     }
+} elseif (isset($_POST["tongHopKetQuaGopY"])) {
+    $soLopHocPhanDangCo = count($_SESSION['arrMaLopHocPhan']);
+    $userRole = $_GET["TenChucVu"];
+    if ($soLopHocPhanDangCo > 0) {
+        echo ("<script>location.href = 'index.php?TenChucVu=" . $userRole . "&page=tonghopketquagopy" . "';</script>");
+    }
 }
 
 ?>
@@ -963,7 +969,7 @@ if (isset($_POST["tongHopKetQua"])) {
             <td style="text-align: right;">Đến năm :</td>
             <td>
                 <div class="autocomplete input-group-sm">
-                    <input id="myInputDenNamHoc" class="form-control" type="number" name="inputDenNamHoc" placeholder="Năm học" value="<?php if (!empty($inputDenNamHoc)) echo $inputDenNamHoc; ?>">
+                    <input style="width: 80%;" id="myInputDenNamHoc" class="form-control" type="number" name="inputDenNamHoc" placeholder="Năm học" value="<?php if (!empty($inputDenNamHoc)) echo $inputDenNamHoc; ?>">
                 </div>
             </td>
             <?php if ($denNamHocLonHonNamHocMessage === TRUE) : ?>
@@ -991,7 +997,12 @@ if (isset($_POST["tongHopKetQua"])) {
             <th><input class="btn btn-sm btn-primary" type="submit" name="submit" value="Thống kê"></th>
             <?php if (!empty($thongTinLop)) : ?>
                 <th></th>
-                <th><input class="btn btn-sm btn-primary" type="submit" name="tongHopKetQua" value="Xem bảng tổng kết"></th>
+                <th>
+                    <input class="btn btn-sm btn-primary" type="submit" name="tongHopKetQua" value="Tổng kết phiếu">
+                    <input class="btn btn-sm btn-primary" type="submit" name="tongHopKetQuaGopY" value="Tổng kết góp ý">
+                </th>
+
+
             <?php endif; ?>
         </tr>
     </table>
@@ -1093,7 +1104,7 @@ if (isset($_POST["tongHopKetQua"])) {
                         </td>
                         <td>
                             <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=htPhieu&MaLopHocPhan=<?php echo $item['MaLopHocPhan']; ?>" class="btn btn-sm btn-outline-secondary">Phiếu</a>
-                            <a href="" class="btn btn-sm btn-outline-secondary">Góp ý</a>
+                            <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=htGopY&MaLopHocPhan=<?php echo $item['MaLopHocPhan']; ?>" class="btn btn-sm btn-outline-secondary">Góp ý</a>
                         </td>
                     </tr>
                 <?php

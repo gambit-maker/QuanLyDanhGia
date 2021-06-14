@@ -228,6 +228,9 @@ if ($tenChucVu === 'admin' || $tenChucVu === 'nhanvien') {
                     case 'tonghopketqua':
                         include('page/admin/calculate/tongHopPhieu.php');
                         break;
+                    case 'tonghopketquagopy':
+                        include('page/admin/calculate/tongHopGopY.php');
+                        break;
                     default:
                         # code...
                         break;
