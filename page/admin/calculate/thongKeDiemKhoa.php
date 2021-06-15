@@ -151,7 +151,7 @@ if (isset($_POST["submit"])) {
     </form>
 
     <?php if (isset($_POST["submit"])) : ?>
-        <div>
+        <div class="pt-5">
             <table class="table table-strip table-bordered">
                 <tr>
                     <th>TT</th>

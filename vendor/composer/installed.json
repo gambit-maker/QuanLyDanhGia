@@ -118,6 +118,60 @@
             "install-path": "../shuchkin/simplexlsx"
         },
         {
+            "name": "shuchkin/simplexlsxgen",
+            "version": "1.0.14",
+            "version_normalized": "1.0.14.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/shuchkin/simplexlsxgen.git",
+                "reference": "f97045277911a52bfa3ef9da871e2284b3a26a0f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/shuchkin/simplexlsxgen/zipball/f97045277911a52bfa3ef9da871e2284b3a26a0f",
+                "reference": "f97045277911a52bfa3ef9da871e2284b3a26a0f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "ext-zlib": "*"
+            },
+            "time": "2021-06-08T03:59:42+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "classmap": [
+                    "src/SimpleXLSXGen.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sergey Shuchkin (SMSPILOT)",
+                    "email": "sergey.shuchkin@gmail.com",
+                    "homepage": "https://shuchkin.ru/"
+                }
+            ],
+            "description": "Export data to Excel XLSx file. PHP XLSX generator.",
+            "homepage": "https://github.com/shuchkin/simplexlsxgen",
+            "keywords": [
+                "backend",
+                "creator",
+                "excel",
+                "generator",
+                "php",
+                "xlsx"
+            ],
+            "support": {
+                "issues": "https://github.com/shuchkin/simplexlsxgen/issues",
+                "source": "https://github.com/shuchkin/simplexlsxgen/tree/1.0.14"
+            },
+            "install-path": "../shuchkin/simplexlsxgen"
+        },
+        {
             "name": "soundasleep/html2text",
             "version": "1.1.0",
             "version_normalized": "1.1.0.0",

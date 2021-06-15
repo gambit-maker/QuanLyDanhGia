@@ -1,5 +1,8 @@
 <?php
 session_start();
+ob_start(); // tải file thành công sau khi thêm ob_start
+// lỗi gặp phải và khác phục được 'Cannot modify header information - headers already sent by (output started at'
+
 ?>
 <!doctype html>
 <html lang="en">

@@ -32,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '89b0a3bf7cc60553a49026b6aa94391b37722eb2',
+    'reference' => '99aac2b546c5d71e635f57613d1e73c811e7ef02',
     'name' => '__root__',
   ),
   'versions' => 
@@ -44,7 +44,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '89b0a3bf7cc60553a49026b6aa94391b37722eb2',
+      'reference' => '99aac2b546c5d71e635f57613d1e73c811e7ef02',
     ),
     'donatello-za/rake-php-plus' => 
     array (
@@ -63,6 +63,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '1581dbed25a846f8fee4303849ab58a14f528518',
+    ),
+    'shuchkin/simplexlsxgen' => 
+    array (
+      'pretty_version' => '1.0.14',
+      'version' => '1.0.14.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'f97045277911a52bfa3ef9da871e2284b3a26a0f',
     ),
     'soundasleep/html2text' => 
     array (

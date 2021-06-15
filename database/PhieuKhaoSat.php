@@ -214,8 +214,35 @@ class PhieuKhaoSat
         return $resultArr;
     }
 
+    // get phiếu góp ý của nhiều lớp với nội dung phân loại
+    public function getPhieuGopYNhieuLopVoiNoiDungPhanLoai($arrPhieu, $maHoatDongKhaoSat, $phanLoai)
+    {
+        $arrPhieu = join("','", $arrPhieu);
+        $result = $this->db->con->query("SELECT * FROM chitietkhaosatcauhoimo 
+        WHERE MaLopHocPhan IN('{$arrPhieu}') AND MaHoatDongKhaoSat = '{$maHoatDongKhaoSat}' AND DanhGia ='{$phanLoai}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
 
 
+    // get phiếu gớp ý của nhiều lớp với nội dung phân loại và phân lớp
+    public function getPhieuGopYNhieuLopVoiNoiDungPhanLoaiVaPhanLop($arrPhieu, $maHoatDongKhaoSat, $phanLop, $phanLoai)
+    {
+        $arrPhieu = join("','", $arrPhieu);
+        $result = $this->db->con->query("SELECT * FROM chitietkhaosatcauhoimo 
+        WHERE MaLopHocPhan IN('{$arrPhieu}') 
+        AND MaHoatDongKhaoSat = '{$maHoatDongKhaoSat}' 
+        AND PhanLop = '{$phanLop}' 
+        AND DanhGia ='{$phanLoai}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
 
     //-----------------------
 

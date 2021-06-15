@@ -3,6 +3,7 @@
         "shuchkin/simplexlsx": "^0.8.24",
         "soundasleep/html2text": "^1.1",
         "donatello-za/rake-php-plus": "^1.0",
-        "teamtnt/tntsearch": "^2.8"
+        "teamtnt/tntsearch": "^2.8",
+        "shuchkin/simplexlsxgen": "^1.0"
     }
 }

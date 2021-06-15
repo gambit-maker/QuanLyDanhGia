@@ -1,4 +1,9 @@
 <?php
+
+$rootPath = $_SERVER['DOCUMENT_ROOT'] . "\\QuanLyDanhGia";
+include_once $rootPath . './vendor/autoload.php';
+
+
 function tinhPhanTram($soPhanTram, $tong)
 {
     return $soPhanTram / $tong * 100;
@@ -69,6 +74,37 @@ $tenPhanLoaiJS = substr($tenPhanLoaiJS, 0, -1);
 $soPhanLoaiJS = substr($soPhanLoaiJS, 0, -1);
 // echo $soPhanLoaiJS . "<br>";
 // echo $tenPhanLoaiJS;
+
+
+
+
+
+if (isset($_POST["submitDownload"])) {
+    $selectPhanLop = $_POST["selectPhanLop"]; // Data: phương pháp, thái độ, cơ sở vật chất, khác.
+    $selectPhanLoai = $_POST["selectPhanLoai"]; // Data: negative, positive, none.
+    // echo $selectPhanLop . "<br>" . $selectPhanLoai;
+    if ($selectPhanLop === 'noValue') {
+        $thongTinCacPhieuPhanLoai = $phieuKhaoSat->getPhieuGopYNhieuLopVoiNoiDungPhanLoai($arrLopHocPhan, $maHoatDongKhaoSat, $selectPhanLoai);
+        $tenFile = $selectPhanLoai;
+    } else {
+        $thongTinCacPhieuPhanLoai = $phieuKhaoSat->getPhieuGopYNhieuLopVoiNoiDungPhanLoaiVaPhanLop($arrLopHocPhan, $maHoatDongKhaoSat, $selectPhanLop, $selectPhanLoai);
+        $tenFile = $selectPhanLop . "_" . $selectPhanLoai;
+    }
+
+    // viết vào array để output file xlsx
+    $arrFileXLSX = array();
+    array_push($arrFileXLSX, array('STT', 'Nội dung', 'Phân lớp', 'Phân loại')); // header file
+    $stt = 1;
+    foreach ($thongTinCacPhieuPhanLoai as $item) {
+        array_push(
+            $arrFileXLSX,
+            array($stt, $item['NoiDungGopY'], $item['PhanLop'], $item['DanhGia'])
+        );
+        $stt++;
+    }
+    $xlsx = SimpleXLSXGen::fromArray($arrFileXLSX);
+    $xlsx->downloadAs($tenFile . '.xlsx');
+}
 ?>
 
 
@@ -102,6 +138,7 @@ $soPhanLoaiJS = substr($soPhanLoaiJS, 0, -1);
     <h6 style="font-size: medium;">Tổng số góp ý: <b><?php echo $tongSoPhieuCuaLop; ?></b> </h6>
 
     <h6>I. Thông tin trả lời và phân loại</h6>
+
     <table class="tfilter table table-hover">
         <thead>
             <tr>
@@ -120,7 +157,32 @@ $soPhanLoaiJS = substr($soPhanLoaiJS, 0, -1);
             <?php endforeach; ?>
         </tbody>
     </table>
-
+    <form action="" method="POST">
+        <table class="m-auto pb-5">
+            <tr>
+                <!-- <td>Chọn kiểu phân lớp: </td> -->
+                <td>
+                    <select required class="form-select" name="selectPhanLop">
+                        <option value="" disabled selected>Chọn phân lớp</option>
+                        <?php foreach ($thongTinPhanLop as $item) : ?>
+                            <option value="<?php echo $item['PhanLop'] ?>"><?php echo $item['PhanLop'] ?></option>
+                        <?php endforeach; ?>
+                        <option value="noValue">Không chọn</option>
+                    </select>
+                </td>
+                <!-- <td>Chọn kiểu phân loại: </td> -->
+                <td>
+                    <select required class="form-select" name="selectPhanLoai">
+                        <option value="" disabled selected>Chọn phân loại</option>
+                        <?php foreach ($thongTinPhanLoai as $item) : ?>
+                            <option value="<?php echo $item['DanhGia']; ?>"><?php echo $item['DanhGia']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+                <td><input class="btn btn-sm btn-primary" type="submit" name="submitDownload" value="Tải dữ liệu"></td>
+            </tr>
+        </table>
+    </form>
     <h6>II. Biểu đồ thống kê</h6>
     <div class="row">
         <div class="col">
@@ -131,6 +193,7 @@ $soPhanLoaiJS = substr($soPhanLoaiJS, 0, -1);
             <canvas id="mySecondChart"></canvas>
         </div>
     </div>
+
 
 </div>
 
