@@ -426,7 +426,10 @@ if (isset($_GET["MaLopHocPhan"])) {
                 <?php endforeach; ?>
             <?php endfor; ?>
             <tr>
-                <?php $tong = 0; ?>
+                <?php
+                $tong = 0;
+                $tongDiemHeSoNhan = 0;
+                ?>
                 <th class="centerItem" colspan="2"">TỔNG CỘNG</th>
                 <?php
                 $arrHinhThucPhanLoaiNhom2 = $infoSmallTable->getHinhThucPhanLoai($nhomTieuChi = 2);
@@ -441,6 +444,11 @@ if (isset($_GET["MaLopHocPhan"])) {
                     $tongDiem = count($tieuChiDay) + count($yKienKhac);
                     $tong += $tongDiem;
                     echo $tongDiem;
+                    if (count($tieuChiDay) !== 0) {
+                        $heSoNhan = $tieuChiDay[0]['Diem'];
+                        $tongDiemHeSoNhan += $tongDiem * $heSoNhan;
+                    }
+
                     ?>
                 </th>
 
@@ -448,11 +456,17 @@ if (isset($_GET["MaLopHocPhan"])) {
 
             <th class=" centerItem" colspan=" 2">
                 <?php
+                // cột này dùng để tách colspan 2 vì ở trên col span chỉ có 1, làm vậy cho dễ nhìn
                 $tieuChiDay = $infoSmallTable->getCountHinhThucPhanLoai($lopHP['MaLopHocPhan'], $arrHinhThucPhanLoaiNhom2[4]['NoiDungHinhThucPhanLoai']);
                 $yKienKhac = $infoSmallTable->getCountHinhThucPhanLoai($lopHP['MaLopHocPhan'], $arrHinhThucPhanLoaiNhom3[4]['NoiDungHinhThucPhanLoai']);
                 $tongDiem = count($tieuChiDay) + count($yKienKhac);
                 $tong += $tongDiem;
                 echo $tongDiem;
+
+                if (count($tieuChiDay) !== 0) {
+                    $heSoNhan = $tieuChiDay[0]['Diem'];
+                    $tongDiemHeSoNhan += $tongDiem * $heSoNhan;
+                }
                 ?>
             </th>
 
@@ -478,59 +492,25 @@ if (isset($_GET["MaLopHocPhan"])) {
 
             </tr>
 
-            <!-- <tr>
-                <th></th>
-                <th></th>
-                <th colspan=" 3">NAM</th>
-                <th colspan="3">NU</th>
-                <th colspan="3">NAM</th>
-                <th colspan="3">NU</th>
-            </tr>
-            <tr>
-                <th>1</th>
-                <th>Giới tính</th>
-                <th colspan="3">182</th>
-                <th colspan="3">173</th>
-                <th colspan="3">51.27</th>
-                <th colspan="3">48.73</th>
-            </tr>
 
-            <tr>
-                <th colspan="14">II. Thông tin về dạy và học</th>
-            </tr>
-            <tr>
-                <th></th>
-                <th></th>
-                <th>XS</th>
-                <th>GIOI</th>
-                <th>KHA</th>
-                <th>TB</th>
-                <th>YEU</th>
-                <th>HK1</th>
-                <th>XS</th>
-                <th>GIOI</th>
-                <th>KHA</th>
-                <th>TB</th>
-                <th>YEU</th>
-                <th>HK1</th>
-            </tr>
-            <tr>
-                <th>2</th>
-                <th>Xếp loại học lực học kỳ qua nếu có</th>
-                <th>7</th>
-                <th>21</th>
-                <th>90</th>
-                <th>129</th>
-                <th>10</th>
-                <th>98</th>
-                <th>1.97</th>
-                <th>5.92</th>
-                <th>25.35</th>
-                <th>36.34</th>
-                <th>2.82</th>
-                <th>27.61</th>
-            </tr> -->
         </tbody>
-
     </table>
+    <h5><b>II. Kết luận:</b></h5>
+    <div class="px-5">
+        <?php
+        $diemTB =  number_format($tongDiemHeSoNhan / $tong, 2);
+        $xepLoai = "";
+        if ($diemTB >= 4.5) {
+            $xepLoai = "T + A";
+        } elseif ($diemTB < 4.5 && $diemTB > 4) {
+            $xepLoai = "T - A";
+        } else {
+            $xepLoai = "T - B";
+        }
+
+        ?>
+        <h6 style="font-size: medium;">Điểm TB: <?php echo $diemTB; ?> .</h6>
+
+        <h6 style="font-size: medium;">Xếp loại: <?php echo $xepLoai; ?> .</h6>
+    </div>
 </div>

@@ -140,6 +140,12 @@ if ($tenChucVu === 'admin' || $tenChucVu === 'nhanvien') {
                         </a>
                     </li>
                 <?php endif; ?>
+
+                <?php if ($tenChucVu === 'truongkhoa' || $tenChucVu === 'admin') : ?>
+                    <li class="nav-item">
+                        <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=ThongKeDiemKhoa"" class=" nav-link">Thống kê điểm khoa</a>
+                    </li>
+                <?php endif; ?>
                 <li>
                     <a href="#">About</a>
                 </li>
@@ -230,6 +236,9 @@ if ($tenChucVu === 'admin' || $tenChucVu === 'nhanvien') {
                         break;
                     case 'tonghopketquagopy':
                         include('page/admin/calculate/tongHopGopY.php');
+                        break;
+                    case 'ThongKeDiemKhoa':
+                        include('page/admin/calculate/thongKeDiemKhoa.php');
                         break;
                     default:
                         # code...
