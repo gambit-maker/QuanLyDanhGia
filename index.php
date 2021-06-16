@@ -119,13 +119,13 @@ if ($tenChucVu === 'admin' || $tenChucVu === 'nhanvien') {
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=data">
                             <span data-feather="file"></span>
-                            Dữ liệu
+                            Import dữ liệu
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=calculate">
                             <span data-feather="shopping-cart"></span>
-                            Thống kê
+                            Xem thống kê
                         </a>
                     </li>
                     <li class="nav-item">
@@ -146,33 +146,40 @@ if ($tenChucVu === 'admin' || $tenChucVu === 'nhanvien') {
 
                 <?php if ($tenChucVu === 'truongkhoa' || $tenChucVu === 'admin') : ?>
                     <li class="nav-item">
-                        <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=ThongKeDiemKhoa"" class=" nav-link">Thống kê điểm khoa</a>
+                        <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=ThongKeDiemKhoa" class=" nav-link">Thống kê điểm khoa</a>
                     </li>
                 <?php endif; ?>
-                <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li>
-                            <a href="#">Page 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 3</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">Portfolio</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
             </ul>
+
+            <?php if ($tenChucVu === 'admin') : ?>
+                <ul class="list-unstyled components">
+                    <p>Database</p>
+                    <li class="nav-item">
+                        <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=DBlopHocPhan" class=" nav-link">Danh sách các lớp học phần</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=DBMonHoc" class=" nav-link">Danh sách môn học</a>
+                    </li>
+                    <li>
+                        <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=DBNamHoc" class=" nav-link">Danh Sách năm học</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link">Danh sách khoa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link">Danh sách giáo viên</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link">Danh sách chức vụ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link">Danh sách bộ môn</a>
+                    </li>
+
+
+                </ul>
+            <?php endif; ?>
+
 
             <ul class="list-unstyled CTAs">
                 <li>
@@ -242,6 +249,25 @@ if ($tenChucVu === 'admin' || $tenChucVu === 'nhanvien') {
                         break;
                     case 'ThongKeDiemKhoa':
                         include('page/admin/calculate/thongKeDiemKhoa.php');
+                        break;
+
+                        // DBControl
+                    case 'DBlopHocPhan':
+                        include('page/admin/DBControl/DBLopHocPhan.php');
+                        break;
+                    case 'DBMonHoc':
+                        include('page/admin/DBControl/DBMonHoc.php');
+                        break;
+                    case 'DBNamHoc':
+                        include('page/admin/DBControl/DBNamHoc.php');
+                        break;
+
+                        // adaDataCSDL
+                    case 'themMonHoc':
+                        include('page/admin/addDataCSDL/themMonHoc.php');
+                        break;
+                    case 'themNamHoc':
+                        include('page/admin/addDataCSDL/themNamHoc.php');
                         break;
                     default:
                         # code...

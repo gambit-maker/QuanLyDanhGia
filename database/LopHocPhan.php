@@ -1129,4 +1129,61 @@ class LopHocPhan
         }
         return $resultArr;
     }
+
+
+
+
+    //thêm học phần
+    public function themHocPhan($maBoMon, $maKhoa, $tenHocPhan, $maDuLieuHocPhan)
+    {
+        $result = $this->db->con->query("INSERT INTO `hocphan`(`MaBoMon`, `MaKhoa`, `TenHocPhan`, `MaDuLieuHocPhan`) VALUES ('{$maBoMon}','{$maKhoa}','{$tenHocPhan}','{$maDuLieuHocPhan}')");
+        if ($result === TRUE) {
+            echo '----add new record in themLopHocPhan ----';
+        } else {
+            echo "----not thing add to hocPhan ----";
+        }
+    }
+
+    //kiểm tra insert trùng nhau
+    public function checkHocPhan($maBoMon, $maKhoa, $maDuLieuHocPhan)
+    {
+        $result = $this->db->con->query("SELECT * FROM hocphan 
+        WHERE MaBoMon = '{$maBoMon}' AND
+        MaKhoa = '{$maKhoa}' AND        
+        MaDuLieuHocPhan = '{$maDuLieuHocPhan}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        if (count($resultArr) > 0) { // trùng dữ liệu
+            return false;
+        }
+        return true;
+    }
+
+    // thêm năm học
+    public function themNamHoc($thoiGian)
+    {
+        $result = $this->db->con->query("INSERT INTO `namhoc`(`ThoiGian`) VALUES ('{$thoiGian}')");
+        if ($result === TRUE) {
+            echo '----add new record in namHoc ----';
+        } else {
+            echo "----not thing add to NamHoc ----";
+        }
+    }
+
+    public function checkNamHoc($thoiGian)
+    {
+        $result = $this->db->con->query("SELECT * FROM namhoc 
+        WHERE ThoiGian = '{$thoiGian}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        if (count($resultArr) > 0) { // trùng dữ liệu
+            return false;
+        }
+        return true;
+    }
+    
 }
