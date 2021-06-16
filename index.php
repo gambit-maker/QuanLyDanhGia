@@ -164,16 +164,20 @@ if ($tenChucVu === 'admin' || $tenChucVu === 'nhanvien') {
                         <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=DBNamHoc" class=" nav-link">Danh Sách năm học</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">Danh sách khoa</a>
+                        <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=DBGiaoVien" class=" nav-link">Danh sách giáo viên</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">Danh sách giáo viên</a>
+                        <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=DBChucVu" class=" nav-link">Danh sách chức vụ</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">Danh sách chức vụ</a>
+                        <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=DBKhoa" class=" nav-link">Danh sách khoa</a>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">Danh sách bộ môn</a>
+                        <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=DBBoMon" class=" nav-link">Danh sách bộ môn</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=DBNhanVien" class=" nav-link">Danh sách nhân viên</a>
                     </li>
 
 
@@ -261,6 +265,21 @@ if ($tenChucVu === 'admin' || $tenChucVu === 'nhanvien') {
                     case 'DBNamHoc':
                         include('page/admin/DBControl/DBNamHoc.php');
                         break;
+                    case 'DBGiaoVien':
+                        include('page/admin/DBControl/DBGiaoVien.php');
+                        break;
+                    case 'DBChucVu':
+                        include('page/admin/DBControl/DBChucVu.php');
+                        break;
+                    case 'DBKhoa':
+                        include('page/admin/DBControl/DBKhoa.php');
+                        break;
+                    case 'DBBoMon':
+                        include('page/admin/DBControl/DBBoMon.php');
+                        break;
+                    case 'DBNhanVien':
+                        include('page/admin/DBControl/DBNhanVien.php');
+                        break;
 
                         // adaDataCSDL
                     case 'themMonHoc':
@@ -269,6 +288,23 @@ if ($tenChucVu === 'admin' || $tenChucVu === 'nhanvien') {
                     case 'themNamHoc':
                         include('page/admin/addDataCSDL/themNamHoc.php');
                         break;
+                    case 'themGiaoVien':
+                        include('page/admin/addDataCSDL/themGiaoVien.php');
+                        break;
+                    case 'themChucVu':
+                        include('page/admin/addDataCSDL/themChucVu.php');
+                        break;
+                    case 'themKhoa':
+                        include('page/admin/addDataCSDL/themKhoa.php');
+                        break;
+                    case 'themBoMon':
+                        include('page/admin/addDataCSDL/themBoMon.php');
+                        break;
+
+                    case 'themNhanVien':
+                        include('page/admin/addDataCSDL/themNhanVien.php');
+                        break;
+
                     default:
                         # code...
                         break;

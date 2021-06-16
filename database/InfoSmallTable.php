@@ -347,4 +347,28 @@ class InfoSmallTable
         }
         return $resultArr;
     }
+
+
+    //get tên chức vụ
+    public function getTenChucVu($maChucVu)
+    {
+        $result = $this->db->con->query("SELECT * FROM chucvu WHERE MaChucVu = '{$maChucVu}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+
+    //get tên chức vụ
+    public function getBangchucVuTheoNhom($role)
+    {
+        $result = $this->db->con->query("SELECT * FROM chucvu WHERE PhanRole = '{$role}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
 }

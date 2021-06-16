@@ -1185,5 +1185,127 @@ class LopHocPhan
         }
         return true;
     }
-    
+
+
+    // thêm giáo viên
+    public function themGiaoVien($maGiaoVien, $tenGiaoVien, $matKhau, $maChucVu, $maBoMon)
+    {
+        $result = $this->db->con->query("INSERT INTO `giaovien`(`MaGiaoVien`, `TenGiaoVien`, `MatKhau`, `MaChucVu`, `MaBoMon`) VALUES ('{$maGiaoVien}','{$tenGiaoVien}','{$matKhau}','{$maChucVu}','{$maBoMon}')");
+        if ($result === TRUE) {
+            echo '----add new record in GiaoVien ----';
+        } else {
+            echo "----not thing add to GiaoVien ----";
+        }
+    }
+
+    //thêm chức vụ
+    public function themChucVu($tenChucVu, $role)
+    {
+        $result = $this->db->con->query("INSERT INTO `chucvu`(`TenChucVu`, `PhanRole`) VALUES ('{$tenChucVu}','{$role}')");
+        if ($result === TRUE) {
+            echo '----add new record in chức vụ ----';
+        } else {
+            echo "----not thing add to chức vụ ----";
+        }
+    }
+
+    //check trùng chức vụ
+    public function checkChucVu($tenChucVu, $role)
+    {
+        $result = $this->db->con->query("SELECT * FROM chucvu 
+        WHERE TenChucVu = '{$tenChucVu}' AND PhanRole = '{$role}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        if (count($resultArr) > 0) { // trùng dữ liệu
+            return false;
+        }
+        return true;
+    }
+
+
+    //thêm khoa
+    public function themKhoa($tenKhoa)
+    {
+        $result = $this->db->con->query("INSERT INTO `khoa`(`TenKhoa`) VALUES ('{$tenKhoa}')");
+        if ($result === TRUE) {
+            echo '----add new record in chức vụ ----';
+        } else {
+            echo "----not thing add to chức vụ ----";
+        }
+    }
+
+
+    //check trùng khoa
+    public function checkKhoa($tenKhoa)
+    {
+        $result = $this->db->con->query("SELECT * FROM khoa 
+        WHERE TenKhoa = '{$tenKhoa}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        if (count($resultArr) > 0) { // trùng dữ liệu
+            return false;
+        }
+        return true;
+    }
+
+
+
+    //thêm bộ môn
+    public function themBoMon($tenBoMon, $maKhoa)
+    {
+        $result = $this->db->con->query("INSERT INTO `bomon`(`MaKhoa`, `TenBoMon`) 
+        VALUES ('{$maKhoa}','{$tenBoMon}')");
+        if ($result === TRUE) {
+            echo '----add new record in bộ môn ----';
+        } else {
+            echo "----not thing add to bộ môn----";
+        }
+    }
+
+
+    //check trùng bộ môn
+    public function checkBoMon($tenBoMon, $maKhoa)
+    {
+        $result = $this->db->con->query("SELECT * FROM bomon 
+        WHERE TenBomon = '{$tenBoMon}' AND MaKhoa = '{$maKhoa}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        if (count($resultArr) > 0) { // trùng dữ liệu
+            return false;
+        }
+        return true;
+    }
+
+
+    // thêm nhân viên
+    public function themNhanVien($maNhanVien, $tenNhanVien, $matKhau, $maChucVu)
+    {
+        $result = $this->db->con->query("INSERT INTO `nhanvien`(`MaNhanVien`, `TenNhanVien`, `MatKhau`, `MaChucVu`) VALUES ('{$maNhanVien}','{$tenNhanVien}','{$matKhau}','{$maChucVu}')");
+        if ($result === TRUE) {
+            echo '----add new record in NhanVien ----';
+        } else {
+            echo "----not thing add to NhanVien ----";
+        }
+    }
+
+    //check trùng nhân viên
+    public function checkNhanVien($maNhanVien)
+    {
+        $result = $this->db->con->query("SELECT * FROM nhanvien 
+         WHERE MaNhanVien = '{$maNhanVien}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        if (count($resultArr) > 0) { // trùng dữ liệu
+            return false;
+        }
+        return true;
+    }
 }
