@@ -5,6 +5,8 @@ if ($_GET["TenChucVu"] === 'admin') {
 }
 ?>
 
+
+
 <div>
     <div class="pb-5 d-flex justify-content-around">
         <div>
@@ -12,7 +14,7 @@ if ($_GET["TenChucVu"] === 'admin') {
         </div>
         <div><a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=themMonHoc" class="btn btn-primary">thêm môn học</a></div>
     </div>
-    <table class="table table-hover">
+    <table class="tfilter table table-hover">
         <thead>
             <tr>
                 <th>STT</th>
@@ -59,4 +61,31 @@ if ($_GET["TenChucVu"] === 'admin') {
             <?php endforeach; ?>
         </tbody>
     </table>
+
+    <script>
+        var tf = new TableFilter(document.querySelector('.tfilter'), {
+            base_path: 'js/tablefilter/',
+
+            highlight_keywords: true,
+
+            paging: {
+                results_per_page: ['Records: ', [10, 25, 50, 100]]
+            },
+            // aligns filter at cell bottom when Bootstrap is enabled
+            // filters_cell_tag: 'th',
+            btn_reset: {
+                text: 'Clear'
+            },
+
+            // allows Bootstrap table styling
+            themes: [{
+                name: 'transparent'
+            }],
+            extensions: [{
+                name: 'sort'
+            }],
+            col_0: 'none'
+        });
+        tf.init();
+    </script>
 </div>

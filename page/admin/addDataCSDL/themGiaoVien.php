@@ -26,21 +26,25 @@ if ($_GET["TenChucVu"] === 'admin') {
     <div class="row pb-4">
         <label class="col-4  col-form-label" style="font-size: 1rem;">Mã giáo viên: </label>
         <div class="col-8">
-            <input class="form-control" type="text" name="inputMaGiaoVien" placeholder="nhập mã giáo viên">
+            <input required class="form-control" type="text" name="inputMaGiaoVien" placeholder="nhập mã giáo viên" value="<?php if (isset($_POST["submitThemGiaoVien"])) {
+                                                                                                                                echo $maGiaoVien;
+                                                                                                                            } ?>">
         </div>
     </div>
 
     <div class="row pb-4">
         <label class="col-4  col-form-label" style="font-size: 1rem;">Tên giáo viên: </label>
         <div class="col-8">
-            <input class="form-control" type="text" name="inputTenGiaoVien" placeholder="nhập tên giáo viên">
+            <input required class="form-control" type="text" name="inputTenGiaoVien" placeholder="nhập tên giáo viên" value="<?php if (isset($_POST["submitThemGiaoVien"])) {
+                                                                                                                                    echo $tenGiaoVien;
+                                                                                                                                } ?>">
         </div>
     </div>
 
     <div class="row pb-4">
         <label class="col-4  col-form-label" style="font-size: 1rem;">Mật khẩu: </label>
         <div class="col-8">
-            <input class="form-control" type="text" name="inputMatKhau" placeholder="nhập mật khẩu">
+            <input required class="form-control" type="text" name="inputMatKhau" placeholder="nhập mật khẩu">
         </div>
     </div>
 
@@ -50,7 +54,10 @@ if ($_GET["TenChucVu"] === 'admin') {
             <select required class="form-select" name="selectChucVu">
                 <option value="" disabled selected>Chọn chức vụ</option>
                 <?php foreach ($chucVu as $item) : ?>
-                    <option value="<?php echo $item['MaChucVu'] ?>">
+                    <option <?php
+                            if (isset($_POST["submitThemGiaoVien"]) && $item['MaChucVu'] === $maChucVu) {
+                                echo "selected";
+                            } ?> value="<?php echo $item['MaChucVu'] ?>">
                         <?php
                         if ($item['TenChucVu'] === 'giaovien') {
                             echo "Giáo viên";
@@ -75,7 +82,10 @@ if ($_GET["TenChucVu"] === 'admin') {
             <select required class="form-select" name="selectBoMon">
                 <option value="" disabled selected>Chọn bộ môn</option>
                 <?php foreach ($boMon as $item) : ?>
-                    <option value="<?php echo $item['MaBoMon'] ?>"><?php echo $item['TenBoMon'] ?></option>
+                    <option <?php
+                            if (isset($_POST["submitThemGiaoVien"]) && $item['MaBoMon'] === $maBoMon) {
+                                echo "selected";
+                            } ?> value="<?php echo $item['MaBoMon'] ?>"><?php echo $item['TenBoMon'] ?></option>
                 <?php endforeach; ?>
             </select>
         </div>

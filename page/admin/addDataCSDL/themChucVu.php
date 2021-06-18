@@ -4,7 +4,7 @@ if ($_GET["TenChucVu"] === 'admin') {
     if (isset($_POST["submitChucVu"])) {
         $chucVu = $_POST["inputChucVu"];
         $role = $_POST["inputRole"];
-
+        $chucVu = strtolower($chucVu);
         if ($lopHocPhan->checkChucVu($chucVu, $role)) {
             $lopHocPhan->themChucVu($chucVu, $role);
         } else {
@@ -28,7 +28,9 @@ if ($_GET["TenChucVu"] === 'admin') {
     <div class="row pb-4">
         <label class="col-4  col-form-label" style="font-size: 1rem;">Thêm chức vụ: </label>
         <div class="col-8">
-            <input class="form-control" type="text" name="inputChucVu" placeholder="Nhập tên chức vụ">
+            <input class="form-control" type="text" required name="inputChucVu" placeholder="Nhập tên chức vụ" value="<?php if (isset($_POST["submitChucVu"])) {
+                                                                                                                            echo $chucVu;
+                                                                                                                        } ?>">
         </div>
     </div>
 
@@ -42,7 +44,10 @@ if ($_GET["TenChucVu"] === 'admin') {
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="inputRole" value="gv">
+                <input class="form-check-input" type="radio" <?php
+                                                                if (isset($_POST["submitChucVu"]) && $role === 'gv') {
+                                                                    echo "checked";
+                                                                } ?> name="inputRole" value="gv">
                 <label class="form-check-label">
                     Giáo viên
                 </label>

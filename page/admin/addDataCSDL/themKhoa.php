@@ -3,6 +3,7 @@ if ($_GET["TenChucVu"] === 'admin') {
 
     if (isset($_POST["submitThemKhoa"])) {
         $khoa = $_POST["inputKhoa"];
+        $khoa = strtolower($khoa);
         if ($lopHocPhan->checkKhoa($khoa)) {
             $lopHocPhan->themKhoa($khoa);
         } else {
@@ -26,7 +27,9 @@ if ($_GET["TenChucVu"] === 'admin') {
     <div class="row pb-4">
         <label class="col-4  col-form-label" style="font-size: 1rem;">Thêm thêm khoa: </label>
         <div class="col-8">
-            <input class="form-control" type="text" name="inputKhoa" placeholder="Nhập tên khoa">
+            <input value="<?php if (isset($_POST["submitThemKhoa"])) {
+                                echo $khoa;
+                            } ?>" class="form-control" required type="text" name="inputKhoa" placeholder="Nhập tên khoa">
         </div>
     </div>
 

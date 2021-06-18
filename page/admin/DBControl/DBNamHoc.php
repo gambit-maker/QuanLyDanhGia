@@ -21,7 +21,7 @@ if ($_GET["TenChucVu"] === 'admin') {
     <div class="row justify-content-bet">
 
     </div>
-    <table class="table table-hover">
+    <table class="tfilter table table-hover">
         <thead>
             <tr>
                 <th style="width: 50%; text-align: center;">STT</th>
@@ -32,19 +32,46 @@ if ($_GET["TenChucVu"] === 'admin') {
         <tbody>
             <?php foreach ($namHoc as $item) : ?>
                 <tr>
-                    <th style="text-align: center;">
+                    <td style="text-align: center;">
                         <?php
                         echo $stt;
                         $stt++;
                         ?>
-                    </th>
-                    <th style="text-align: center;">
+                    </td>
+                    <td style="text-align: center;">
                         <?php
                         echo $item['ThoiGian'] . " - " . intval($item['ThoiGian']) + 1;
                         ?>
-                    </th>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
+
+    <script>
+        var tf = new TableFilter(document.querySelector('.tfilter'), {
+            base_path: 'js/tablefilter/',
+
+            highlight_keywords: true,
+
+            paging: {
+                results_per_page: ['Records: ', [10, 25, 50, 100]]
+            },
+            // aligns filter at cell bottom when Bootstrap is enabled
+            // filters_cell_tag: 'th',
+            btn_reset: {
+                text: 'Clear'
+            },
+
+            // allows Bootstrap table styling
+            themes: [{
+                name: 'transparent'
+            }],
+            extensions: [{
+                name: 'sort'
+            }],
+            col_0: 'none'
+        });
+        tf.init();
+    </script>
 </div>

@@ -28,7 +28,9 @@ if ($_GET["TenChucVu"] === 'admin') {
     <div class="row pb-4">
         <label class="col-4  col-form-label" style="font-size: 1rem;">Thêm năm học: </label>
         <div class="col-8">
-            <input class="form-control" min="1000" max="9999" type="number" name="inputNamHoc" placeholder="Nhập năm học VD:2020">
+            <input required class="form-control" min="1000" max="9999" type="number" name="inputNamHoc" placeholder="Nhập năm học VD:2020" value="<?php if (isset($_POST["submitThemNamhoc"])) {
+                                                                                                                                                        echo $thoiGian;
+                                                                                                                                                    } ?>">
         </div>
     </div>
 

@@ -327,6 +327,24 @@ class LopHocPhan
         return FALSE;
     }
 
+
+
+    //check Bộ môn trong khoa bằng mã khoa và bộ môn
+    public function kiemTraBoMonCoTrongKhoaBangMa($maKhoa, $maBoMon)
+    {
+        $result = $this->db->con->query("SELECT * FROM bomon 
+        JOIN khoa ON bomon.MaKhoa = khoa.MaKhoa
+        WHERE khoa.MaKhoa = '{$maKhoa}' AND bomon.MaBoMon ='{$maBoMon}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        if (count($resultArr) > 0) {
+            return TRUE;
+        }
+        return FALSE;
+    }
+
     //check môn học trong bộ môn
     public function kiemTraMonHocCoTrongBoMon($tenHocPhan, $tenBoMon)
     {
@@ -1138,19 +1156,17 @@ class LopHocPhan
     {
         $result = $this->db->con->query("INSERT INTO `hocphan`(`MaBoMon`, `MaKhoa`, `TenHocPhan`, `MaDuLieuHocPhan`) VALUES ('{$maBoMon}','{$maKhoa}','{$tenHocPhan}','{$maDuLieuHocPhan}')");
         if ($result === TRUE) {
-            echo '----add new record in themLopHocPhan ----';
+            echo '----add new record in HocPhan ----';
         } else {
             echo "----not thing add to hocPhan ----";
         }
     }
 
     //kiểm tra insert trùng nhau
-    public function checkHocPhan($maBoMon, $maKhoa, $maDuLieuHocPhan)
+    public function checkHocPhan($maDuLieuHocPhan)
     {
         $result = $this->db->con->query("SELECT * FROM hocphan 
-        WHERE MaBoMon = '{$maBoMon}' AND
-        MaKhoa = '{$maKhoa}' AND        
-        MaDuLieuHocPhan = '{$maDuLieuHocPhan}'");
+        WHERE MaDuLieuHocPhan = '{$maDuLieuHocPhan}'");
         $resultArr = array();
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             $resultArr[] = $row;

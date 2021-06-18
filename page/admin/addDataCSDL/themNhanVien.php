@@ -4,11 +4,14 @@ if ($_GET["TenChucVu"] === 'admin') {
     $chucVuNhanVien = $infoSmallTable->getBangchucVuTheoNhom("nv");
 
     if (isset($_POST["submitThemNhanVien"])) {
-        $maNhanVien = $_POST["inputMaNhanVien"];
-        $maNhanVien = "NV" . $maNhanVien;
+        $maNhanVienSo = $_POST["inputMaNhanVien"];
+        $maNhanVien = "NV" . $maNhanVienSo;
         $tenNhanVien = $_POST["inputTenNhanVien"];
         $matKhau = $_POST["inputMatKhau"];
         $chucVu = $_POST["selectChucVu"];
+
+
+
 
         if ($lopHocPhan->checkNhanVien($maNhanVien)) {
             $lopHocPhan->themNhanVien($maNhanVien, $tenNhanVien, $matKhau, $chucVu);
@@ -24,21 +27,25 @@ if ($_GET["TenChucVu"] === 'admin') {
     <div class="row pb-4">
         <label class="col-4  col-form-label" style="font-size: 1rem;">Mã nhân viên: </label>
         <div class="col-8">
-            <input class="form-control" type="text" name="inputMaNhanVien" placeholder="nhập mã nhân viên">
+            <input value="<?php if (isset($_POST["submitThemNhanVien"])) {
+                                echo $maNhanVienSo;
+                            } ?>" required class="form-control" type="text" name="inputMaNhanVien" placeholder="nhập mã nhân viên">
         </div>
     </div>
 
     <div class="row pb-4">
         <label class="col-4  col-form-label" style="font-size: 1rem;">Tên nhân viên: </label>
         <div class="col-8">
-            <input class="form-control" type="text" name="inputTenNhanVien" placeholder="nhập tên nhân viên">
+            <input value="<?php if (isset($_POST["submitThemNhanVien"])) {
+                                echo $tenNhanVien;
+                            } ?>" required class="form-control" type="text" name="inputTenNhanVien" placeholder="nhập tên nhân viên">
         </div>
     </div>
 
     <div class="row pb-4">
         <label class="col-4  col-form-label" style="font-size: 1rem;">Mật khẩu: </label>
         <div class="col-8">
-            <input class="form-control" type="password" name="inputMatKhau" placeholder="nhập mật khẩu">
+            <input required class="form-control" type="password" name="inputMatKhau" placeholder="nhập mật khẩu">
         </div>
     </div>
 
@@ -48,7 +55,11 @@ if ($_GET["TenChucVu"] === 'admin') {
             <select required class="form-select" name="selectChucVu">
                 <option value="" disabled selected>Chọn chức vụ</option>
                 <?php foreach ($chucVuNhanVien as $item) : ?>
-                    <option value="<?php echo $item['MaChucVu'] ?>">
+                    <option <?php
+                            if (isset($_POST["submitThemNhanVien"]) && $item['MaChucVu'] === $chucVu) {
+                                echo "selected";
+                            }
+                            ?> value="<?php echo $item['MaChucVu'] ?>">
                         <?php
                         if ($item['TenChucVu'] === 'nhanvien') {
                             echo "Nhân viên";
