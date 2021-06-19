@@ -1,5 +1,12 @@
 <?php
 if ($_GET["TenChucVu"] === 'admin') {
+
+
+    if (isset($_POST["submitXoaNhanVien"])) {
+        $maNhanVien = $_POST["maNhanVienHidden"];
+        $lopHocPhan->xoaNhanVien($maNhanVien);
+    }
+
     $nhanvien = $infoSmallTable->getThongTinBang("nhanvien");
     $stt = 1;
 }
@@ -19,40 +26,50 @@ if ($_GET["TenChucVu"] === 'admin') {
                 <th>Mã nhân viên</th>
                 <th>Tên nhân viên</th>
                 <th>Chức vụ</th>
+                <th colspan="2"></th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($nhanvien as $item) : ?>
-                <tr>
-                    <td>
-                        <?php
-                        echo $stt;
-                        $stt++;
-                        ?>
-                    </td>
-                    <td>
-                        <?php
-                        echo $item['MaNhanVien'];
-                        ?>
-                    </td>
-                    <td>
-                        <?php
-                        echo $item['TenNhanVien'];
-                        ?>
-                    </td>
-                    <td>
-                        <?php
-                        $tenChucVuNhanVien = $infoSmallTable->getTenChucVu($item['MaChucVu']);
-                        $tenChucVuNhanVien = $tenChucVuNhanVien[0]['TenChucVu'];
-                        if ($tenChucVuNhanVien === 'nhanvien') {
-                            echo "Nhân viên";
-                        } else {
-                            echo $tenChucVuNhanVien;
-                        }
+                <form action="" method="post">
+                    <tr>
+                        <td>
+                            <?php
+                            echo $stt;
+                            $stt++;
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            echo $item['MaNhanVien'];
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            echo $item['TenNhanVien'];
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            $tenChucVuNhanVien = $infoSmallTable->getTenChucVu($item['MaChucVu']);
+                            $tenChucVuNhanVien = $tenChucVuNhanVien[0]['TenChucVu'];
+                            if ($tenChucVuNhanVien === 'nhanvien') {
+                                echo "Nhân viên";
+                            } else {
+                                echo $tenChucVuNhanVien;
+                            }
 
-                        ?>
-                    </td>
-                </tr>
+                            ?>
+                        </td>
+                        <td>
+                            <input value="<?php echo $item['MaNhanVien']; ?>" type="hidden" name="maNhanVienHidden">
+
+                            <input class="btn btn-sm btn-danger" type="submit" name="submitXoaNhanVien" value="Xóa">
+
+                            <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=updateNhanVien&MaNhanVien=<?php echo $item['MaNhanVien']; ?>" class="btn btn-sm btn-warning">Update</a>
+                        </td>
+                    </tr>
+                </form>
             <?php endforeach; ?>
         </tbody>
     </table>
@@ -79,7 +96,8 @@ if ($_GET["TenChucVu"] === 'admin') {
             extensions: [{
                 name: 'sort'
             }],
-            col_0: 'none'
+            col_0: 'none',
+            col_4: 'none'
         });
         tf.init();
     </script>

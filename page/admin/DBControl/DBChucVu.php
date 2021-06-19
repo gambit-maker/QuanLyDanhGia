@@ -1,5 +1,13 @@
 <?php
 if ($_GET["TenChucVu"] === 'admin') {
+
+
+    if (isset($_POST["submitXoaChucVu"])) {
+        $maChucVuHidden = $_POST["maChucVuHidden"];
+        // echo $maChucVuHidden;
+        $lopHocPhan->xoaChucVu($maChucVuHidden);
+    }
+
     $chucVu = $infoSmallTable->getThongTinBang("ChucVu");
     $stt = 1;
 }
@@ -24,36 +32,48 @@ if ($_GET["TenChucVu"] === 'admin') {
     <table class="tfilter table table-hover">
         <thead>
             <tr>
-                <th style="width: 50%; text-align: center;">STT</th>
+                <th style="width: 20%; text-align: center;">STT</th>
                 <th style="width: 50%; text-align: center;">chức vụ</th>
+                <th colspan="2"></th>
             </tr>
         </thead>
 
         <tbody>
             <?php foreach ($chucVu as $item) : ?>
-                <tr>
-                    <td style="text-align: center;">
-                        <?php
-                        echo $stt;
-                        $stt++;
-                        ?>
-                    </td>
-                    <td style="text-align: center;">
-                        <?php
-                        if ($item['TenChucVu'] === 'giaovien') {
-                            echo "Giáo viên";
-                        } elseif ($item['TenChucVu'] === 'truongbomon') {
-                            echo "Trưởng bộ môn";
-                        } elseif ($item['TenChucVu'] === 'truongkhoa') {
-                            echo "Trưởng khoa";
-                        } elseif ($item['TenChucVu'] === 'nhanvien') {
-                            echo "Nhân viên";
-                        } else {
+                <form action="" method="post">
+                    <tr>
+                        <td style="text-align: center;">
+                            <?php
+                            echo $stt;
+                            $stt++;
+                            ?>
+                        </td>
+                        <td style="text-align: center;">
+                            <?php
+                            // if ($item['TenChucVu'] === 'giaovien') {
+                            //     echo "Giáo viên";
+                            // } elseif ($item['TenChucVu'] === 'truongbomon') {
+                            //     echo "Trưởng bộ môn";
+                            // } elseif ($item['TenChucVu'] === 'truongkhoa') {
+                            //     echo "Trưởng khoa";
+                            // } elseif ($item['TenChucVu'] === 'nhanvien') {
+                            //     echo "Nhân viên";
+                            // } else {
+                            //     echo $item['TenChucVu'];
+                            // }
                             echo $item['TenChucVu'];
-                        }
-                        ?>
-                    </td>
-                </tr>
+                            ?>
+                        </td>
+                        <?php if ($item['TenChucVu'] !== 'admin') : ?>
+                            <td>
+                                <input name="maChucVuHidden" type="hidden" value="<?php echo $item['MaChucVu']; ?>">
+                                <input type="submit" value="Xóa" name="submitXoaChucVu" class="btn btn-sm btn-danger">
+                                <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=updateChucVu&MaChucVu=<?php echo $item['MaChucVu']; ?>" class="btn btn-sm btn-warning">Update</a>
+                            </td>
+                        <?php endif; ?>
+
+                    </tr>
+                </form>
             <?php endforeach; ?>
         </tbody>
     </table>
@@ -80,7 +100,8 @@ if ($_GET["TenChucVu"] === 'admin') {
             extensions: [{
                 name: 'sort'
             }],
-            col_0: 'none'
+            col_0: 'none',
+            col_2: 'non'
         });
         tf.init();
     </script>

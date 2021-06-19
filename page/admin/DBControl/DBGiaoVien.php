@@ -1,5 +1,14 @@
 <?php
 if ($_GET["TenChucVu"] === 'admin') {
+
+
+    if (isset($_POST["submitXoaGV"])) {
+        $maGiaoVienCanXoa = $_POST["maGiaoVien"];
+        // echo $maGiaoVienCanXoa;
+        $lopHocPhan->xoaGiaoVien($maGiaoVienCanXoa);
+    }
+
+
     $giaoVien = $infoSmallTable->getThongTinBang("GiaoVien");
     $stt = 1;
 }
@@ -21,55 +30,65 @@ if ($_GET["TenChucVu"] === 'admin') {
                 <th>Chức vụ</th>
                 <th>Bộ môn</th>
                 <th>Khoa</th>
+                <th colspan="2"></th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($giaoVien as $item) : ?>
-                <tr>
-                    <td>
-                        <?php
-                        echo $stt;
-                        $stt++;
-                        ?>
-                    </td>
-                    <td>
-                        <?php
-                        echo $item['MaGiaoVien'];
-                        ?>
-                    </td>
-                    <td>
-                        <?php
-                        echo $item['TenGiaoVien'];
-                        ?>
-                    </td>
-                    <td>
-                        <?php
-                        $tenChucVugiaoVien = $infoSmallTable->getTenChucVu($item['MaChucVu']);
-                        $tenChucVugiaoVien = $tenChucVugiaoVien[0]['TenChucVu'];
-                        if ($tenChucVugiaoVien === 'giaovien') {
-                            echo "giáo viên";
-                        } elseif ($tenChucVugiaoVien === 'truongbomon') {
-                            echo "trưởng bộ môn";
-                        } elseif ($tenChucVugiaoVien === 'truongkhoa') {
-                            echo "trưởng khoa";
-                        }
+                <form action="" method="post">
+                    <tr>
+                        <td>
+                            <?php
+                            echo $stt;
+                            $stt++;
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            echo $item['MaGiaoVien'];
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            echo $item['TenGiaoVien'];
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            $tenChucVugiaoVien = $infoSmallTable->getTenChucVu($item['MaChucVu']);
+                            $tenChucVugiaoVien = $tenChucVugiaoVien[0]['TenChucVu'];
+                            if ($tenChucVugiaoVien === 'giaovien') {
+                                echo "giáo viên";
+                            } elseif ($tenChucVugiaoVien === 'truongbomon') {
+                                echo "trưởng bộ môn";
+                            } elseif ($tenChucVugiaoVien === 'truongkhoa') {
+                                echo "trưởng khoa";
+                            }
 
-                        ?>
-                    </td>
-                    <td>
-                        <?php
-                        $tenBoMon = $infoSmallTable->getThongTinBoMon($item['MaBoMon'], 'TenBoMon');
-                        echo $tenBoMon;
-                        ?>
-                    </td>
-                    <td>
-                        <?php
-                        $maKhoa = $infoSmallTable->getThongTinBoMon($item['MaBoMon'], 'MaKhoa');
-                        $tenKhoa = $infoSmallTable->getTenKhoa($maKhoa);
-                        echo $tenKhoa;
-                        ?>
-                    </td>
-                </tr>
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            $tenBoMon = $infoSmallTable->getThongTinBoMon($item['MaBoMon'], 'TenBoMon');
+                            echo $tenBoMon;
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            $maKhoa = $infoSmallTable->getThongTinBoMon($item['MaBoMon'], 'MaKhoa');
+                            $tenKhoa = $infoSmallTable->getTenKhoa($maKhoa);
+                            echo $tenKhoa;
+                            ?>
+                        </td>
+
+                        <td>
+                            <input type="hidden" name="maGiaoVien" value="<?php echo $item['MaGiaoVien']; ?>">
+                            <input type="submit" name="submitXoaGV" value="Xóa" class="btn btn-sm btn-danger">
+                            <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=updateGV&MaGiaoVien=<?php echo $item['MaGiaoVien']; ?>" class="btn btn-sm btn-warning">Update</a>
+                        </td>
+                    </tr>
+                </form>
+
             <?php endforeach; ?>
         </tbody>
     </table>

@@ -1,7 +1,18 @@
 <?php
 if ($_GET["TenChucVu"] === 'admin') {
-    $boMon = $infoSmallTable->getThongTinBang("HocPhan");
     $stt = 1;
+
+    if (isset($_POST["submitXoa"])) {
+        $maHocPhan = $_POST["maHocPhan"];
+        $lopHocPhan->xoaHocPhan($maHocPhan);
+    }
+
+    if (isset($_POST["submitUpdate"])) {
+        $maHocPhan = $_POST["maHocPhan"];
+        echo "update" . $maHocPhan;
+    }
+
+    $boMon = $infoSmallTable->getThongTinBang("HocPhan"); // để ở đây để làm mới danh sách không bị lỗi
 }
 ?>
 
@@ -22,42 +33,51 @@ if ($_GET["TenChucVu"] === 'admin') {
                 <th>Tên học phần</th>
                 <th>Bộ môn</th>
                 <th>Khoa</th>
+                <th colspan="2"></th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($boMon as $item) : ?>
-                <tr>
-                    <td>
-                        <?php
-                        echo $stt;
-                        $stt++;
-                        ?>
-                    </td>
-                    <td>
-                        <?php
-                        echo $item['MaDuLieuHocPhan'];
-                        ?>
-                    </td>
-                    <td>
-                        <?php
-                        echo $item['TenHocPhan'];
-                        ?>
-                    </td>
-                    <td>
-                        <?php
-                        $maBoMon = $infoSmallTable->getThongTinHocPhan($item['MaHocPhan'], 'MaBoMon');
-                        $tenBoMon = $infoSmallTable->getThongTinBoMon($maBoMon, 'TenBoMon');
-                        echo $tenBoMon;
-                        ?>
-                    </td>
-                    <td>
-                        <?php
-                        $maKhoa = $infoSmallTable->getThongTinBoMon($maBoMon, 'MaKhoa');
-                        $tenKhoa = $infoSmallTable->getTenKhoa($maKhoa);
-                        echo $tenKhoa;
-                        ?>
-                    </td>
-                </tr>
+                <form action="" method="post">
+                    <tr>
+                        <td>
+                            <?php
+                            echo $stt;
+                            $stt++;
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            echo $item['MaDuLieuHocPhan'];
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            echo $item['TenHocPhan'];
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            $maBoMon = $infoSmallTable->getThongTinHocPhan($item['MaHocPhan'], 'MaBoMon');
+                            $tenBoMon = $infoSmallTable->getThongTinBoMon($maBoMon, 'TenBoMon');
+                            echo $tenBoMon;
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            $maKhoa = $infoSmallTable->getThongTinBoMon($maBoMon, 'MaKhoa');
+                            $tenKhoa = $infoSmallTable->getTenKhoa($maKhoa);
+                            echo $tenKhoa;
+                            ?>
+                        </td>
+                        <td>
+                            <input type="hidden" name="maHocPhan" value="<?php echo $item['MaHocPhan']; ?>">
+                            <input type="submit" class="btn btn-sm btn-danger" name="submitXoa" value="Xóa">
+                            <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=updateMonHoc&MaHocPhan=<?php echo $item['MaHocPhan']; ?>" class="btn btn-sm btn-warning">Update</a>
+                        </td>
+                    </tr>
+                </form>
+
             <?php endforeach; ?>
         </tbody>
     </table>
@@ -82,9 +102,15 @@ if ($_GET["TenChucVu"] === 'admin') {
                 name: 'transparent'
             }],
             extensions: [{
+                name: 'colsVisibility',
+                // at_start: [5],
+                text: 'Columns: ',
+                enable_tick_all: true
+            }, {
                 name: 'sort'
             }],
-            col_0: 'none'
+            col_0: 'none',
+            col_5: 'none'
         });
         tf.init();
     </script>

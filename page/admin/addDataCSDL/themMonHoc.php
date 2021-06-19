@@ -11,7 +11,7 @@ if ($_GET["TenChucVu"] === 'admin') {
         $maMonHoc = $_POST["maMonHoc"];
 
         $maMonHoc = strtoupper($maMonHoc);
-        echo $maMonHoc;
+        // echo $maMonHoc;
         $tenMonHoc = strtolower($tenMonHoc);
         if ($lopHocPhan->checkHocPhan($maMonHoc)) {
             if ($lopHocPhan->kiemTraBoMonCoTrongKhoaBangMa($maKhoa, $maBoMon)) {

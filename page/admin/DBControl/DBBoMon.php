@@ -1,5 +1,13 @@
 <?php
 if ($_GET["TenChucVu"] === 'admin') {
+
+
+    if (isset($_POST["submitXoaBoMon"])) {
+        $maBoMonHidden = $_POST["maBoMonHidden"];
+        $lopHocPhan->xoaBoMon($maBoMonHidden);
+    }
+
+
     $boMon = $infoSmallTable->getThongTinBang("BoMon");
     $stt = 1;
 }
@@ -24,34 +32,44 @@ if ($_GET["TenChucVu"] === 'admin') {
     <table class="tfilter table table-hover">
         <thead>
             <tr>
-                <th style="width: 20%; text-align: center;">STT</th>
-                <th style="width: 40%; text-align: center;">Bộ môn</th>
-                <th style="width: 40%; text-align: center;">Khoa</th>
+                <th style="width: 10%; text-align: center;">STT</th>
+                <th style="width: 30%; text-align: center;">Bộ môn</th>
+                <th style="width: 30%; text-align: center;">Khoa</th>
+                <th colspan="2"></th>
             </tr>
         </thead>
 
         <tbody>
             <?php foreach ($boMon as $item) : ?>
-                <tr>
-                    <td style="text-align: center;">
-                        <?php
-                        echo $stt;
-                        $stt++;
-                        ?>
-                    </td>
-                    <td style="text-align: center;">
-                        <?php
-                        echo $item['TenBoMon'];
-                        ?>
-                    </td>
-                    <td style="text-align: center;">
-                        <?php
-                        $maKhoa = $infoSmallTable->getThongTinBoMon($item['MaBoMon'], 'MaKhoa');
-                        $tenKhoa = $infoSmallTable->getTenKhoa($maKhoa);
-                        echo strtolower($tenKhoa);
-                        ?>
-                    </td>
-                </tr>
+                <form action="" method="post">
+                    <tr>
+                        <td style="text-align: center;">
+                            <?php
+                            echo $stt;
+                            $stt++;
+                            ?>
+                        </td>
+                        <td style="text-align: center;">
+                            <?php
+                            echo $item['TenBoMon'];
+                            ?>
+                        </td>
+                        <td style="text-align: center;">
+                            <?php
+                            $maKhoa = $infoSmallTable->getThongTinBoMon($item['MaBoMon'], 'MaKhoa');
+                            $tenKhoa = $infoSmallTable->getTenKhoa($maKhoa);
+                            echo strtolower($tenKhoa);
+                            ?>
+                        </td>
+                        <td>
+                            <input name="maBoMonHidden" value="<?php echo $item['MaBoMon']; ?>" type="hidden">
+                            <input type="submit" value="Xóa" name="submitXoaBoMon" class="btn btn-sm btn-danger">
+
+                            <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=updateBoMon&MaBoMon=<?php echo $item['MaBoMon']; ?>" class="btn btn-sm btn-warning">Update</a>
+                        </td>
+                    </tr>
+                </form>
+
             <?php endforeach; ?>
         </tbody>
     </table>
@@ -78,7 +96,8 @@ if ($_GET["TenChucVu"] === 'admin') {
             extensions: [{
                 name: 'sort'
             }],
-            col_0: 'none'
+            col_0: 'none',
+            col_3: 'none'
         });
         tf.init();
     </script>

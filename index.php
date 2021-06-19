@@ -300,9 +300,39 @@ if ($tenChucVu === 'admin' || $tenChucVu === 'nhanvien') {
                     case 'themBoMon':
                         include('page/admin/addDataCSDL/themBoMon.php');
                         break;
-
                     case 'themNhanVien':
                         include('page/admin/addDataCSDL/themNhanVien.php');
+                        break;
+
+
+
+                        //update data                    
+                    case 'updateMonHoc':
+                        include('page/admin/updateDataCSDL/updateMonHoc.php');
+                        break;
+                    case 'updateGV':
+                        include('page/admin/updateDataCSDL/updateGV.php');
+                        break;
+
+                    case 'updateKhoa':
+                        include('page/admin/updateDataCSDL/updateKhoa.php');
+                        break;
+
+                    case 'updateNamHoc':
+                        include('page/admin/updateDataCSDL/updateNamHoc.php');
+                        break;
+
+
+                    case 'updateChucVu':
+                        include('page/admin/updateDataCSDL/updateChucVu.php');
+                        break;
+
+                    case 'updateBoMon':
+                        include('page/admin/updateDataCSDL/updateBoMon.php');
+                        break;
+
+                    case 'updateNhanVien':
+                        include('page/admin/updateDataCSDL/updateNhanVien.php');
                         break;
 
                     default:

@@ -150,6 +150,18 @@ class InfoSmallTable
         return $resultArr;
     }
 
+
+    // get thông tin nhân viên
+    public function getThongTinNhanVien($maNhanVien)
+    {
+        $result = $this->db->con->query("SELECT * FROM NhanVien WHERE MaNhanVien = '{$maNhanVien}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
     // get tên khoa
     public function getTenKhoa($maKhoa)
     {

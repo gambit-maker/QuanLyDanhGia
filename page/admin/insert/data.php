@@ -370,6 +370,7 @@ if (isset($_POST["submit"])) {
 
                 $viTriDauGachNgang = strpos($toArr[3], "-");
                 $maGiaoVien = substr($toArr[3], 0, $viTriDauGachNgang);
+                // echo $maGiaoVien;
                 //Mã giáo viên VD data: 2008022 - Đoàn Vũ Thịnh
                 //lấy từ 0 đến vị trị dấu -
 
@@ -441,6 +442,7 @@ if (isset($_POST["submit"])) {
                         }
                     }
 
+                    //thay bằng $cauSauKhiXuLyRake để áp dụng rake
 
                     $dataPredictStatus = $status->predict($noiDungGopY)['label'];
                     $dataPredictClass = $class->predict($noiDungGopY)['label'];

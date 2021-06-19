@@ -1,5 +1,12 @@
 <?php
 if ($_GET["TenChucVu"] === 'admin') {
+
+
+    if (isset($_POST["submitXoa"])) {
+        $maKhoa = $_POST["maKhoaHidden"];
+        $lopHocPhan->xoaKhoa($maKhoa);
+    }
+
     $khoa = $infoSmallTable->getThongTinBang("khoa");
     $stt = 1;
 }
@@ -20,26 +27,37 @@ if ($_GET["TenChucVu"] === 'admin') {
     <table class="tfilter table table-hover">
         <thead>
             <tr>
-                <th style="width: 50%; text-align: center;">STT</th>
+                <th style="width: 20%; text-align: center;">STT</th>
                 <th style="width: 50%; text-align: center;">Khoa</th>
+                <td colspan="2"></td>
             </tr>
         </thead>
 
         <tbody>
             <?php foreach ($khoa as $item) : ?>
-                <tr>
-                    <td style="text-align: center;">
-                        <?php
-                        echo $stt;
-                        $stt++;
-                        ?>
-                    </td>
-                    <td style="text-align: center;">
-                        <?php
-                        echo $item['TenKhoa'];
-                        ?>
-                    </td>
-                </tr>
+                <form action="" method="post">
+                    <tr>
+                        <td style="text-align: center;">
+                            <?php
+                            echo $stt;
+                            $stt++;
+                            ?>
+                        </td>
+                        <td style="text-align: center;">
+                            <?php
+                            echo $item['TenKhoa'];
+                            ?>
+                        </td>
+                        <td>
+                            <input type="hidden" name="maKhoaHidden" value="<?php echo $item['MaKhoa']; ?>">
+
+                            <input type="submit" value="Xóa" class="btn btn-danger btn-sm" name="submitXoa">
+                            <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=updateKhoa&MaKhoa=<?php echo $item['MaKhoa']; ?>" class="btn btn-sm btn-warning">Update</a>
+
+                        </td>
+                    </tr>
+                </form>
+
             <?php endforeach; ?>
         </tbody>
     </table>
@@ -66,7 +84,8 @@ if ($_GET["TenChucVu"] === 'admin') {
             extensions: [{
                 name: 'sort'
             }],
-            col_0: 'none'
+            col_0: 'none',
+            col_2: 'none'
         });
         tf.init();
     </script>

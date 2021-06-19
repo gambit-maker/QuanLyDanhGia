@@ -1246,9 +1246,9 @@ class LopHocPhan
     {
         $result = $this->db->con->query("INSERT INTO `khoa`(`TenKhoa`) VALUES ('{$tenKhoa}')");
         if ($result === TRUE) {
-            echo '----add new record in chức vụ ----';
+            echo '----thêm dữ liệu vào khoa ----';
         } else {
-            echo "----not thing add to chức vụ ----";
+            echo "----not thing add to khoa ----";
         }
     }
 
@@ -1323,5 +1323,189 @@ class LopHocPhan
             return false;
         }
         return true;
+    }
+
+
+
+    // xóa lớp học phần    
+    public function xoaLopHocPhan($maLopHocPhan)
+    {
+        $result = $this->db->con->query("DELETE FROM `lophocphan` WHERE MaLopHocPhan = '{$maLopHocPhan}'");
+        if ($result === TRUE) {
+            echo '----xóa dữ liệu bảng lophocphan, các bảng liên quan là phieukhaosat, chitietkhaosatphieu cũng sẽ được xóa ----';
+        } else {
+            echo "----không có dữ liệu nào xóa bảng lophocphan ----";
+        }
+    }
+
+    // xóa môn học
+    public function xoaHocPhan($maHocPhan)
+    {
+
+        $result = $this->db->con->query("DELETE FROM `hocphan` WHERE MaHocPhan = '{$maHocPhan}'");
+        if ($result === TRUE) {
+            echo '----xóa dữ liệu bảng hocphan ----';
+        } else {
+            echo "----không có dữ liệu nào xóa bảng hocphan ----";
+        }
+    }
+
+    // update môn học
+    public function updateMonHoc($maHocPhan, $maBoMon, $maKhoa, $tenHocPhan, $maDuLieuHocPhan)
+    {
+
+        $result = $this->db->con->query("UPDATE `hocphan` SET `MaBoMon`='{$maBoMon}',`MaKhoa`='{$maKhoa}',`TenHocPhan`='{$tenHocPhan}',`MaDuLieuHocPhan`='{$maDuLieuHocPhan}' WHERE MaHocPhan = '{$maHocPhan}'");
+        if ($result === TRUE) {
+            echo '----Updae dữ liệu bản hocphan ----';
+        } else {
+            echo "----không có dữ liệu nào được update bảng hocphan ----";
+        }
+    }
+
+
+
+    // xóa năm học
+    public function xoaNamHoc($maNamHoc)
+    {
+
+        $result = $this->db->con->query("DELETE FROM `namhoc` WHERE MaNamHoc = '{$maNamHoc}'");
+        if ($result === TRUE) {
+            echo '----xóa dữ liệu bảng namhoc ----';
+        } else {
+            echo "----không có dữ liệu nào xóa bảng namhoc ----";
+        }
+    }
+
+    //update năm học
+    public function updateNamHoc($maNamHoc, $thoiGian)
+    {
+
+        $result = $this->db->con->query("UPDATE `namhoc` SET `ThoiGian`='{$thoiGian}' WHERE MaNamHoc = '{$maNamHoc}'");
+        if ($result === TRUE) {
+            echo '----Updae dữ liệu bản namhoc ----';
+        } else {
+            echo "----không có dữ liệu nào được update bảng namhoc ----";
+        }
+    }
+
+    // xóa giáo viên
+    public function xoaGiaoVien($maGiaoVien)
+    {
+
+        $result = $this->db->con->query("DELETE FROM `giaovien` WHERE MaGiaoVien = '{$maGiaoVien}'");
+        if ($result === TRUE) {
+            echo '----xóa dữ liệu bảng giáo viên ----';
+        } else {
+            echo "----không có dữ liệu nào xóa bảng giáo viên ----";
+        }
+    }
+
+
+    // xóa khoa
+    public function xoaKhoa($maKhoa)
+    {
+        $result = $this->db->con->query("DELETE FROM `khoa` WHERE MaKhoa = '{$maKhoa}'");
+        if ($result === TRUE) {
+            echo '----xóa dữ liệu bảng khoa, các bảng liên quan là lophocphan,phieukhaosat, chitietkhaosatphieu,giaovien, hocphan, bomon cũng sẽ được xóa ----';
+        } else {
+            echo "----không có dữ liệu nào xóa bảng lophocphan ----";
+        }
+    }
+
+
+    //update khoa
+    public function updateKhoa($maKhoa, $tenKhoa)
+    {
+
+        $result = $this->db->con->query("UPDATE `khoa` SET `TenKhoa`='{$tenKhoa}' WHERE MaKhoa = '{$maKhoa}'");
+        if ($result === TRUE) {
+            echo '----Updae dữ liệu bản khoa ----';
+        } else {
+            echo "----không có dữ liệu nào được update bảng khoa ----";
+        }
+    }
+
+
+    //update giáo viên
+    public function updateGiaoVien($maGiaoVienNew, $maGiaoVienOld, $tenGiaoVien, $matKhau, $maChucVu, $maBoMon)
+    {
+
+        $result = $this->db->con->query("UPDATE `giaovien` SET `MaGiaoVien`='{$maGiaoVienNew}',`TenGiaoVien`='{$tenGiaoVien}',`MatKhau`='{$matKhau}',`MaChucVu`='{$maChucVu}',`MaBoMon`='{$maBoMon}' WHERE MaGiaoVien = '{$maGiaoVienOld}'");
+        if ($result === TRUE) {
+            echo '----Updae dữ liệu bản giaovien ----';
+        } else {
+            echo "----không có dữ liệu nào được update bảng giaovien ----";
+        }
+    }
+
+    // Xóa chức vụ
+    public function xoaChucVu($maChucVu)
+    {
+        $result = $this->db->con->query("DELETE FROM `chucvu` WHERE MaChucVu = '{$maChucVu}'");
+        if ($result === TRUE) {
+            echo '----xóa dữ liệu bảng chức vụ  ----';
+        } else {
+            echo "----không có dữ liệu nào xóa bảng chức vụ ----";
+        }
+    }
+
+    // update chức vụ
+    public function updateChucVu($maChucVu, $role, $tenChucVu)
+    {
+        $result = $this->db->con->query("UPDATE `chucvu` SET `TenChucVu`='{$tenChucVu}',`PhanRole`='{$role}' WHERE MaChucVu = '{$maChucVu}'");
+        if ($result === TRUE) {
+            echo '----Updae dữ liệu bản chucvu ----';
+        } else {
+            echo "----không có dữ liệu nào được update bảng chucvu ----";
+        }
+    }
+
+
+    // Xóa bộ môn
+    public function xoaBoMon($maBoMon)
+    {
+        $result = $this->db->con->query("DELETE FROM `bomon` WHERE MaBoMon = '{$maBoMon}'");
+        if ($result === TRUE) {
+            echo '----xóa dữ liệu bảng bomon  ----';
+        } else {
+            echo "----không có dữ liệu nào xóa bảng bomon ----";
+        }
+    }
+
+
+    // update bộ môn
+    public function updateBoMon($maKhoa, $maBoMon, $tenBoMon)
+    {
+        $result = $this->db->con->query("UPDATE `bomon` SET `MaKhoa`='{$maKhoa}',`TenBoMon`='{$tenBoMon}' WHERE MaBoMon = '{$maBoMon}'");
+        if ($result === TRUE) {
+            echo '----Updae dữ liệu bản bomon ----';
+        } else {
+            echo "----không có dữ liệu nào được update bảng bomon ----";
+        }
+    }
+
+
+
+    // Xóa nhân viên
+    public function xoaNhanVien($maNhanVien)
+    {
+        $result = $this->db->con->query("DELETE FROM `nhanvien` WHERE MaNhanVien = '{$maNhanVien}'");
+        if ($result === TRUE) {
+            echo '----xóa dữ liệu bảng nhanvien  ----';
+        } else {
+            echo "----không có dữ liệu nào xóa bảng nhanvien ----";
+        }
+    }
+
+
+    // update nhân viên
+    public function updateNhanVien($maNhanVienNew, $maNhanVienOld ,$tenNhanVien, $matKhau, $maChucVu)
+    {
+        $result = $this->db->con->query("UPDATE `nhanvien` SET `MaNhanVien`='{$maNhanVienNew}',`TenNhanVien`='{$tenNhanVien}',`MatKhau`='{$matKhau}',`MaChucVu`='{$maChucVu}' WHERE MaNhanVien = '{$maNhanVienOld}'");
+        if ($result === TRUE) {
+            echo '----Updae dữ liệu bản nhanvien ----';
+        } else {
+            echo "----không có dữ liệu nào được update bảng nhanvien ----";
+        }
     }
 }
