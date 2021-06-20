@@ -1103,6 +1103,170 @@ class LopHocPhan
     }
 
 
+    //thống kê theo khoa, bộ môn, giáo viên, môn học    
+    public function getThongKeGiaoVienMonHoc($khoa, $boMon, $monHoc, $maGiaoVien)
+    {
+
+        $result = $this->db->con->query("SELECT *
+        FROM
+        lophocphan 
+        JOIN hocphan
+        ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        JOIN giaovien
+        ON giaovien.MaGiaoVien = lophocphan.MaGiaoVien
+        JOIN nhomhocphan
+        ON nhomhocphan.MaNhomHocPhan = lophocphan.MaNhomHocPhan
+        JOIN namhoc
+        ON namhoc.MaNamHoc = lophocphan.MaNamHoc
+        JOIN hocky
+        ON hocky.MaHocKy = lophocphan.MaHocKy
+        JOIN bomon
+        ON bomon.MaBoMon = giaovien.MaBoMon
+        JOIN khoa
+        ON khoa.MaKhoa = bomon.MaKhoa
+        WHERE khoa.TenKhoa = '{$khoa}'
+        AND lophocphan.MaGiaoVien = '{$maGiaoVien}'
+        AND bomon.TenBoMon = '{$boMon}' AND hocphan.TenHocPhan = '{$monHoc}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+    //thống kê theo khoa, bộ môn, giáo viên, môn học và năm
+    public function getThongKeGiaoVienMonHocVaNamHoc($khoa, $boMon, $monHoc, $maGiaoVien, $namHoc)
+    {
+
+        $result = $this->db->con->query("SELECT *
+        FROM
+        lophocphan 
+        JOIN hocphan
+        ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        JOIN giaovien
+        ON giaovien.MaGiaoVien = lophocphan.MaGiaoVien
+        JOIN nhomhocphan
+        ON nhomhocphan.MaNhomHocPhan = lophocphan.MaNhomHocPhan
+        JOIN namhoc
+        ON namhoc.MaNamHoc = lophocphan.MaNamHoc
+        JOIN hocky
+        ON hocky.MaHocKy = lophocphan.MaHocKy
+        JOIN bomon
+        ON bomon.MaBoMon = giaovien.MaBoMon
+        JOIN khoa
+        ON khoa.MaKhoa = bomon.MaKhoa
+        WHERE khoa.TenKhoa = '{$khoa}'
+        AND lophocphan.MaGiaoVien = '{$maGiaoVien}'
+        AND bomon.TenBoMon = '{$boMon}' 
+        AND hocphan.TenHocPhan = '{$monHoc}'
+        AND namhoc.ThoiGian = '{$namHoc}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+    //thống kê theo khoa, bộ môn, giáo viên, môn học và năm và học kỳ
+    public function getThongKeGiaoVienMonHocVaNamHocVaHocKy($khoa, $boMon, $monHoc, $maGiaoVien, $namHoc, $hocKy)
+    {
+
+        $result = $this->db->con->query("SELECT *
+        FROM
+        lophocphan 
+        JOIN hocphan
+        ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        JOIN giaovien
+        ON giaovien.MaGiaoVien = lophocphan.MaGiaoVien
+        JOIN nhomhocphan
+        ON nhomhocphan.MaNhomHocPhan = lophocphan.MaNhomHocPhan
+        JOIN namhoc
+        ON namhoc.MaNamHoc = lophocphan.MaNamHoc
+        JOIN hocky
+        ON hocky.MaHocKy = lophocphan.MaHocKy
+        JOIN bomon
+        ON bomon.MaBoMon = giaovien.MaBoMon
+        JOIN khoa
+        ON khoa.MaKhoa = bomon.MaKhoa
+        WHERE khoa.TenKhoa = '{$khoa}'
+        AND lophocphan.MaGiaoVien = '{$maGiaoVien}'
+        AND bomon.TenBoMon = '{$boMon}' 
+        AND hocphan.TenHocPhan = '{$monHoc}'
+        AND namhoc.ThoiGian = '{$namHoc}'
+        AND hocky.TenHocKy = '{$hocKy}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+    //thống kê theo khoa, bộ môn, giáo viên, môn học và năm, đến năm
+    public function getThongKeGiaoVienMonHocTrongKhoangThoiGian($khoa, $boMon, $monHoc, $maGiaoVien, $namHoc, $denNam)
+    {
+
+        $result = $this->db->con->query("SELECT *
+        FROM
+        lophocphan 
+        JOIN hocphan
+        ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        JOIN giaovien
+        ON giaovien.MaGiaoVien = lophocphan.MaGiaoVien
+        JOIN nhomhocphan
+        ON nhomhocphan.MaNhomHocPhan = lophocphan.MaNhomHocPhan
+        JOIN namhoc
+        ON namhoc.MaNamHoc = lophocphan.MaNamHoc
+        JOIN hocky
+        ON hocky.MaHocKy = lophocphan.MaHocKy
+        JOIN bomon
+        ON bomon.MaBoMon = giaovien.MaBoMon
+        JOIN khoa
+        ON khoa.MaKhoa = bomon.MaKhoa
+        WHERE khoa.TenKhoa = '{$khoa}'
+        AND lophocphan.MaGiaoVien = '{$maGiaoVien}'
+        AND bomon.TenBoMon = '{$boMon}' 
+        AND hocphan.TenHocPhan = '{$monHoc}'        
+        AND namhoc.ThoiGian BETWEEN '{$namHoc}' AND '{$denNam}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+    //thống kê theo khoa, bộ môn, giáo viên, môn học và năm, đến năm, học kỳ
+    public function getThongKeGiaoVienMonHocTrongKhoangThoiGianVaHocKy($khoa, $boMon, $monHoc, $maGiaoVien, $namHoc, $denNam, $hocKy)
+    {
+
+        $result = $this->db->con->query("SELECT *
+        FROM
+        lophocphan 
+        JOIN hocphan
+        ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        JOIN giaovien
+        ON giaovien.MaGiaoVien = lophocphan.MaGiaoVien
+        JOIN nhomhocphan
+        ON nhomhocphan.MaNhomHocPhan = lophocphan.MaNhomHocPhan
+        JOIN namhoc
+        ON namhoc.MaNamHoc = lophocphan.MaNamHoc
+        JOIN hocky
+        ON hocky.MaHocKy = lophocphan.MaHocKy
+        JOIN bomon
+        ON bomon.MaBoMon = giaovien.MaBoMon
+        JOIN khoa
+        ON khoa.MaKhoa = bomon.MaKhoa
+        WHERE khoa.TenKhoa = '{$khoa}'
+        AND lophocphan.MaGiaoVien = '{$maGiaoVien}'
+        AND bomon.TenBoMon = '{$boMon}' 
+        AND hocphan.TenHocPhan = '{$monHoc}'        
+        AND namhoc.ThoiGian BETWEEN '{$namHoc}' AND '{$denNam}'
+        AND hocky.TenHocKy = '{$hocKy}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
     //check hoạt động khảo sát có trùng nhau của các lớp học phần
     // dùng để mở rộng nếu có nhiều hoạt động khảo sát khác nhau
     public function checkHoatDongKhaoSatCoTrungNhau($arrPhieu)
@@ -1499,7 +1663,7 @@ class LopHocPhan
 
 
     // update nhân viên
-    public function updateNhanVien($maNhanVienNew, $maNhanVienOld ,$tenNhanVien, $matKhau, $maChucVu)
+    public function updateNhanVien($maNhanVienNew, $maNhanVienOld, $tenNhanVien, $matKhau, $maChucVu)
     {
         $result = $this->db->con->query("UPDATE `nhanvien` SET `MaNhanVien`='{$maNhanVienNew}',`TenNhanVien`='{$tenNhanVien}',`MatKhau`='{$matKhau}',`MaChucVu`='{$maChucVu}' WHERE MaNhanVien = '{$maNhanVienOld}'");
         if ($result === TRUE) {

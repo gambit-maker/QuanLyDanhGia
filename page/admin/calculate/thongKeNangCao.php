@@ -844,6 +844,161 @@ if (isset($_POST["submit"])) {
         }
     }
 
+    // thống kê giáo viên theo khoa, bộ môn, học phần
+    if (
+        $inputKhoa !== null
+        && $inputBoMon !== null
+        && $inputMonHoc !== null
+        && $inputMaGiaoVien !== null
+        && $inputTenGiaoVien !== null
+        && empty($inputNamHoc)
+        && empty($inputDenNamHoc)
+        && empty($inputHocKy)
+    ) {
+        $thongTinLop = $lopHocPhan->getThongKeGiaoVienMonHoc($inputKhoa, $inputBoMon, $inputMonHoc, $inputMaGiaoVien);
+        if (!$lopHocPhan->getCountDuLieu('khoa', 'TenKhoa', $inputKhoa)) {
+            // kiểm tra có khoa này trong DB không
+            $khongCoKhoaMessage = TRUE;
+        } else {
+            if (!$lopHocPhan->getCountDuLieu('bomon', 'TenBoMon', $inputBoMon)) {
+                $khongBoMonMessage = TRUE;
+            } elseif (!$lopHocPhan->kiemTraBoMonCoTrongKhoa($inputKhoa, $inputBoMon)) {
+                // kiểm tra trong khoa có bộ môn này không
+                $KhoaKhongCoBoMonMessage = TRUE;
+            } else {
+                if (!$lopHocPhan->getCountDuLieu('hocphan', 'TenHocPhan', $inputMonHoc)) {
+                    $khongMonHocMessage = TRUE;
+                } elseif (!$lopHocPhan->kiemTraMonHocCoTrongBoMon($inputMonHoc, $inputBoMon)) {
+                    $khongCoMonHocTrongBoMonMessage = TRUE;
+                }
+            }
+        }
+    }
+
+    // thống kê giáo viên theo khoa, bộ môn, học phần theo năm học
+    if (
+        $inputKhoa !== null
+        && $inputBoMon !== null
+        && $inputMonHoc !== null
+        && $inputMaGiaoVien !== null
+        && $inputTenGiaoVien !== null
+        && $inputNamHoc !== null
+        && empty($inputDenNamHoc)
+        && empty($inputHocKy)
+    ) {
+        $thongTinLop = $lopHocPhan->getThongKeGiaoVienMonHocVaNamHoc($inputKhoa, $inputBoMon, $inputMonHoc, $inputMaGiaoVien, $inputNamHoc);
+        if (!$lopHocPhan->getCountDuLieu('khoa', 'TenKhoa', $inputKhoa)) {
+            // kiểm tra có khoa này trong DB không
+            $khongCoKhoaMessage = TRUE;
+        } else {
+            if (!$lopHocPhan->getCountDuLieu('bomon', 'TenBoMon', $inputBoMon)) {
+                $khongBoMonMessage = TRUE;
+            } elseif (!$lopHocPhan->kiemTraBoMonCoTrongKhoa($inputKhoa, $inputBoMon)) {
+                // kiểm tra trong khoa có bộ môn này không
+                $KhoaKhongCoBoMonMessage = TRUE;
+            } else {
+                if (!$lopHocPhan->getCountDuLieu('hocphan', 'TenHocPhan', $inputMonHoc)) {
+                    $khongMonHocMessage = TRUE;
+                } elseif (!$lopHocPhan->kiemTraMonHocCoTrongBoMon($inputMonHoc, $inputBoMon)) {
+                    $khongCoMonHocTrongBoMonMessage = TRUE;
+                }
+            }
+        }
+    }
+
+    // thống kê giáo viên theo khoa, bộ môn, học phần theo năm học, và học kỳ
+    if (
+        $inputKhoa !== null
+        && $inputBoMon !== null
+        && $inputMonHoc !== null
+        && $inputMaGiaoVien !== null
+        && $inputTenGiaoVien !== null
+        && $inputNamHoc !== null
+        && empty($inputDenNamHoc)
+        && $inputHocKy !== null
+    ) {
+        $thongTinLop = $lopHocPhan->getThongKeGiaoVienMonHocVaNamHocVaHocKy($inputKhoa, $inputBoMon, $inputMonHoc, $inputMaGiaoVien, $inputNamHoc, $inputHocKy);
+        if (!$lopHocPhan->getCountDuLieu('khoa', 'TenKhoa', $inputKhoa)) {
+            // kiểm tra có khoa này trong DB không
+            $khongCoKhoaMessage = TRUE;
+        } else {
+            if (!$lopHocPhan->getCountDuLieu('bomon', 'TenBoMon', $inputBoMon)) {
+                $khongBoMonMessage = TRUE;
+            } elseif (!$lopHocPhan->kiemTraBoMonCoTrongKhoa($inputKhoa, $inputBoMon)) {
+                // kiểm tra trong khoa có bộ môn này không
+                $KhoaKhongCoBoMonMessage = TRUE;
+            } else {
+                if (!$lopHocPhan->getCountDuLieu('hocphan', 'TenHocPhan', $inputMonHoc)) {
+                    $khongMonHocMessage = TRUE;
+                } elseif (!$lopHocPhan->kiemTraMonHocCoTrongBoMon($inputMonHoc, $inputBoMon)) {
+                    $khongCoMonHocTrongBoMonMessage = TRUE;
+                }
+            }
+        }
+    }
+
+    // thống kê giáo viên theo khoa, bộ môn, học phần theo năm học, đến năm học
+    if (
+        $inputKhoa !== null
+        && $inputBoMon !== null
+        && $inputMonHoc !== null
+        && $inputMaGiaoVien !== null
+        && $inputTenGiaoVien !== null
+        && $inputNamHoc !== null
+        && $inputDenNamHoc !== null
+        && empty($inputHocKy)
+    ) {
+        $thongTinLop = $lopHocPhan->getThongKeGiaoVienMonHocTrongKhoangThoiGian($inputKhoa, $inputBoMon, $inputMonHoc, $inputMaGiaoVien, $inputNamHoc, $inputDenNamHoc);
+        if (!$lopHocPhan->getCountDuLieu('khoa', 'TenKhoa', $inputKhoa)) {
+            // kiểm tra có khoa này trong DB không
+            $khongCoKhoaMessage = TRUE;
+        } else {
+            if (!$lopHocPhan->getCountDuLieu('bomon', 'TenBoMon', $inputBoMon)) {
+                $khongBoMonMessage = TRUE;
+            } elseif (!$lopHocPhan->kiemTraBoMonCoTrongKhoa($inputKhoa, $inputBoMon)) {
+                // kiểm tra trong khoa có bộ môn này không
+                $KhoaKhongCoBoMonMessage = TRUE;
+            } else {
+                if (!$lopHocPhan->getCountDuLieu('hocphan', 'TenHocPhan', $inputMonHoc)) {
+                    $khongMonHocMessage = TRUE;
+                } elseif (!$lopHocPhan->kiemTraMonHocCoTrongBoMon($inputMonHoc, $inputBoMon)) {
+                    $khongCoMonHocTrongBoMonMessage = TRUE;
+                }
+            }
+        }
+    }
+
+    // thống kê giáo viên theo khoa, bộ môn, học phần theo năm học, đến năm học, học kỳ
+    if (
+        $inputKhoa !== null
+        && $inputBoMon !== null
+        && $inputMonHoc !== null
+        && $inputMaGiaoVien !== null
+        && $inputTenGiaoVien !== null
+        && $inputNamHoc !== null
+        && $inputDenNamHoc !== null
+        && $inputHocKy !== null
+    ) {
+        $thongTinLop = $lopHocPhan->getThongKeGiaoVienMonHocTrongKhoangThoiGianVaHocKy($inputKhoa, $inputBoMon, $inputMonHoc, $inputMaGiaoVien, $inputNamHoc, $inputDenNamHoc, $inputHocKy);
+        if (!$lopHocPhan->getCountDuLieu('khoa', 'TenKhoa', $inputKhoa)) {
+            // kiểm tra có khoa này trong DB không
+            $khongCoKhoaMessage = TRUE;
+        } else {
+            if (!$lopHocPhan->getCountDuLieu('bomon', 'TenBoMon', $inputBoMon)) {
+                $khongBoMonMessage = TRUE;
+            } elseif (!$lopHocPhan->kiemTraBoMonCoTrongKhoa($inputKhoa, $inputBoMon)) {
+                // kiểm tra trong khoa có bộ môn này không
+                $KhoaKhongCoBoMonMessage = TRUE;
+            } else {
+                if (!$lopHocPhan->getCountDuLieu('hocphan', 'TenHocPhan', $inputMonHoc)) {
+                    $khongMonHocMessage = TRUE;
+                } elseif (!$lopHocPhan->kiemTraMonHocCoTrongBoMon($inputMonHoc, $inputBoMon)) {
+                    $khongCoMonHocTrongBoMonMessage = TRUE;
+                }
+            }
+        }
+    }
+
     $arrMaCacLopHocPhan = array(); // arr các lớp học phần
     foreach ($thongTinLop as $item) {
         $arrMaCacLopHocPhan[] = $item['MaLopHocPhan'];
