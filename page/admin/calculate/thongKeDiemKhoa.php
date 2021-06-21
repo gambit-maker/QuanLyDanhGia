@@ -4,7 +4,7 @@ if ($_GET["TenChucVu"] === 'truongkhoa') {
     $maKhoa = $infoSmallTable->getMaKhoaGiaoVien($maGiaoVien);
     $tenKhoa = $infoSmallTable->getTenKhoa($maKhoa);
 
-    $namHoc = $infoSmallTable->getThongTinBang('NamHoc');
+    $namHoc = $infoSmallTable->getThongTinBangNamHocASC();
     $arrNamHoc = array();
 
 
@@ -20,7 +20,7 @@ if ($_GET["TenChucVu"] === 'admin') {
     $khoa = $infoSmallTable->getThongTinBang('Khoa');
     $arrKhoa = array();
 
-    $namHoc = $infoSmallTable->getThongTinBang('NamHoc');
+    $namHoc = $infoSmallTable->getThongTinBangNamHocASC();
     $arrNamHoc = array();
 
 
@@ -39,12 +39,13 @@ if (isset($_POST["submit"])) {
         $inputKhoa = $_POST["inputKhoa"];
         $maKhoa = $infoSmallTable->getMaKhoaTuTenKhoa($inputKhoa);
     }
+
+
     $inputBoMon = $_POST["inputBoMon"];
-    $maBoMon = $infoSmallTable->getMaBoMon($inputBoMon, $maKhoa);
-    $arrMaNhomHocPhan = array(); // mã các nhóm học phần trong bộ môn
-    foreach ($maBoMon as $item) {
-        $arrMaNhomHocPhan[] = $item['MaHocPhan'];
-    }
+    // $maBoMon = $infoSmallTable->getMaBoMon($inputBoMon, $maKhoa);
+
+    // $arrMaNhomHocPhan = array(); // mã các nhóm học phần trong bộ môn
+
     // print_r($arrMaNhomHocPhan);
 
     $inputNamHoc = $_POST["inputNamHoc"];
@@ -52,11 +53,19 @@ if (isset($_POST["submit"])) {
 
     $inputHocKy = $_POST["inputHocKy"]; // số liệu học kỳ chính là mã
 
-    $cacLopHocPhan = $infoSmallTable->getArrLopHocPhan($arrMaNhomHocPhan, $maNamHoc, $inputHocKy);
-    // foreach ($cacLopHocPhan as $item) {
-    //     print_r($item);
-    //     echo "<Br>";
-    // }
+    // $cacLopHocPhan = $infoSmallTable->getArrLopHocPhan($arrMaNhomHocPhan, $maNamHoc, $inputHocKy);    
+
+
+
+
+    $maGiaoVien = $infoSmallTable->getMaGiaoVienThongKeKhoa($inputKhoa, $inputBoMon, $maNamHoc, $inputHocKy);
+    $arrNhomGiaoVien = array();
+
+    foreach ($maGiaoVien as $item) {
+        $arrNhomGiaoVien[] = $item['MaGiaoVien'];
+    }
+
+
 
 
     $stt = 1;
@@ -162,7 +171,7 @@ if (isset($_POST["submit"])) {
                     <th>Điểm TB</th>
                     <th>Xếp loại</th>
                 </tr>
-                <?php foreach ($cacLopHocPhan as $item) : ?>
+                <?php foreach ($arrNhomGiaoVien as $item) : ?>
                     <tr>
                         <td>
                             <?php
@@ -171,21 +180,21 @@ if (isset($_POST["submit"])) {
                             ?>
                         </td>
                         <td>
-                            <?php echo $item['MaGiaoVien']; ?>
+                            <?php echo $item; ?>
                         </td>
                         <td>
-                            <?php echo $infoSmallTable->getThongTinGiaoVien($item['MaGiaoVien']); ?>
+                            <?php echo $infoSmallTable->getThongTinGiaoVien($item); ?>
                         </td>
                         <td>
                             <?php
-                            $soPhieuKhaoSat = $lopHocPhan->getPhieuKhaoSat($item['MaLopHocPhan']);
-                            echo count($soPhieuKhaoSat);
+                            $soPhieuKhaoSatCuaGiaoVien = $lopHocPhan->getPhieuTheoMaGiaoVienNamHocBoMonHocKy($item, $inputKhoa, $inputBoMon, $maNamHoc, $inputHocKy);
+
+                            echo count($soPhieuKhaoSatCuaGiaoVien);
                             ?>
                         </td>
                         <td>
                             <?php
-                            $soPhieuKhaoSat = $lopHocPhan->getPhieuKhaoSat($item['MaLopHocPhan']);
-                            echo count($soPhieuKhaoSat);
+                            echo count($soPhieuKhaoSatCuaGiaoVien);
                             ?>
                         </td>
 
@@ -195,20 +204,28 @@ if (isset($_POST["submit"])) {
                         $tongDiemHeSoNhan = 0;
                         $arrHinhThucPhanLoaiNhom2 = $infoSmallTable->getHinhThucPhanLoai($nhomTieuChi = 2);
                         $arrHinhThucPhanLoaiNhom3 = $infoSmallTable->getHinhThucPhanLoai($nhomTieuChi = 3);
-                        for ($i = 0; $i < count($arrHinhThucPhanLoaiNhom2); $i++) {
-                            $tieuChiDay = $infoSmallTable->getCountHinhThucPhanLoai($item['MaLopHocPhan'], $arrHinhThucPhanLoaiNhom2[$i]['NoiDungHinhThucPhanLoai']);
-                            $yKienKhac = $infoSmallTable->getCountHinhThucPhanLoai($item['MaLopHocPhan'], $arrHinhThucPhanLoaiNhom3[$i]['NoiDungHinhThucPhanLoai']);
-                            $tongDiem = count($tieuChiDay) + count($yKienKhac);
-                            $tong += $tongDiem;
 
-                            if (count($tieuChiDay) !== 0) {
-                                $heSoNhan = $tieuChiDay[0]['Diem'];
-                                $tongDiemHeSoNhan += $tongDiem * $heSoNhan;
+                        foreach ($soPhieuKhaoSatCuaGiaoVien as $item) {
+                            for ($i = 0; $i < count($arrHinhThucPhanLoaiNhom2); $i++) {
+                                $tieuChiDay = $infoSmallTable->getCountHinhThucPhanLoai($item['MaLopHocPhan'], $arrHinhThucPhanLoaiNhom2[$i]['NoiDungHinhThucPhanLoai']);
+                                $yKienKhac = $infoSmallTable->getCountHinhThucPhanLoai($item['MaLopHocPhan'], $arrHinhThucPhanLoaiNhom3[$i]['NoiDungHinhThucPhanLoai']);
+                                $tongDiem = count($tieuChiDay) + count($yKienKhac);
+                                $tong += $tongDiem;
+
+                                if (count($tieuChiDay) !== 0) {
+                                    $heSoNhan = $tieuChiDay[0]['Diem'];
+                                    $tongDiemHeSoNhan += $tongDiem * $heSoNhan;
+                                }
                             }
+                            // $diemTB =  number_format($tongDiemHeSoNhan / $tong, 2);
+                            // echo $item['MaGiaoVien'] . "<br>";
+                            // echo $diemTB . "<br>";
                         }
+
                         ?>
                         <td>
                             <?php
+                            // echo $tongDiemHeSoNhan . " " . $tong . "<br>";
                             $diemTB =  number_format($tongDiemHeSoNhan / $tong, 2);
                             echo $diemTB;
                             ?>

@@ -60,7 +60,7 @@ $arrMonHoc = array();
 $giaoVien = $infoSmallTable->getThongTinBang('GiaoVien');
 $arrGiaoVien = array();
 
-$namHoc = $infoSmallTable->getThongTinBang('NamHoc');
+$namHoc = $infoSmallTable->getThongTinBangNamHocASC();
 $arrNamHoc = array();
 
 $hocKy = $infoSmallTable->getThongTinBang('HocKy');

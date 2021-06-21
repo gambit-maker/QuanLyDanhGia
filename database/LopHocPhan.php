@@ -232,6 +232,21 @@ class LopHocPhan
         return $resultArr;
     }
 
+    // get phiếu theo mã giáo viên theo năm học, bộ môn, học kỳ
+    public function getPhieuTheoMaGiaoVienNamHocBoMonHocKy($maGiaoVien, $tenKhoa, $tenBoMon, $maNamHoc, $maHocKy)
+    {
+        $result = $this->db->con->query("SELECT *
+        FROM khoa JOIN bomon ON khoa.MaKhoa = bomon.MaKhoa 
+        JOIN hocphan ON hocphan.MaBoMon = bomon.MaBoMon 
+        JOIN lophocphan ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        WHERE khoa.TenKhoa = '{$tenKhoa}' AND bomon.TenBoMon = '{$tenBoMon}' AND lophocphan.MaNamHoc = '{$maNamHoc}' AND lophocphan.MaHocKy ='{$maHocKy}' AND lophocphan.MaGiaoVien = '{$maGiaoVien}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
     // get thông tin chi tiêt đánh giá của từng phiếu
     // có bao nhiêu người đánh RD ở tiêu chí đánh giá 1 của lớp học phần 1
     // có bao nhiêu người đánh TDD ở tiêu chí đánh giá 1 của lớp học phần 1

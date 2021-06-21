@@ -22,6 +22,18 @@ class InfoSmallTable
         return $resultArr;
     }
 
+    public function getThongTinBangNamHocASC()
+    {
+        $result = $this->db->con->query("SELECT * FROM `namhoc` ORDER BY `namhoc`.`ThoiGian` ASC
+        ");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+
     //get thông tin lớp học phần theo mã lớp
     public function getThongTinLopHocPhanTheoMaLop($maLopHocPhan)
     {
@@ -340,6 +352,22 @@ class InfoSmallTable
     public function getMaBoMon($tenBoMon, $maKhoa)
     {
         $result = $this->db->con->query("SELECT * FROM bomon JOIN hocphan on bomon.MaBoMon = hocphan.MaBoMon WHERE bomon.TenBoMon = '{$tenBoMon}' AND bomon.MaKhoa = '{$maKhoa}'");
+        $resultArr = array();
+        while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $resultArr[] = $row;
+        }
+        return $resultArr;
+    }
+
+
+    // get mã giáo viên thống kê khoa
+    public function getMaGiaoVienThongKeKhoa($tenKhoa, $tenBoMon, $maNamHoc, $maHocKy)
+    {
+        $result = $this->db->con->query("SELECT DISTINCT lophocphan.MaGiaoVien 
+        FROM khoa JOIN bomon ON khoa.MaKhoa = bomon.MaKhoa 
+        JOIN hocphan ON hocphan.MaBoMon = bomon.MaBoMon 
+        JOIN lophocphan ON lophocphan.MaHocPhan = hocphan.MaHocPhan 
+        WHERE khoa.TenKhoa = '{$tenKhoa}' AND bomon.TenBoMon = '{$tenBoMon}' AND lophocphan.MaNamHoc = '{$maNamHoc}' AND lophocphan.MaHocKy ='{$maHocKy}'");
         $resultArr = array();
         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             $resultArr[] = $row;
