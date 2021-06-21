@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '99aac2b546c5d71e635f57613d1e73c811e7ef02',
+    'reference' => 'bff5ac92c0f160ecd9dc66d57315809ddc0b3f43',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '99aac2b546c5d71e635f57613d1e73c811e7ef02',
+      'reference' => 'bff5ac92c0f160ecd9dc66d57315809ddc0b3f43',
     ),
     'donatello-za/rake-php-plus' => 
     array (

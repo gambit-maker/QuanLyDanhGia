@@ -475,6 +475,173 @@ if (isset($_POST["submit"])) {
 }
 
 
+if (isset($_POST["changeAIData"])) {
+
+    $fileAI = $_FILES["inputFileTrain"]['name'];
+
+    if ($fileAI === '') {
+        $fileAIError = "File Empty";
+    } elseif (
+        str_contains(strtolower($fileAI), 'class')
+        || str_contains(strtolower($fileAI), 'status')
+    ) {
+        move_uploaded_file($_FILES["inputFileTrain"]['tmp_name'], $rootPath . "/" . $fileAI);
+        $xlsx = SimpleXLSX::parse($fileAI);
+        $numberOfSheet = count($xlsx->sheetNames());
+
+        $classifier = new TNTClassifier();
+
+
+        for ($i = 0; $i < $numberOfSheet; $i++) {
+            $fileName = $xlsx->sheetNames()[$i];
+
+            $html = $xlsx->toHTML($i);
+
+            $text = \Soundasleep\Html2Text::convert($html, $options);
+            $myfile = fopen($fileName . ".txt", "w") or die("Unable to open file!");
+            $data = str_replace("&nbsp", "", $text);
+            fwrite($myfile, $data);
+            fclose($myfile);
+
+            $filePath = $fileName . ".txt";
+            $f = file($filePath);
+
+            unlink($filePath);
+
+            for ($y = 2; $y < count($f); $y++) {
+                $row = explode("	", $f[$y]);
+                // print_r($row);
+
+                $row[1] = preg_replace('~[^\\pL\d]+~u', ' ', strip_tags($row[1]));
+
+                // bỏ số
+                // $row[1] = preg_replace('/[0-9]+/', '', $row[1]);
+
+                // chuẩn hóa âm tiết VD hayyyy -> hay
+                $row[1] = preg_replace('{(.)\1+}', '$1', $row[1]);
+                $classifier->learn($row[1], $fileName);
+                echo $row[1] . " :::" . $fileName . " Predict";
+                // print_r($classifier->predict($row[1]));
+                echo "<br>";
+            }
+        }
+
+
+
+        if (str_contains(strtolower($fileAI), 'status')) {
+            $classifier->save('DataAI\status.cls');
+        } elseif (str_contains(strtolower($fileAI), 'class')) {
+            $classifier->save('DataAI\class.cls');
+        }
+
+        unlink($fileAI);
+    } else {
+
+        echo "Hãy chắc rằng file input đúng định dạng, và tên file phải có 'class' hoặc 'status' để phân biệt";
+    }
+}
+
+
+
+if (isset($_POST["testAIData"])) {
+    $fileAI = $_FILES["inputFileTrain"]['name'];
+
+    if ($fileAI === '') {
+        $fileAIError = "File Empty";
+        $doChinhXac = 0;
+        $diemNeuDoanDung  = 0;
+        $tongGopY  = 0; //góp ý cho mỗi 3 lần đánh giá
+        $tongSoGopY = 0; //tổng số câu góp ý trong file
+    } elseif (
+        str_contains(strtolower($fileAI), 'class')
+        || str_contains(strtolower($fileAI), 'status')
+    ) {
+        move_uploaded_file($_FILES["inputFileTrain"]['tmp_name'], $rootPath . "/" . $fileAI);
+        $xlsx = SimpleXLSX::parse($fileAI);
+        $numberOfSheet = count($xlsx->sheetNames());
+
+        $classifier = new TNTClassifier();
+
+
+        $count = 1;
+        $tongGopY = 0;
+        $diemNeuDoanDung = 0;
+        $tongSoGopY = 0;
+        for ($i = 0; $i < $numberOfSheet; $i++) {
+            $fileName = $xlsx->sheetNames()[$i];
+
+            $html = $xlsx->toHTML($i);
+
+            $text = \Soundasleep\Html2Text::convert($html, $options);
+            $myfile = fopen($fileName . ".txt", "w") or die("Unable to open file!");
+            $data = str_replace("&nbsp", "", $text);
+            fwrite($myfile, $data);
+            fclose($myfile);
+
+            $filePath = $fileName . ".txt";
+            $f = file($filePath);
+
+            unlink($filePath);
+
+
+            // thức hiện phương pháp kiểm tra trên file dữ liệu với 7 dữ liệu input thì sẽ kiểm tra với 3 dữ liệu tiếp theo để có thể tính toán độ chính xác của thuật toán.
+            $count = 1;
+            for ($y = 2; $y < count($f); $y++) {
+
+                $row = explode("	", $f[$y]);
+
+
+
+                $row[1] = preg_replace('~[^\\pL\d]+~u', ' ', strip_tags($row[1]));
+
+                // chuẩn hóa âm tiết VD hayyyy -> hay
+                $row[1] = preg_replace('{(.)\1+}', '$1', $row[1]);
+
+                if ($count <= 7) {
+                    $classifier->learn($row[1], $fileName);
+                    // echo "<br> <= 7   <br>";
+                } elseif ($count > 7) {
+                    $AIPredict = $classifier->predict($row[1])['label'];
+                    $AIPredict = strtolower($AIPredict);
+                    $truePredict = strtolower(trim($fileName));
+                    // echo "true predict :" . $truePredict . "<br>";
+                    // echo "AI predict :" . $AIPredict . "<br>";                    
+
+                    if ($AIPredict === $truePredict) {
+                        $diemNeuDoanDung++;
+                    }
+                    $tongGopY++;
+                }
+
+                if ($count === 10) {
+                    $count = 0;
+                }
+
+                $count++;
+                $tongSoGopY++;
+
+
+                // echo $row[1] . " :::" . $fileName . " Predict";
+                // print_r($classifier->predict($row[1]));
+                // echo "---true predict---" . $row[2];
+                // echo "<br>";
+            }
+        }
+
+
+        $doChinhXac = number_format($diemNeuDoanDung / $tongGopY * 100, 2);
+        // echo "Đoán đúng " . $diemNeuDoanDung . " trên " . $tongGopY . "<br>";
+
+        // echo "Độ chính xác = " . $doChinhXac;
+
+
+        unlink($fileAI);
+    } else {
+
+        echo "Hãy chắc rằng file input đúng định dạng, và tên file phải có 'class' hoặc 'status' để phân biệt";
+    }
+}
+
 ?>
 
 <form action="" enctype="multipart/form-data" method="POST">
@@ -499,32 +666,51 @@ if (isset($_POST["submit"])) {
         </tr>
 
 
-
         <tr>
-            <th>
+            <th></th>
+            <th class="px-5">
                 <input class="btn btn-sm btn-primary" type="submit" name="submit" value="Nhập file">
             </th>
         </tr>
+
     </table>
 
-    <!-- <div class="d-flex align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group me-2">
-                <input required class="btn btn-sm btn-outline-secondary" type="file" name="filePhieu[]" multiple="multiple">
-                <input type="submit" name="submit" value="Import">
-            </div>
-        </div>
-    </div> -->
 
 
-    <!-- <div class="d-flex align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group me-2">
-                <input required class="btn btn-sm btn-outline-secondary" type="file" name="filePhieu[]" multiple="multiple">
-                <input type="submit" name="submit" value="Import">
-            </div>
-        </div>
-    </div> -->
+    <table class="m-auto mt-5">
+        <tr>
+            <td style="text-align: left;">InputFile Train AI: </td>
+            <td class="px-5">
+                <div class="input-group-sm">
+                    <input id="inputTrain" class="form-control" type="file" name="inputFileTrain">
+                </div>
+                <?php if (isset($_POST["changeAIData"]) || isset($_POST["testAIData"])) {
+                    if ($fileAI === '') {
+                        echo "<p style='color:red'>File Empty</p>";
+                    }
+                } ?>
+                <?php if (isset($_POST["testAIData"]) && $fileAI !== '') : ?>
+                    <p style="color: blue;">Tổng số góp ý: <?php echo $tongSoGopY; ?></p>
+                    <p style="color: blue;">
+                        Đoán đúng <?php echo $diemNeuDoanDung; ?> trên tổng <?php echo $tongGopY; ?>
+                        (1 phần 3 dữ liệu đầu vào).
+                    </p>
+                    <p style="color: blue;">Độ chính xác <?php echo $doChinhXac ?>%</p>
+                <?php endif; ?>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+
+            </td>
+
+            <td class="px-5">
+                <input class="btn btn-sm btn-danger" type="submit" name="changeAIData" value="OverWrite">
+                <input class="btn btn-sm btn-warning" type="submit" name="testAIData" value="TestData">
+            </td>
+        </tr>
+    </table>
 
 
 </form>
