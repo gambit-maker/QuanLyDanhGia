@@ -376,7 +376,7 @@ class LopHocPhan
         return FALSE;
     }
 
-    // get các lớp học phần trong 1 khoảng thời gian nhất định(page: thongKeNangCao)
+    // get thống kê khoa(page: thongKeNangCao)
     public function getThongKeKhoa($khoa)
     {
 
@@ -394,7 +394,7 @@ class LopHocPhan
         JOIN hocky
         ON hocky.MaHocKy = lophocphan.MaHocKy
         JOIN bomon
-        ON bomon.MaBoMon = giaovien.MaBoMon
+        ON bomon.MaBoMon = hocphan.MaBoMon
         JOIN khoa
         ON khoa.MaKhoa = bomon.MaKhoa
         WHERE khoa.TenKhoa = '{$khoa}'");
@@ -423,7 +423,7 @@ class LopHocPhan
         JOIN hocky
         ON hocky.MaHocKy = lophocphan.MaHocKy
         JOIN bomon
-        ON bomon.MaBoMon = giaovien.MaBoMon
+        ON bomon.MaBoMon = hocphan.MaBoMon
         JOIN khoa
         ON khoa.MaKhoa = bomon.MaKhoa
         WHERE khoa.TenKhoa = '{$khoa}' AND bomon.TenBoMon = '{$boMon}'");
@@ -452,7 +452,7 @@ class LopHocPhan
         JOIN hocky
         ON hocky.MaHocKy = lophocphan.MaHocKy
         JOIN bomon
-        ON bomon.MaBoMon = giaovien.MaBoMon
+        ON bomon.MaBoMon = hocphan.MaBoMon
         JOIN khoa
         ON khoa.MaKhoa = bomon.MaKhoa
         WHERE khoa.TenKhoa = '{$khoa}' AND bomon.TenBoMon = '{$boMon}' AND hocphan.TenHocPhan = '{$monHoc}'");
@@ -482,7 +482,7 @@ class LopHocPhan
         JOIN hocky
         ON hocky.MaHocKy = lophocphan.MaHocKy
         JOIN bomon
-        ON bomon.MaBoMon = giaovien.MaBoMon
+        ON bomon.MaBoMon = hocphan.MaBoMon
         JOIN khoa
         ON khoa.MaKhoa = bomon.MaKhoa
         WHERE khoa.TenKhoa = '{$khoa}' AND namhoc.ThoiGian = '{$namHoc}'");
@@ -512,7 +512,7 @@ class LopHocPhan
         JOIN hocky
         ON hocky.MaHocKy = lophocphan.MaHocKy
         JOIN bomon
-        ON bomon.MaBoMon = giaovien.MaBoMon
+        ON bomon.MaBoMon = hocphan.MaBoMon
         JOIN khoa
         ON khoa.MaKhoa = bomon.MaKhoa
         WHERE khoa.TenKhoa = '{$khoa}' AND namhoc.ThoiGian = '{$namHoc}' AND hocky.TenHocKy = '{$hocKy}'");
@@ -541,7 +541,7 @@ class LopHocPhan
         JOIN hocky
         ON hocky.MaHocKy = lophocphan.MaHocKy
         JOIN bomon
-        ON bomon.MaBoMon = giaovien.MaBoMon
+        ON bomon.MaBoMon = hocphan.MaBoMon
         JOIN khoa
         ON khoa.MaKhoa = bomon.MaKhoa
         WHERE khoa.TenKhoa = '{$khoa}' AND namhoc.ThoiGian BETWEEN '{$namHoc}' AND '{$denNam}'");
@@ -571,7 +571,7 @@ class LopHocPhan
         JOIN hocky
         ON hocky.MaHocKy = lophocphan.MaHocKy
         JOIN bomon
-        ON bomon.MaBoMon = giaovien.MaBoMon
+        ON bomon.MaBoMon = hocphan.MaBoMon
         JOIN khoa
         ON khoa.MaKhoa = bomon.MaKhoa
         WHERE khoa.TenKhoa = '{$khoa}' 
@@ -603,7 +603,7 @@ class LopHocPhan
         JOIN hocky
         ON hocky.MaHocKy = lophocphan.MaHocKy
         JOIN bomon
-        ON bomon.MaBoMon = giaovien.MaBoMon
+        ON bomon.MaBoMon = hocphan.MaBoMon
         JOIN khoa
         ON khoa.MaKhoa = bomon.MaKhoa
         WHERE khoa.TenKhoa = '{$khoa}' 
@@ -633,7 +633,7 @@ class LopHocPhan
         JOIN hocky
         ON hocky.MaHocKy = lophocphan.MaHocKy
         JOIN bomon
-        ON bomon.MaBoMon = giaovien.MaBoMon
+        ON bomon.MaBoMon = hocphan.MaBoMon
         JOIN khoa
         ON khoa.MaKhoa = bomon.MaKhoa
         WHERE khoa.TenKhoa = '{$khoa}' 
@@ -665,7 +665,7 @@ class LopHocPhan
         JOIN hocky
         ON hocky.MaHocKy = lophocphan.MaHocKy
         JOIN bomon
-        ON bomon.MaBoMon = giaovien.MaBoMon
+        ON bomon.MaBoMon = hocphan.MaBoMon
         JOIN khoa
         ON khoa.MaKhoa = bomon.MaKhoa
         WHERE khoa.TenKhoa = '{$khoa}' 
@@ -696,7 +696,7 @@ class LopHocPhan
         JOIN hocky
         ON hocky.MaHocKy = lophocphan.MaHocKy
         JOIN bomon
-        ON bomon.MaBoMon = giaovien.MaBoMon
+        ON bomon.MaBoMon = hocphan.MaBoMon
         JOIN khoa
         ON khoa.MaKhoa = bomon.MaKhoa
         WHERE khoa.TenKhoa = '{$khoa}' 
@@ -728,7 +728,7 @@ class LopHocPhan
         JOIN hocky
         ON hocky.MaHocKy = lophocphan.MaHocKy
         JOIN bomon
-        ON bomon.MaBoMon = giaovien.MaBoMon
+        ON bomon.MaBoMon = hocphan.MaBoMon
         JOIN khoa
         ON khoa.MaKhoa = bomon.MaKhoa
         WHERE khoa.TenKhoa = '{$khoa}' 
@@ -759,7 +759,7 @@ class LopHocPhan
         JOIN hocky
         ON hocky.MaHocKy = lophocphan.MaHocKy
         JOIN bomon
-        ON bomon.MaBoMon = giaovien.MaBoMon
+        ON bomon.MaBoMon = hocphan.MaBoMon
         JOIN khoa
         ON khoa.MaKhoa = bomon.MaKhoa
         WHERE khoa.TenKhoa = '{$khoa}' 
@@ -792,7 +792,7 @@ class LopHocPhan
         JOIN hocky
         ON hocky.MaHocKy = lophocphan.MaHocKy
         JOIN bomon
-        ON bomon.MaBoMon = giaovien.MaBoMon
+        ON bomon.MaBoMon = hocphan.MaBoMon
         JOIN khoa
         ON khoa.MaKhoa = bomon.MaKhoa
         WHERE khoa.TenKhoa = '{$khoa}' 
@@ -823,7 +823,7 @@ class LopHocPhan
         JOIN hocky
         ON hocky.MaHocKy = lophocphan.MaHocKy
         JOIN bomon
-        ON bomon.MaBoMon = giaovien.MaBoMon
+        ON bomon.MaBoMon = hocphan.MaBoMon
         JOIN khoa
         ON khoa.MaKhoa = bomon.MaKhoa
         WHERE khoa.TenKhoa = '{$khoa}' 
@@ -1136,7 +1136,7 @@ class LopHocPhan
         JOIN hocky
         ON hocky.MaHocKy = lophocphan.MaHocKy
         JOIN bomon
-        ON bomon.MaBoMon = giaovien.MaBoMon
+        ON bomon.MaBoMon = hocphan.MaBoMon
         JOIN khoa
         ON khoa.MaKhoa = bomon.MaKhoa
         WHERE khoa.TenKhoa = '{$khoa}'
@@ -1167,7 +1167,7 @@ class LopHocPhan
         JOIN hocky
         ON hocky.MaHocKy = lophocphan.MaHocKy
         JOIN bomon
-        ON bomon.MaBoMon = giaovien.MaBoMon
+        ON bomon.MaBoMon = hocphan.MaBoMon
         JOIN khoa
         ON khoa.MaKhoa = bomon.MaKhoa
         WHERE khoa.TenKhoa = '{$khoa}'
@@ -1200,7 +1200,7 @@ class LopHocPhan
         JOIN hocky
         ON hocky.MaHocKy = lophocphan.MaHocKy
         JOIN bomon
-        ON bomon.MaBoMon = giaovien.MaBoMon
+        ON bomon.MaBoMon = hocphan.MaBoMon
         JOIN khoa
         ON khoa.MaKhoa = bomon.MaKhoa
         WHERE khoa.TenKhoa = '{$khoa}'
@@ -1233,7 +1233,7 @@ class LopHocPhan
         JOIN hocky
         ON hocky.MaHocKy = lophocphan.MaHocKy
         JOIN bomon
-        ON bomon.MaBoMon = giaovien.MaBoMon
+        ON bomon.MaBoMon = hocphan.MaBoMon
         JOIN khoa
         ON khoa.MaKhoa = bomon.MaKhoa
         WHERE khoa.TenKhoa = '{$khoa}'
@@ -1266,7 +1266,7 @@ class LopHocPhan
         JOIN hocky
         ON hocky.MaHocKy = lophocphan.MaHocKy
         JOIN bomon
-        ON bomon.MaBoMon = giaovien.MaBoMon
+        ON bomon.MaBoMon = hocphan.MaBoMon
         JOIN khoa
         ON khoa.MaKhoa = bomon.MaKhoa
         WHERE khoa.TenKhoa = '{$khoa}'

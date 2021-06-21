@@ -183,6 +183,7 @@ if (isset($_POST["submit"])) {
         && empty($inputHocKy)
     ) {
         $thongTinLop = $lopHocPhan->getThongKeKhoa($inputKhoa);
+
         if (!$lopHocPhan->getCountDuLieu('khoa', 'TenKhoa', $inputKhoa)) {
             $khongCoKhoaMessage = TRUE;
         }
