@@ -127,8 +127,8 @@ if (isset($_GET["TenChucVu"])) {
                         ?>
                     </td>
                     <td>
-                        <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=htPhieu&MaLopHocPhan=<?php echo $item['MaLopHocPhan']; ?>" class="btn btn-sm btn-outline-secondary">Phiếu</a>
-                        <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=htGopY&MaLopHocPhan=<?php echo $item['MaLopHocPhan']; ?>" class="btn btn-sm btn-outline-secondary">Góp ý</a>
+                        <a href="login.php?TenChucVu=<?php echo $tenChucVu; ?>&page=htPhieu&MaLopHocPhan=<?php echo $item['MaLopHocPhan']; ?>" class="btn btn-sm btn-outline-secondary">Phiếu</a>
+                        <a href="login.php?TenChucVu=<?php echo $tenChucVu; ?>&page=htGopY&MaLopHocPhan=<?php echo $item['MaLopHocPhan']; ?>" class="btn btn-sm btn-outline-secondary">Góp ý</a>
                     </td>
                 </tr>
             <?php

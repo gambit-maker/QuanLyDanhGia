@@ -25,7 +25,7 @@ if ($_GET["TenChucVu"] === 'admin') {
         <div>
             <h4>Danh sách năm học</h4>
         </div>
-        <div><a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=themNamHoc" class="btn btn-primary">thêm năm học</a></div>
+        <div><a href="login.php?TenChucVu=<?php echo $tenChucVu; ?>&page=themNamHoc" class="btn btn-primary">thêm năm học</a></div>
     </div>
 
     <div class="row justify-content-bet">
@@ -58,7 +58,7 @@ if ($_GET["TenChucVu"] === 'admin') {
                         <td>
                             <input value="<?php echo $item['MaNamHoc']; ?>" type="hidden" name="maNamHoc">
                             <input type="submit" class="btn btn-sm btn-danger" value="Xóa" name="submitXoaNamhoc">
-                            <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=updateNamHoc&MaNamHoc=<?php echo $item['MaNamHoc']; ?>" class="btn btn-sm btn-warning">Update</a>
+                            <a href="login.php?TenChucVu=<?php echo $tenChucVu; ?>&page=updateNamHoc&MaNamHoc=<?php echo $item['MaNamHoc']; ?>" class="btn btn-sm btn-warning">Update</a>
                         </td>
                     </tr>
                 </form>

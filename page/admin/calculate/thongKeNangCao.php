@@ -1020,13 +1020,13 @@ if (isset($_POST["tongHopKetQua"])) {
     $soLopHocPhanDangCo = count($_SESSION['arrMaLopHocPhan']);
     $userRole = $_GET["TenChucVu"];
     if ($soLopHocPhanDangCo > 0) {
-        echo ("<script>location.href = 'index.php?TenChucVu=" . $userRole . "&page=tonghopketqua" . "';</script>");
+        echo ("<script>location.href = 'login.php?TenChucVu=" . $userRole . "&page=tonghopketqua" . "';</script>");
     }
 } elseif (isset($_POST["tongHopKetQuaGopY"])) {
     $soLopHocPhanDangCo = count($_SESSION['arrMaLopHocPhan']);
     $userRole = $_GET["TenChucVu"];
     if ($soLopHocPhanDangCo > 0) {
-        echo ("<script>location.href = 'index.php?TenChucVu=" . $userRole . "&page=tonghopketquagopy" . "';</script>");
+        echo ("<script>location.href = 'login.php?TenChucVu=" . $userRole . "&page=tonghopketquagopy" . "';</script>");
     }
 }
 
@@ -1259,8 +1259,8 @@ if (isset($_POST["tongHopKetQua"])) {
                             ?>
                         </td>
                         <td>
-                            <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=htPhieu&MaLopHocPhan=<?php echo $item['MaLopHocPhan']; ?>" class="btn btn-sm btn-outline-secondary">Phiếu</a>
-                            <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=htGopY&MaLopHocPhan=<?php echo $item['MaLopHocPhan']; ?>" class="btn btn-sm btn-outline-secondary">Góp ý</a>
+                            <a href="login.php?TenChucVu=<?php echo $tenChucVu; ?>&page=htPhieu&MaLopHocPhan=<?php echo $item['MaLopHocPhan']; ?>" class="btn btn-sm btn-outline-secondary">Phiếu</a>
+                            <a href="login.php?TenChucVu=<?php echo $tenChucVu; ?>&page=htGopY&MaLopHocPhan=<?php echo $item['MaLopHocPhan']; ?>" class="btn btn-sm btn-outline-secondary">Góp ý</a>
                         </td>
                     </tr>
                 <?php

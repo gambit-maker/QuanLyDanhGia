@@ -19,7 +19,7 @@ if ($_GET["TenChucVu"] === 'admin') {
         <div>
             <h4>Danh sách giáo viên</h4>
         </div>
-        <div><a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=themGiaoVien" class="btn btn-primary">thêm giáo viên</a></div>
+        <div><a href="login.php?TenChucVu=<?php echo $tenChucVu; ?>&page=themGiaoVien" class="btn btn-primary">thêm giáo viên</a></div>
     </div>
     <table class="tfilter table table-hover">
         <thead>
@@ -84,7 +84,7 @@ if ($_GET["TenChucVu"] === 'admin') {
                         <td>
                             <input type="hidden" name="maGiaoVien" value="<?php echo $item['MaGiaoVien']; ?>">
                             <input type="submit" name="submitXoaGV" value="Xóa" class="btn btn-sm btn-danger">
-                            <a href="index.php?TenChucVu=<?php echo $tenChucVu; ?>&page=updateGV&MaGiaoVien=<?php echo $item['MaGiaoVien']; ?>" class="btn btn-sm btn-warning">Update</a>
+                            <a href="login.php?TenChucVu=<?php echo $tenChucVu; ?>&page=updateGV&MaGiaoVien=<?php echo $item['MaGiaoVien']; ?>" class="btn btn-sm btn-warning">Update</a>
                         </td>
                     </tr>
                 </form>
