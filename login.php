@@ -11,7 +11,7 @@ session_start();
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.82.0">
-    <title>Signin Template · Bootstrap v5.0</title>
+    <title>Quản lý đánh giá</title>
 
 
 
