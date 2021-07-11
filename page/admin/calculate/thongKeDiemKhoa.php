@@ -38,6 +38,8 @@ if (isset($_POST["submit"])) {
     if ($_GET["TenChucVu"] === 'admin') {
         $inputKhoa = $_POST["inputKhoa"];
         $maKhoa = $infoSmallTable->getMaKhoaTuTenKhoa($inputKhoa);
+    } else if ($_GET["TenChucVu"] === 'truongkhoa') {
+        $inputKhoa = $tenKhoa; // tên khoa của giáo viên
     }
 
 
