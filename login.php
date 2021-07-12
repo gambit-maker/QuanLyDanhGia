@@ -115,7 +115,7 @@ if ($tenChucVu === 'admin' || $tenChucVu === 'nhanvien') {
                         Trang chủ
                     </a>
                 </li>
-                <?php if ($tenChucVu === 'admin') : ?>
+                <?php if ($tenChucVu === 'admin' || $tenChucVu === 'nhanvien') : ?>
                     <li class="nav-item">
                         <a class="nav-link" href="login.php?TenChucVu=<?php echo $tenChucVu; ?>&page=data">
                             <span data-feather="file"></span>
@@ -144,7 +144,7 @@ if ($tenChucVu === 'admin' || $tenChucVu === 'nhanvien') {
                     </li>
                 <?php endif; ?>
 
-                <?php if ($tenChucVu === 'truongkhoa' || $tenChucVu === 'admin') : ?>
+                <?php if ($tenChucVu === 'truongkhoa' || $tenChucVu === 'admin' || $tenChucVu === 'nhanvien') : ?>
                     <li class="nav-item">
                         <a href="login.php?TenChucVu=<?php echo $tenChucVu; ?>&page=ThongKeDiemKhoa" class=" nav-link">Thống kê điểm khoa</a>
                     </li>

@@ -20,7 +20,7 @@ $khoa = $infoSmallTable->getThongTinBang('Khoa');
 
 if (isset($_GET["TenChucVu"])) {
     $tenChucVu = $_GET["TenChucVu"];
-    if ($tenChucVu === 'admin') {
+    if ($tenChucVu === 'admin' || $tenChucVu === 'nhanvien') {
         $thongTinLop = $lopHocPhan->getLopHocPhan(); // get all lớp học phần nếu là admin
     } elseif ($tenChucVu === 'giaovien') {
         $thongTinLop = $lopHocPhan->getLopHocPhanGiaoVien($_SESSION['MaDangNhap']);

@@ -15,7 +15,7 @@ if ($_GET["TenChucVu"] === 'truongkhoa') {
     $arrBoMon = array();
 }
 
-if ($_GET["TenChucVu"] === 'admin') {
+if ($_GET["TenChucVu"] === 'admin' || $_GET["TenChucVu"] === 'nhanvien') {
 
     $khoa = $infoSmallTable->getThongTinBang('Khoa');
     $arrKhoa = array();
@@ -35,7 +35,7 @@ if ($_GET["TenChucVu"] === 'admin') {
 
 if (isset($_POST["submit"])) {
 
-    if ($_GET["TenChucVu"] === 'admin') {
+    if ($_GET["TenChucVu"] === 'admin' || $_GET["TenChucVu"] === 'nhanvien') {
         $inputKhoa = $_POST["inputKhoa"];
         $maKhoa = $infoSmallTable->getMaKhoaTuTenKhoa($inputKhoa);
     } else if ($_GET["TenChucVu"] === 'truongkhoa') {
@@ -98,7 +98,7 @@ if (isset($_POST["submit"])) {
 <div>
     <form action="" method="POST">
         <table class="m-auto">
-            <?php if ($_GET["TenChucVu"] === 'admin') : ?>
+            <?php if ($_GET["TenChucVu"] === 'admin' || $_GET["TenChucVu"] === 'nhanvien') : ?>
                 <td style="text-align: right;">Khoa: </td>
                 <td>
                     <?php
@@ -258,7 +258,7 @@ if (isset($_POST["submit"])) {
     <script>
         $(function() {
 
-            <?php if ($_GET["TenChucVu"] === 'admin') : ?>
+            <?php if ($_GET["TenChucVu"] === 'admin' || $_GET["TenChucVu"] === 'nhanvien') : ?>
                 var arrKhoa = [
                     <?php echo implode(",", $arrKhoa) ?>
                 ];
